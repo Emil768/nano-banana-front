@@ -2,12 +2,34 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: "Geologica";
+  src: url("/fonts/Geologica-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Geologica";
+  src: url("/fonts/Geologica-Bold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
 body.generator-body {
   margin: 0;
   min-height: 100vh;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial,
+  font-family: "Geologica", "Helvetica Neue", Helvetica, Roboto, Arial,
     sans-serif;
-  background: linear-gradient(135deg, #cdced2 0%, #a24b55 100%);
+  background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.12) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+  background-size: 40px 40px;
+  min-height: 100vh;
+  background-color: #000;
   color: #1b2748;
   position: relative;
 }
@@ -17,68 +39,6 @@ body.generator-body {
   padding: 14px 12px 24px;
   position: relative;
   z-index: 2;
-}
-
-.floating-roses {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.floating-rose {
-  position: absolute;
-  width: clamp(28px, 4vw, 62px);
-  opacity: 0.34;
-  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.15));
-  animation: floatRose 8.8s ease-in-out infinite;
-  will-change: transform;
-}
-
-.rose-1 {
-  top: 10%;
-  left: 3%;
-  animation-delay: 0s;
-  animation-duration: 8s;
-}
-
-.rose-2 {
-  top: 30%;
-  right: 4%;
-  animation-delay: 2.3s;
-  animation-duration: 9.2s;
-}
-
-.rose-3 {
-  bottom: 20%;
-  left: 6%;
-  animation-delay: 4.4s;
-  animation-duration: 8.7s;
-}
-
-.rose-4 {
-  bottom: 9%;
-  right: 8%;
-  animation-delay: 6.4s;
-  animation-duration: 9.6s;
-}
-
-@keyframes floatRose {
-  0% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-  }
-  25% {
-    transform: translate3d(10px, -16px, 0) rotate(5deg);
-  }
-  50% {
-    transform: translate3d(-8px, -24px, 0) rotate(-4deg);
-  }
-  75% {
-    transform: translate3d(-14px, -10px, 0) rotate(3deg);
-  }
-  100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-  }
 }
 
 @media (min-width: 769px) {
@@ -410,6 +370,7 @@ body.generator-body {
   color: #1d2c52;
   padding: 10px;
   font-size: 0.92rem;
+  font-family: inherit;
 }
 
 .generator-textarea::placeholder {
@@ -694,6 +655,7 @@ body.generator-body {
 }
 
 .billing-plan {
+  font-family: inherit;
   border: 2px solid rgba(214, 225, 246, 0.95);
   border-radius: 14px;
   background: linear-gradient(180deg, #ffffff 0%, #f7f9ff 100%);
@@ -715,8 +677,28 @@ body.generator-body {
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.18);
 }
 
+.billing-plan-generations {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #667eea;
+}
+
+.billing-plan-price-row {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2d3748;
+}
+
 .billing-plan__header {
   margin-bottom: 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #2d3748;
+}
+
+.billing-plan-meta {
+  color: #667eea;
 }
 
 .billing-plan__badge {
@@ -1030,31 +1012,6 @@ body.generator-body {
     padding: 0;
     min-height: 100dvh;
     overflow-x: hidden;
-  }
-
-  .floating-rose {
-    width: 24px;
-    opacity: 0.25;
-  }
-
-  .rose-1 {
-    top: 8%;
-    left: 2%;
-  }
-
-  .rose-2 {
-    top: 22%;
-    right: 2%;
-  }
-
-  .rose-3 {
-    bottom: 19%;
-    left: 3%;
-  }
-
-  .rose-4 {
-    bottom: 11%;
-    right: 3%;
   }
 
   .generator-wrapper {

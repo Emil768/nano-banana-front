@@ -669,13 +669,13 @@ function renderPricingPlans() {
       <div class="billing-plan-header">
         <span class="billing-plan-badge">${planName}</span>
       </div>
-      <div class="billing-plan-generations">${generations}</div>
+      <div class="billing-plan-generations">${generations} генераций</div>
       <div class="billing-plan-price-row">
         <span class="billing-plan-price">${priceRub} ₽</span>
       </div>
       <div class="billing-plan-meta">${formatPricePerGeneration(
         perGeneration
-      )} ₽ / генерация</div>
+      )} ₽ / ген.</div>
     `;
 
     button.addEventListener("click", () => {
