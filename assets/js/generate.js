@@ -5,11 +5,13 @@ const PRO_PRICE_PER_GEN = 8;
 const FREE_PRICE_PER_GEN = 5;
 const SESSION_TOKEN_STORAGE_KEY = "nano_session_token";
 const SSE_RECONNECT_DELAY_MS = 3000;
+
 const FALLBACK_API_BASE_URL =
   window.location.hostname === "127.0.0.1" ||
   window.location.hostname === "localhost"
     ? "http://127.0.0.1:3000"
     : "https://nanobananaa.up.railway.app";
+
 const API_BASE_URL = (
   window.NANO_API_BASE_URL || FALLBACK_API_BASE_URL
 ).replace(/\/$/, "");
@@ -28,9 +30,11 @@ const resultPlaceholder = document.getElementById("result-placeholder");
 const referenceCount = document.getElementById("reference-count");
 const resolutionButtons = document.querySelectorAll(".resolution-button");
 const ratioButtons = document.querySelectorAll(".ratio-button");
+
 const authModal = document.getElementById("auth-modal");
 const authModalCloseButton = document.getElementById("auth-modal-close");
 const authModalBackdrop = document.querySelector("[data-close-auth-modal]");
+
 const billingModal = document.getElementById("billing-modal");
 const billingModalCloseButton = document.getElementById("billing-modal-close");
 const billingModalBackdrop = document.querySelector(
@@ -39,6 +43,7 @@ const billingModalBackdrop = document.querySelector(
 const billingPlansEl = document.getElementById("billing-plans");
 const billingPayButton = document.getElementById("billing-pay-button");
 const billingLoadingEl = document.getElementById("billing-loading");
+
 const resultLoading = document.getElementById("result-loading");
 const accountHeader = document.getElementById("account-header");
 const generatorCard = document.querySelector(".generator-card");
@@ -55,15 +60,43 @@ const accountBalancePendingText = document.getElementById(
   "account-balance-pending-text"
 );
 const topupButton = document.getElementById("topup-button");
+
 const versionTabPro = document.getElementById("version-tab-pro");
 const versionTabFree = document.getElementById("version-tab-free");
 const freeDiscountBadge = document.getElementById("free-discount-badge");
 const resolutionGroup = document.getElementById("resolution-group");
+
 const imagesAmountEl = document.getElementById("images-amount");
 const decreaseImagesBtn = document.getElementById("decrease-images");
 const increaseImagesBtn = document.getElementById("increase-images");
 const generateButton = document.getElementById("generate-button");
 
+const promptBlockedModal = document.getElementById("prompt-blocked-modal");
+const promptBlockedModalCloseButton = document.getElementById(
+  "prompt-blocked-modal-close"
+);
+const promptBlockedModalBackdrop = document.querySelector(
+  "[data-close-prompt-blocked-modal]"
+);
+const promptBlockedMessage = document.getElementById("prompt-blocked-message");
+const promptBlockedReasonsWrap = document.getElementById(
+  "prompt-blocked-reasons-wrap"
+);
+const promptBlockedReasons = document.getElementById("prompt-blocked-reasons");
+const promptBlockedSuggestionWrap = document.getElementById(
+  "prompt-blocked-suggestion-wrap"
+);
+const promptBlockedSuggestion = document.getElementById(
+  "prompt-blocked-suggestion"
+);
+const promptBlockedApplyButton = document.getElementById(
+  "prompt-blocked-apply"
+);
+const promptBlockedCancelButton = document.getElementById(
+  "prompt-blocked-cancel"
+);
+
+let lastPromptModeration = null;
 let selectedResolution = "4K";
 let selectedRatio = "auto";
 let selectedVersion = "pro";
@@ -102,73 +135,71 @@ function bindEvents() {
     });
   });
 
-  fileInput.addEventListener("change", (event) => {
+  fileInput?.addEventListener("change", (event) => {
     const incomingFiles = Array.from(event.target.files || []);
     const beforeMergeCount = selectedFiles.length + incomingFiles.length;
     selectedFiles = [...selectedFiles, ...incomingFiles].slice(0, MAX_IMAGES);
     renderPreviews();
+
     if (beforeMergeCount > MAX_IMAGES) {
       showToast(
         `Можно добавить максимум ${MAX_IMAGES} изображений.`,
         "warning"
       );
     }
+
     fileInput.value = "";
   });
 
-  form.addEventListener("submit", handleSubmit);
-  if (resetButton) {
-    resetButton.addEventListener("click", handleResetGenerator);
-  }
-  if (authModalCloseButton) {
-    authModalCloseButton.addEventListener("click", closeAuthModal);
-  }
-  if (authModalBackdrop) {
-    authModalBackdrop.addEventListener("click", closeAuthModal);
-  }
-  if (billingModalCloseButton) {
-    billingModalCloseButton.addEventListener("click", closeBillingModal);
-  }
-  if (billingModalBackdrop) {
-    billingModalBackdrop.addEventListener("click", closeBillingModal);
-  }
-  if (billingPayButton) {
-    billingPayButton.addEventListener("click", handlePayClick);
-  }
-  if (topupButton) {
-    topupButton.addEventListener("click", async () => {
-      await openBillingModal();
-    });
-  }
-  if (versionTabPro) {
-    versionTabPro.addEventListener("click", () => handleVersionChange("pro"));
-  }
-  if (versionTabFree) {
-    versionTabFree.addEventListener("click", () => handleVersionChange("free"));
-  }
-  if (decreaseImagesBtn) {
-    decreaseImagesBtn.addEventListener("click", () => {
-      imagesAmount = Math.max(1, imagesAmount - 1);
-      updateImagesAmountUI();
-    });
-  }
-  if (increaseImagesBtn) {
-    increaseImagesBtn.addEventListener("click", () => {
-      const maxByBalance = getMaxGenerationsByBalance();
-      imagesAmount = Math.min(maxByBalance, imagesAmount + 1);
-      updateImagesAmountUI();
-    });
-  }
+  form?.addEventListener("submit", handleSubmit);
+  resetButton?.addEventListener("click", handleResetGenerator);
+  authModalCloseButton?.addEventListener("click", closeAuthModal);
+  authModalBackdrop?.addEventListener("click", closeAuthModal);
+  billingModalCloseButton?.addEventListener("click", closeBillingModal);
+  billingModalBackdrop?.addEventListener("click", closeBillingModal);
+  billingPayButton?.addEventListener("click", handlePayClick);
+
+  topupButton?.addEventListener("click", async () => {
+    await openBillingModal();
+  });
+
+  versionTabPro?.addEventListener("click", () => handleVersionChange("pro"));
+  versionTabFree?.addEventListener("click", () => handleVersionChange("free"));
+
+  decreaseImagesBtn?.addEventListener("click", () => {
+    imagesAmount = Math.max(1, imagesAmount - 1);
+    updateImagesAmountUI();
+  });
+
+  increaseImagesBtn?.addEventListener("click", () => {
+    const maxByBalance = getMaxGenerationsByBalance();
+    imagesAmount = Math.min(maxByBalance, imagesAmount + 1);
+    updateImagesAmountUI();
+  });
+
+  promptBlockedModalCloseButton?.addEventListener(
+    "click",
+    closePromptBlockedModal
+  );
+  promptBlockedModalBackdrop?.addEventListener(
+    "click",
+    closePromptBlockedModal
+  );
+  promptBlockedCancelButton?.addEventListener("click", closePromptBlockedModal);
+  promptBlockedApplyButton?.addEventListener("click", applyPromptSuggestion);
+
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       closeAuthModal();
       closeBillingModal();
+      closePromptBlockedModal();
     }
   });
 }
 
 async function handleSubmit(event) {
   event.preventDefault();
+
   if (!authStateResolved || isAuthResolving) {
     showToast("Проверяем аккаунт, пожалуйста подожди.", "info");
     return;
@@ -182,12 +213,14 @@ async function handleSubmit(event) {
     );
     return;
   }
+
   renderAccount(currentAuthState);
 
   const currentBalance = getCurrentBalanceByVersion(
     currentAuthState,
     selectedVersion
   );
+
   if (Number.isFinite(currentBalance) && currentBalance <= 0) {
     await openBillingModal({ silentPricingErrors: true });
     showToast(
@@ -196,6 +229,7 @@ async function handleSubmit(event) {
     );
     return;
   }
+
   if (Number.isFinite(currentBalance) && imagesAmount > currentBalance) {
     imagesAmount = Math.max(
       1,
@@ -210,7 +244,7 @@ async function handleSubmit(event) {
     return;
   }
 
-  const prompt = promptInput.value.trim();
+  const prompt = promptInput?.value.trim();
   if (!prompt) {
     showToast("Введите текст промпта.", "warning");
     return;
@@ -263,15 +297,39 @@ async function handleSubmit(event) {
       "/api/generate-image",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(payload),
       }
     );
+
     if (!response.ok) {
       if (response.status === 402 || result?.code === "INSUFFICIENT_BALANCE") {
         await openBillingModal({ silentPricingErrors: true });
         throw new Error("INSUFFICIENT_BALANCE");
       }
+
+      if (response.status === 422 || result?.code === "PROMPT_BLOCKED") {
+        const moderation = result?.moderation || {};
+        const promptBlockedError = new Error(
+          result?.error || "Запрос не прошёл проверку."
+        );
+
+        promptBlockedError.code = "PROMPT_BLOCKED";
+        promptBlockedError.shortMessage =
+          result?.error || "Запрос не прошёл проверку.";
+        promptBlockedError.reasons = Array.isArray(moderation?.reasons)
+          ? moderation.reasons
+          : [];
+        promptBlockedError.suggestedRewrite =
+          typeof moderation?.suggestedRewrite === "string"
+            ? moderation.suggestedRewrite
+            : "";
+
+        throw promptBlockedError;
+      }
+
       throw new Error(result?.error || "GENERATION_FAILED");
     }
 
@@ -284,9 +342,13 @@ async function handleSubmit(event) {
       id: `${Date.now()}-${index + 1}`,
       url: `data:${item.mimeType};base64,${item.data}`,
     }));
+
     renderResultGallery(generatedResults);
     configureDownloadLink(generatedResults);
+    hideLoadingResult();
+    setLoadingState(false);
     showResult();
+
     if (typeof result?.balance === "number" && accountBalance) {
       if (currentAuthState) {
         if (selectedVersion === "free") {
@@ -295,10 +357,12 @@ async function handleSubmit(event) {
           currentAuthState.balance = result.balance;
         }
       }
+
       updateAccountBalanceDisplay(currentAuthState);
       imagesAmount = Math.min(imagesAmount, getMaxGenerationsByBalance());
       updateImagesAmountUI();
     }
+
     if (result?.partial) {
       showToast(
         `Сгенерировано ${generatedResults.length} из ${
@@ -307,18 +371,108 @@ async function handleSubmit(event) {
         "warning"
       );
     }
+
     showToast("Успешная генерация", "success");
   } catch (error) {
+    if (error?.code === "PROMPT_BLOCKED") {
+      hideLoadingResult();
+      setLoadingState(false);
+
+      const reasonsText =
+        Array.isArray(error.reasons) && error.reasons.length
+          ? ` Причина: ${error.reasons.join(", ")}.`
+          : "";
+
+      showToast(
+        `${error.shortMessage || "Запрос не прошёл проверку."}${reasonsText}`,
+        "warning",
+        10000
+      );
+      return;
+    }
+
+    hideLoadingResult();
+    setLoadingState(false);
+
     const message = resolveGenerationErrorMessage(error);
     const isInsufficient = message.includes("Недостаточно генераций");
     showToast(message, isInsufficient ? "warning" : "error");
-  } finally {
-    hideLoadingResult();
-    setLoadingState(false);
   }
 }
 
+function openPromptBlockedModal(payload = {}) {
+  if (!promptBlockedModal) return;
+
+  lastPromptModeration = payload;
+
+  const message =
+    payload?.shortMessage || "Запрос не прошёл проверку перед генерацией.";
+
+  const reasons = Array.isArray(payload?.reasons) ? payload.reasons : [];
+  const suggestedRewrite =
+    typeof payload?.suggestedRewrite === "string"
+      ? payload.suggestedRewrite.trim()
+      : "";
+
+  if (promptBlockedMessage) {
+    promptBlockedMessage.textContent = message;
+  }
+
+  if (promptBlockedReasons && promptBlockedReasonsWrap) {
+    promptBlockedReasons.innerHTML = "";
+
+    if (reasons.length) {
+      reasons.forEach((reason) => {
+        const li = document.createElement("li");
+        li.textContent = reason;
+        promptBlockedReasons.appendChild(li);
+      });
+      promptBlockedReasonsWrap.classList.remove("hidden");
+    } else {
+      promptBlockedReasonsWrap.classList.add("hidden");
+    }
+  }
+
+  if (promptBlockedSuggestion && promptBlockedSuggestionWrap) {
+    promptBlockedSuggestion.value = suggestedRewrite;
+    promptBlockedSuggestionWrap.classList.toggle("hidden", !suggestedRewrite);
+  }
+
+  if (promptBlockedApplyButton) {
+    promptBlockedApplyButton.disabled = !suggestedRewrite;
+    promptBlockedApplyButton.classList.toggle("hidden", !suggestedRewrite);
+  }
+
+  promptBlockedModal.classList.remove("hidden");
+  promptBlockedModal.setAttribute("aria-hidden", "false");
+}
+
+function closePromptBlockedModal() {
+  if (!promptBlockedModal) return;
+  promptBlockedModal.classList.add("hidden");
+  promptBlockedModal.setAttribute("aria-hidden", "true");
+}
+
+function applyPromptSuggestion() {
+  const suggestedRewrite =
+    typeof lastPromptModeration?.suggestedRewrite === "string"
+      ? lastPromptModeration.suggestedRewrite.trim()
+      : "";
+
+  if (!suggestedRewrite || !promptInput) {
+    closePromptBlockedModal();
+    return;
+  }
+
+  promptInput.value = suggestedRewrite;
+  closePromptBlockedModal();
+  promptInput.focus();
+  promptInput.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
 function renderPreviews() {
+  if (!previewGrid || !referenceCount) return;
+
   previewGrid.innerHTML = "";
   referenceCount.textContent = `${selectedFiles.length}/${MAX_IMAGES}`;
   updateUploadTileVisibility();
@@ -367,34 +521,35 @@ function bootstrapState() {
 }
 
 function hideResult() {
-  resultSection.classList.remove("hidden");
-  resultPlaceholder.classList.remove("hidden");
-  resultImage.classList.add("hidden");
+  resultSection?.classList.remove("hidden");
+  resultPlaceholder?.classList.remove("hidden");
+  resultImage?.classList.add("hidden");
+
   if (resultGallery) {
     resultGallery.classList.add("hidden");
     resultGallery.classList.remove("result-gallery--single");
     resultGallery.innerHTML = "";
   }
-  downloadLink.classList.add("hidden");
-  if (resetButton) {
-    resetButton.classList.add("hidden");
-  }
+
+  downloadLink?.classList.add("hidden");
+  resetButton?.classList.add("hidden");
   generatedResults = [];
-  resultImage.src = "";
-  downloadLink.removeAttribute("href");
+
+  if (resultImage) resultImage.src = "";
+  downloadLink?.removeAttribute("href");
 }
 
 function showResult() {
-  resultSection.classList.remove("hidden");
-  resultPlaceholder.classList.add("hidden");
-  resultImage.classList.add("hidden");
+  resultSection?.classList.remove("hidden");
+  resultPlaceholder?.classList.add("hidden");
+  resultImage?.classList.add("hidden");
+
   if (resultGallery && generatedResults.length) {
     resultGallery.classList.remove("hidden");
   }
-  downloadLink.classList.add("hidden");
-  if (resetButton) {
-    resetButton.classList.remove("hidden");
-  }
+
+  downloadLink?.classList.add("hidden");
+  resetButton?.classList.remove("hidden");
 }
 
 function updateUploadTileVisibility() {
@@ -432,11 +587,13 @@ async function fetchApiJson(path, init = {}) {
   if (sessionToken) {
     headers.set("Authorization", `Bearer ${sessionToken}`);
   }
+
   const response = await fetch(buildApiUrl(path), {
     credentials: "include",
     ...init,
     headers,
   });
+
   const data = await parseJsonSafely(response);
   return { response, data };
 }
@@ -449,6 +606,7 @@ function buildApiUrl(path) {
 async function loadPricingPlans(options = {}) {
   const { silentPricingErrors = false } = options;
   if (!billingPlansEl) return;
+
   setPricingLoadingState(true);
   billingPlansEl.innerHTML = "";
 
@@ -457,14 +615,16 @@ async function loadPricingPlans(options = {}) {
       `/api/pricing?version=${encodeURIComponent(selectedVersion)}`,
       { method: "GET" }
     );
+
     if (!response.ok) {
       throw new Error(data?.error || "Не удалось загрузить тарифы.");
     }
 
     pricingPlans = Array.isArray(data?.plans) ? data.plans : [];
+
     if (!pricingPlans.length) {
       billingPlansEl.innerHTML =
-        '<div class="billing-plan__meta">Тарифы временно недоступны.</div>';
+        '<div class="billing-plan-meta">Тарифы временно недоступны.</div>';
       selectedPlanId = null;
       return;
     }
@@ -475,7 +635,8 @@ async function loadPricingPlans(options = {}) {
     pricingPlans = [];
     selectedPlanId = null;
     billingPlansEl.innerHTML =
-      '<div class="billing-plan__meta">Ошибка загрузки тарифов.</div>';
+      '<div class="billing-plan-meta">Не удалось загрузить тарифы.</div>';
+
     if (!silentPricingErrors) {
       showToast("Ошибка загрузки тарифов.", "error");
     }
@@ -486,6 +647,7 @@ async function loadPricingPlans(options = {}) {
 
 function renderPricingPlans() {
   if (!billingPlansEl) return;
+
   billingPlansEl.innerHTML = "";
 
   pricingPlans.forEach((plan) => {
@@ -498,36 +660,42 @@ function renderPricingPlans() {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "billing-plan";
+
     if (String(planId) === String(selectedPlanId)) {
       button.classList.add("is-active");
     }
+
     button.innerHTML = `
-      <div class="billing-plan__header">
-        <span class="billing-plan__badge">${planName}</span>
+      <div class="billing-plan-header">
+        <span class="billing-plan-badge">${planName}</span>
       </div>
-      <div class="billing-plan__generations">${generations} генераций</div>
-      <div class="billing-plan__price-row">
-        <span class="billing-plan__price">${priceRub} ₽</span>
+      <div class="billing-plan-generations">${generations}</div>
+      <div class="billing-plan-price-row">
+        <span class="billing-plan-price">${priceRub} ₽</span>
       </div>
-      <div class="billing-plan__meta">${formatPricePerGeneration(
+      <div class="billing-plan-meta">${formatPricePerGeneration(
         perGeneration
       )} ₽ / генерация</div>
     `;
+
     button.addEventListener("click", () => {
       selectedPlanId = planId;
       renderPricingPlans();
-      if (billingPayButton && !isPricingLoading) {
-        billingPayButton.disabled = !selectedPlanId;
-      }
     });
+
     billingPlansEl.appendChild(button);
   });
+
+  if (billingPayButton && !isPricingLoading) {
+    billingPayButton.disabled = !selectedPlanId;
+  }
 }
 
 async function handlePayClick() {
   if (isPricingLoading) return;
+
   if (!selectedPlanId) {
-    showToast("Сначала выбери тариф.", "warning");
+    showToast("Выберите тариф.", "warning");
     return;
   }
 
@@ -539,21 +707,26 @@ async function handlePayClick() {
   try {
     const { response, data } = await fetchApiJson("/api/payments/create", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         planId: selectedPlanId,
         version: selectedVersion,
       }),
     });
+
     if (!response.ok) {
       throw new Error(data?.error || "Не удалось создать платеж.");
     }
+
     if (!data?.paymentUrl) {
-      throw new Error("Платежная ссылка не получена.");
+      throw new Error("Провайдер не вернул ссылку на оплату.");
     }
+
     window.location.href = data.paymentUrl;
   } catch (error) {
-    showToast(error?.message || "Ошибка создания платежа.", "error");
+    showToast(error?.message || "Ошибка оплаты.", "error");
   } finally {
     if (billingPayButton) {
       billingPayButton.disabled = false;
@@ -567,6 +740,7 @@ async function fetchAuthMe() {
     const { response, data } = await fetchApiJson("/auth/me", {
       method: "GET",
     });
+
     if (!response.ok) return null;
     return data;
   } catch {
@@ -575,7 +749,10 @@ async function fetchAuthMe() {
 }
 
 function handleResetGenerator() {
-  promptInput.value = "";
+  if (promptInput) {
+    promptInput.value = "";
+  }
+
   selectedFiles = [];
   imagesAmount = 1;
   renderPreviews();
@@ -585,17 +762,16 @@ function handleResetGenerator() {
 }
 
 function showLoadingResult() {
-  if (!resultLoading) return;
-  resultLoading.classList.remove("hidden");
+  resultLoading?.classList.remove("hidden");
 }
 
 function hideLoadingResult() {
-  if (!resultLoading) return;
-  resultLoading.classList.add("hidden");
+  resultLoading?.classList.add("hidden");
 }
 
 function ensureToastContainer() {
   if (toastContainer) return toastContainer;
+
   toastContainer = document.getElementById("toast-container");
   if (!toastContainer) {
     toastContainer = document.createElement("div");
@@ -603,18 +779,20 @@ function ensureToastContainer() {
     toastContainer.className = "toast-container";
     document.body.appendChild(toastContainer);
   }
+
   return toastContainer;
 }
 
 function showToast(message, type = "info") {
   if (!message) return;
+
   const host = ensureToastContainer();
   const toast = document.createElement("div");
   toast.className = `toast toast--${type}`;
   toast.setAttribute("role", "status");
   toast.textContent = message;
-
   host.appendChild(toast);
+
   requestAnimationFrame(() => toast.classList.add("is-visible"));
 
   const removeToast = () => {
@@ -634,10 +812,11 @@ function showToast(message, type = "info") {
 
 async function refreshAuthState(options = {}) {
   const { showLoading = false, initial = false } = options;
-  if (showLoading) {
-    setAuthResolvingState(true);
-  }
+
+  if (showLoading) setAuthResolvingState(true);
+
   const authState = await fetchAuthMe();
+
   if (authState) {
     currentAuthState = authState;
     selectedVersion = normalizeVersion(
@@ -653,12 +832,9 @@ async function refreshAuthState(options = {}) {
     stopBalanceEvents();
     resetAccount();
   }
-  if (initial) {
-    authStateResolved = true;
-  }
-  if (showLoading) {
-    setAuthResolvingState(false);
-  }
+
+  if (initial) authStateResolved = true;
+  if (showLoading) setAuthResolvingState(false);
   updateGenerateButtonAvailability();
 }
 
@@ -673,13 +849,16 @@ function escapeHtml(value) {
 
 function resolveGenerationErrorMessage(error) {
   const raw = String(error?.message || "");
+
   if (raw === "INSUFFICIENT_BALANCE") {
-    return "Недостаточно генераций. Выбери тариф и пополни баланс.";
+    return "Недостаточно генераций. Пополните баланс.";
   }
-  if (raw.includes("Ошибка генерации, попробуйте еще раз через 10 секунд")) {
-    return "Ошибка генерации, попробуйте еще раз через 10 секунд";
+
+  if (raw.includes("попробуйте еще раз через 10 секунд")) {
+    return "Ошибка генерации, попробуйте ещё раз через 10 секунд.";
   }
-  return "Ошибка генерации";
+
+  return raw || "Произошла ошибка.";
 }
 
 function formatPricePerGeneration(value) {
@@ -690,9 +869,7 @@ function formatPricePerGeneration(value) {
 async function parseJsonSafely(response) {
   if (!response) return {};
   const contentType = response.headers.get("content-type") || "";
-  if (!contentType.includes("application/json")) {
-    return {};
-  }
+  if (!contentType.includes("application/json")) return {};
   try {
     return await response.json();
   } catch {
@@ -706,20 +883,16 @@ function handlePaymentReturnState() {
   if (!paymentState) return;
 
   if (paymentState === "success") {
-    setBalancePendingState(true, "оплата обрабатывается");
-    showToast("Оплата принята. Ожидаем подтверждение платежа...", "info");
+    setBalancePendingState(true, "Платёж получен, обновляем баланс...");
+    showToast("Платёж обрабатывается...", "info");
     void refreshAuthState();
   } else if (paymentState === "cancel") {
     setBalancePendingState(false);
-    showToast("Оплата не завершена.", "warning");
+    showToast("Оплата отменена.", "warning");
   }
 
   url.searchParams.delete("payment");
-  window.history.replaceState(
-    {},
-    "",
-    `${url.pathname}${url.search}${url.hash}`
-  );
+  window.history.replaceState({}, "", url.pathname + url.search + url.hash);
 }
 
 function normalizeVersion(value) {
@@ -728,7 +901,7 @@ function normalizeVersion(value) {
 
 function getStoredSessionToken() {
   try {
-    return localStorage.getItem(SESSION_TOKEN_STORAGE_KEY) || "";
+    return localStorage.getItem(SESSION_TOKEN_STORAGE_KEY);
   } catch {
     return "";
   }
@@ -738,66 +911,63 @@ function captureSessionTokenFromUrl() {
   const url = new URL(window.location.href);
   const token = String(url.searchParams.get("session") || "").trim();
   if (!token) return;
+
   sessionToken = token;
+
   try {
     localStorage.setItem(SESSION_TOKEN_STORAGE_KEY, token);
-  } catch {
-    // Ignore storage errors and keep in-memory token.
-  }
+  } catch {}
+
   url.searchParams.delete("session");
-  window.history.replaceState(
-    {},
-    "",
-    `${url.pathname}${url.search}${url.hash}`
-  );
-  if (balanceEventsSource) {
-    stopBalanceEvents();
-    if (currentAuthState) {
-      startBalanceEvents();
-    }
-  }
+  window.history.replaceState({}, "", url.pathname + url.search + url.hash);
+
+  if (balanceEventsSource) stopBalanceEvents();
+  if (currentAuthState) startBalanceEvents();
 }
 
 function buildEventsUrl() {
   const baseUrl = buildApiUrl("/api/events");
+
   try {
     const url = new URL(baseUrl);
-    if (sessionToken) {
-      url.searchParams.set("session", sessionToken);
-    }
+    if (sessionToken) url.searchParams.set("session", sessionToken);
     return url.toString();
   } catch {
     const params = new URLSearchParams();
-    if (sessionToken) {
-      params.set("session", sessionToken);
-    }
+    if (sessionToken) params.set("session", sessionToken);
     return params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
   }
 }
 
 function startBalanceEvents() {
   if (!window.EventSource || balanceEventsSource || !currentAuthState) return;
+
   const eventsUrl = buildEventsUrl();
   balanceEventsSource = new EventSource(eventsUrl, { withCredentials: true });
+
   balanceEventsSource.addEventListener("balance_update", () => {
     setBalancePendingState(false);
-    showToast("Успешная оплата. Баланс обновлен.", "success");
+    showToast("Баланс обновлён.", "success");
     void refreshAuthState();
   });
+
   balanceEventsSource.addEventListener("payment_pending", () => {
-    setBalancePendingState(true, "оплата обрабатывается");
-    showToast("Оплата обрабатывается...", "info");
+    setBalancePendingState(true, "Платёж обрабатывается...");
+    showToast("Платёж обрабатывается...", "info");
   });
+
   balanceEventsSource.addEventListener("payment_failed", () => {
     setBalancePendingState(false);
-    showToast("❌ Ошибка оплаты", "error");
+    showToast("Ошибка оплаты.", "error");
   });
+
   balanceEventsSource.onerror = () => {
     stopBalanceEvents();
     if (!currentAuthState) return;
-    balanceEventsReconnectTimer = window.setTimeout(() => {
-      startBalanceEvents();
-    }, SSE_RECONNECT_DELAY_MS);
+    balanceEventsReconnectTimer = window.setTimeout(
+      startBalanceEvents,
+      SSE_RECONNECT_DELAY_MS
+    );
   };
 }
 
@@ -806,12 +976,13 @@ function stopBalanceEvents() {
     window.clearTimeout(balanceEventsReconnectTimer);
     balanceEventsReconnectTimer = null;
   }
+
   if (!balanceEventsSource) return;
   balanceEventsSource.close();
   balanceEventsSource = null;
 }
 
-function setBalancePendingState(visible, message = "оплата обрабатывается") {
+function setBalancePendingState(visible, message = "") {
   if (!accountBalancePending) return;
   accountBalancePending.classList.toggle("hidden", !visible);
   if (accountBalancePendingText) {
@@ -821,9 +992,11 @@ function setBalancePendingState(visible, message = "оплата обрабат�
 
 function setPricingLoadingState(isLoading) {
   isPricingLoading = isLoading;
+
   if (billingLoadingEl) {
     billingLoadingEl.classList.toggle("hidden", !isLoading);
   }
+
   if (billingPayButton) {
     billingPayButton.disabled = isLoading || !selectedPlanId;
   }
@@ -831,66 +1004,62 @@ function setPricingLoadingState(isLoading) {
 
 function setAuthResolvingState(isLoading) {
   isAuthResolving = isLoading;
+
   if (isLoading) {
-    if (accountHeader) {
-      accountHeader.classList.remove("hidden");
-    }
-    if (accountId) {
-      accountId.textContent = "Проверяем...";
-    }
-    if (accountBalance) {
-      accountBalance.textContent = "—";
-    }
-    setBalancePendingState(true, "загрузка аккаунта...");
+    accountHeader?.classList.remove("hidden");
+    if (accountId) accountId.textContent = "Загрузка...";
+    if (accountBalance) accountBalance.textContent = "—";
+    setBalancePendingState(true, "Проверяем аккаунт...");
   } else if (!currentAuthState) {
     setBalancePendingState(false);
   }
+
   updateGenerateButtonAvailability();
 }
 
 function updateGenerateButtonAvailability() {
   if (!generateButton) return;
+
   if (!authStateResolved || isAuthResolving) {
     generateButton.disabled = true;
-    generateButton.textContent = "Проверяем аккаунт...";
+    generateButton.textContent = "Проверка...";
     return;
   }
-  if (generateButton.textContent === "Проверяем аккаунт...") {
-    generateButton.textContent = "Сгенерировать";
-  }
+
   if (
     !generateButton.textContent ||
-    generateButton.textContent === "Генерация..."
+    generateButton.textContent === "Проверка..."
   ) {
-    return;
+    generateButton.textContent = "Сгенерировать";
   }
+
   generateButton.disabled = false;
 }
 
 function updateDiscountBadge() {
   if (!freeDiscountBadge) return;
+
   const discount = Math.max(
     0,
     Math.round((1 - FREE_PRICE_PER_GEN / Math.max(PRO_PRICE_PER_GEN, 1)) * 100)
   );
-  freeDiscountBadge.textContent = `до ${discount}% дешевле`;
+
+  freeDiscountBadge.textContent = `-${discount}%`;
 }
 
 function applyVersionUI() {
   const isFree = selectedVersion === "free";
-  if (versionTabPro) {
-    versionTabPro.classList.toggle("is-active", !isFree);
-  }
-  if (versionTabFree) {
-    versionTabFree.classList.toggle("is-active", isFree);
-  }
+
+  versionTabPro?.classList.toggle("is-active", !isFree);
+  versionTabFree?.classList.toggle("is-active", isFree);
+
   if (generatorCard) {
     generatorCard.classList.toggle("mode-free", isFree);
     generatorCard.classList.toggle("mode-pro", !isFree);
   }
-  if (resolutionGroup) {
-    resolutionGroup.classList.toggle("hidden", isFree);
-  }
+
+  resolutionGroup?.classList.toggle("hidden", isFree);
+
   updateAccountBalanceDisplay(currentAuthState);
   imagesAmount = Math.min(imagesAmount, getMaxGenerationsByBalance());
   updateImagesAmountUI();
@@ -899,13 +1068,18 @@ function applyVersionUI() {
 async function handleVersionChange(nextVersionRaw) {
   const nextVersion = normalizeVersion(nextVersionRaw);
   if (nextVersion === selectedVersion) return;
+
   if (!authStateResolved || isAuthResolving) {
     showToast("Проверяем аккаунт, пожалуйста подожди.", "info");
     return;
   }
+
   if (!currentAuthState) {
     openAuthModal();
-    showToast("Сначала войди через Telegram, затем выбери версию.", "warning");
+    showToast(
+      "Сначала войди через Telegram, затем повтори действие.",
+      "warning"
+    );
     return;
   }
 
@@ -915,32 +1089,34 @@ async function handleVersionChange(nextVersionRaw) {
 
   try {
     await persistVersion(nextVersion);
-    if (currentAuthState?.user) {
-      currentAuthState.user.version = nextVersion;
-    }
+
+    if (currentAuthState?.user) currentAuthState.user.version = nextVersion;
     currentAuthState.version = nextVersion;
+
     showToast(
-      nextVersion === "free"
-        ? "Включена Free-версия: упрощенный режим."
-        : "Включена Pro-версия.",
+      nextVersion === "free" ? "Включён Free-режим." : "Включён Pro-режим.",
       "success"
     );
   } catch (error) {
     selectedVersion = prevVersion;
     applyVersionUI();
-    showToast(error?.message || "Не удалось переключить версию.", "error");
+    showToast(error?.message || "Не удалось сменить режим.", "error");
   }
 }
 
 async function persistVersion(version) {
   const { response, data } = await fetchApiJson("/api/version", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({ version }),
   });
+
   if (!response.ok) {
-    throw new Error(data?.error || "Не удалось сохранить версию.");
+    throw new Error(data?.error || "Не удалось сохранить режим.");
   }
+
   return data;
 }
 
@@ -952,12 +1128,15 @@ function getMaxGenerationsByBalance() {
 
 function updateImagesAmountUI() {
   if (imagesAmountEl) {
-    imagesAmountEl.textContent = `${imagesAmount}`;
+    imagesAmountEl.textContent = String(imagesAmount);
   }
+
   const maxByBalance = getMaxGenerationsByBalance();
+
   if (decreaseImagesBtn) {
     decreaseImagesBtn.disabled = imagesAmount <= 1;
   }
+
   if (increaseImagesBtn) {
     increaseImagesBtn.disabled = imagesAmount >= maxByBalance;
   }
@@ -965,22 +1144,23 @@ function updateImagesAmountUI() {
 
 function renderResultGallery(items) {
   if (!resultGallery) return;
+
   resultGallery.innerHTML = "";
   resultGallery.classList.toggle("result-gallery--single", items.length === 1);
 
   items.forEach((item, idx) => {
     const card = document.createElement("div");
-    card.className = "result-gallery__item";
+    card.className = "result-gallery-item";
 
     const img = document.createElement("img");
     img.src = item.url;
     img.alt = `Результат ${idx + 1}`;
-    img.className = "result-gallery__image";
+    img.className = "result-gallery-image";
 
     const dl = document.createElement("a");
     dl.href = item.url;
     dl.download = `nano-banana-${Date.now()}-${idx + 1}.png`;
-    dl.className = "result-gallery__download";
+    dl.className = "result-gallery-download";
     dl.textContent = "Скачать";
 
     card.append(img, dl);
@@ -990,8 +1170,10 @@ function renderResultGallery(items) {
 
 function configureDownloadLink(items) {
   if (!downloadLink) return;
+
   downloadLink.classList.add("hidden");
   downloadLink.removeAttribute("href");
+
   if (items.length) {
     downloadLink.href = items[0].url;
     downloadLink.download = `nano-banana-${Date.now()}-1.png`;
@@ -1000,20 +1182,20 @@ function configureDownloadLink(items) {
 
 function renderAccount(authState) {
   if (!accountHeader || !accountId || !accountBalance) return;
+
   accountHeader.classList.remove("hidden");
-  if (topupButton) {
-    topupButton.classList.remove("hidden");
-  }
-  const idText = authState?.chat_id
-    ? `ID ${authState.chat_id}`
-    : "Пользователь";
+  topupButton?.classList.remove("hidden");
+
+  const idText = authState?.chat_id ? `ID ${authState.chat_id}` : "ID —";
   accountId.textContent = idText;
+
   updateAccountBalanceDisplay(authState);
+
   imagesAmount = Math.min(imagesAmount, getMaxGenerationsByBalance());
   updateImagesAmountUI();
 
-  const avatarUrl =
-    authState?.user?.photo_url || authState?.user?.avatar_url || "";
+  const avatarUrl = authState?.user?.photo_url || authState?.user?.avatar_url;
+
   if (accountAvatar && accountAvatarFallback) {
     if (avatarUrl) {
       accountAvatar.src = avatarUrl;
@@ -1029,8 +1211,10 @@ function renderAccount(authState) {
 
 function getCurrentBalanceByVersion(authState, version) {
   if (!authState) return 0;
+
   const raw = version === "free" ? authState?.balance_free : authState?.balance;
   const parsed = Number(raw);
+
   if (Number.isFinite(parsed)) return parsed;
   return 0;
 }
@@ -1038,41 +1222,41 @@ function getCurrentBalanceByVersion(authState, version) {
 function updateAccountBalanceDisplay(authState = currentAuthState) {
   if (!accountBalance) return;
   const balance = getCurrentBalanceByVersion(authState, selectedVersion);
-  accountBalance.textContent = Number.isFinite(balance) ? `${balance}` : "—";
+  accountBalance.textContent = Number.isFinite(balance) ? String(balance) : "0";
 }
 
 function resetAccount() {
   stopBalanceEvents();
   currentAuthState = null;
   selectedVersion = "pro";
-  if (!accountHeader || !accountId || !accountBalance) return;
-  accountHeader.classList.add("hidden");
-  accountId.textContent = "Гость";
-  accountBalance.textContent = "—";
+
+  accountHeader?.classList.add("hidden");
+  if (accountId) accountId.textContent = "";
+  if (accountBalance) accountBalance.textContent = "";
   if (accountAvatar) {
     accountAvatar.removeAttribute("src");
     accountAvatar.classList.add("hidden");
   }
-  if (accountAvatarFallback) {
-    accountAvatarFallback.classList.remove("hidden");
-  }
-  if (topupButton) {
-    topupButton.classList.add("hidden");
-  }
+  accountAvatarFallback?.classList.remove("hidden");
+  topupButton?.classList.add("hidden");
+
   applyVersionUI();
   updateImagesAmountUI();
 }
 
 function extractImagePayloads(responseData) {
   if (!responseData || typeof responseData !== "object") return [];
+
   const list = [];
   const firstImagesItem = Array.isArray(responseData.images)
     ? responseData.images[0]
     : null;
+
   const fallbackMimeFromImages =
     firstImagesItem && typeof firstImagesItem === "object"
-      ? firstImagesItem?.mimeType || firstImagesItem?.mime_type || "image/png"
+      ? firstImagesItem?.mimeType || firstImagesItem?.mimetype || "image/png"
       : "image/png";
+
   const push = (data, mimeType = "image/png") => {
     if (typeof data !== "string" || !data) return;
     list.push({ data, mimeType: mimeType || "image/png" });
@@ -1087,7 +1271,7 @@ function extractImagePayloads(responseData) {
       if (typeof item === "string") {
         push(item, "image/png");
       } else {
-        push(item?.data, item?.mimeType || item?.mime_type || "image/png");
+        push(item?.data, item?.mimeType || item?.mimetype || "image/png");
       }
     });
   }
@@ -1098,10 +1282,12 @@ function extractImagePayloads(responseData) {
       ? responseData.data.candidates
       : []),
   ];
+
   candidateSets.forEach((candidate) => {
     const parts = Array.isArray(candidate?.content?.parts)
       ? candidate.content.parts
       : [];
+
     parts.forEach((part) => {
       const inline = part?.inline_data || part?.inlineData;
       push(inline?.data, inline?.mime_type || inline?.mimeType || "image/png");
@@ -1122,23 +1308,25 @@ function fileToBase64(file) {
     convertFileToJpegDataUrl(file)
       .then((dataUrl) => {
         const base64 = dataUrl.split(",")[1] || "";
+
         if (base64.length > MAX_BASE64_SIZE) {
-          reject(
-            new Error(
-              "Один из файлов слишком большой. Уменьши размер изображения."
-            )
-          );
+          reject(new Error("Файл слишком большой после обработки."));
           return;
         }
-        resolve({ mimeType: "image/jpeg", data: base64 });
+
+        resolve({
+          mimeType: "image/jpeg",
+          data: base64,
+        });
       })
-      .catch(() => reject(new Error("Ошибка чтения файла.")));
+      .catch(() => reject(new Error("Не удалось обработать изображение.")));
   });
 }
 
 function convertFileToJpegDataUrl(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
+
     reader.onload = () => {
       if (typeof reader.result !== "string") {
         reject(new Error("Не удалось прочитать файл."));
@@ -1146,13 +1334,14 @@ function convertFileToJpegDataUrl(file) {
       }
 
       const originalDataUrl = reader.result;
-      // Keep native jpeg as-is to avoid unnecessary recompression.
+
       if ((file.type || "").toLowerCase() === "image/jpeg") {
         resolve(originalDataUrl);
         return;
       }
 
       const image = new Image();
+
       image.onload = () => {
         const canvas = document.createElement("canvas");
         canvas.width = image.naturalWidth || image.width;
@@ -1160,21 +1349,22 @@ function convertFileToJpegDataUrl(file) {
 
         const ctx = canvas.getContext("2d");
         if (!ctx) {
-          reject(new Error("Не удалось создать canvas."));
+          reject(new Error("Canvas недоступен."));
           return;
         }
 
-        // White background removes alpha channel safely for jpeg.
         ctx.fillStyle = "#ffffff";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
         resolve(canvas.toDataURL("image/jpeg", 0.92));
       };
+
       image.onerror = () =>
-        reject(new Error("Не удалось обработать изображение."));
+        reject(new Error("Не удалось декодировать изображение."));
       image.src = originalDataUrl;
     };
-    reader.onerror = () => reject(new Error("Ошибка чтения файла."));
+
+    reader.onerror = () => reject(new Error("Не удалось прочитать файл."));
     reader.readAsDataURL(file);
   });
 }

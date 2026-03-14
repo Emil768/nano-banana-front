@@ -126,6 +126,11 @@ def forward_message(bot_token: str, chat_id: str, from_chat_id: str, message_id:
 
 def main():
   args = parse_args()
+  
+  args.forward_from_chat_id = "-1003474679504"  # Группа @neiroBananchik
+  args.forward_message_id = 19               # Сообщение
+  args.chat_ids_file = "chat_ids.txt"   # 1 юзер для теста
+
   load_env_file(Path("scripts/.env"))
   token = os.getenv("TG_BOT_TOKEN", "").strip()
   if not token:
