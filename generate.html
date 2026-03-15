@@ -360,6 +360,47 @@
       </section>
     </div>
 
+    <div id="maintenance-modal" class="auth-modal hidden" aria-hidden="true">
+      <div class="auth-modal-backdrop" data-close-maintenance-modal></div>
+      <section
+        class="auth-modal-dialog maintenance-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Техобслуживание"
+      >
+        <button
+          id="maintenance-modal-close"
+          class="auth-modal-close"
+          type="button"
+          aria-label="Закрыть"
+        >
+          ×
+        </button>
+        <h3>🛠️ Техническое обслуживание</h3>
+        <p>
+          Сайт и бот временно на техническом обслуживании до 16.03.2026 ночному
+          времени по МСК (мы сообщим об этом), т.к с поставщиком мы сможем
+          договориться только в будние дни. Ожидайте пожалуйста, приносим свои
+          извинения 🙏
+        </p>
+        <div class="maintenance-actions">
+          <a
+            href="https://t.me/neiroBananchik"
+            class="btn primary"
+            target="_blank"
+            >Чат бота</a
+          >
+          <button
+            type="button"
+            class="btn secondary"
+            onclick="closeMaintenanceModal()"
+          >
+            x
+          </button>
+        </div>
+      </section>
+    </div>
+
     <script>
       window.NANO_API_BASE_URL =
         window.location.hostname === "127.0.0.1" ||
