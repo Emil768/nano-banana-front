@@ -582,29 +582,6 @@ function closeBillingModal() {
   billingModal.setAttribute("aria-hidden", "true");
 }
 
-const maintenanceModal = document.getElementById("maintenance-modal");
-const maintenanceModalCloseButton = document.getElementById(
-  "maintenance-modal-close"
-);
-const maintenanceModalBackdrop = document.querySelector(
-  "[data-close-maintenance-modal]"
-);
-
-function openMaintenanceModal() {
-  if (!maintenanceModal) return;
-  maintenanceModal.classList.remove("hidden");
-  maintenanceModal.setAttribute("aria-hidden", "false");
-}
-
-function closeMaintenanceModal() {
-  if (!maintenanceModal) return;
-  maintenanceModal.classList.add("hidden");
-  maintenanceModal.setAttribute("aria-hidden", "true");
-}
-
-maintenanceModalCloseButton?.addEventListener("click", closeMaintenanceModal);
-maintenanceModalBackdrop?.addEventListener("click", closeMaintenanceModal);
-
 async function fetchApiJson(path, init = {}) {
   const headers = new Headers(init.headers || {});
   if (sessionToken) {
