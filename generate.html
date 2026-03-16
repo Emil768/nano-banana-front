@@ -29,6 +29,7 @@
     <meta name="twitter:image" content="/assets/images/nano-banana3.webp" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="stylesheet" href="/assets/css/generate.css" />
+    <link rel="stylesheet" href="/assets/css/prompts.css" />
   </head>
   <body class="generator-body">
     <main class="generator-main">
@@ -75,12 +76,6 @@
                   <span class="account-label">Аккаунт</span>
                   <strong id="account-id">Гость</strong>
                 </div>
-              </div>
-
-              <div>
-                <a style="color: red" href="https://t.me/neiroBananchik/21"
-                  >Сайт на техническом обслуживании до 16.03.2026</a
-                >
               </div>
 
               <div class="account-balance">
@@ -140,6 +135,14 @@
                     class="generator-textarea"
                     placeholder="Опиши желаемый результат..."
                   ></textarea>
+
+                  <button
+                    id="prompts-button"
+                    type="button"
+                    class="secondary-action-button"
+                  >
+                    🎨 Выбрать образ
+                  </button>
                 </section>
 
                 <section class="panel">
@@ -288,6 +291,20 @@
                     бота и вводите команду /promt.
                   </li>
                   <li>Контент 🔞 запрещен.</li>
+                  <li>
+                    Группа, новости и обновления:
+                    <a href="https://t.me/neiroBananchik" target="_blank"
+                      >Чат</a
+                    >
+                  </li>
+                  <li>
+                    Тех. поддержка:
+                    <a
+                      href="https://t.me/NeiroBananchik_Support"
+                      target="_blank"
+                      >Чат</a
+                    >
+                  </li>
                 </ul>
               </section>
             </aside>
@@ -366,6 +383,22 @@
       </section>
     </div>
 
+    <div id="prompts-modal" class="prompts-modal hidden">
+      <div class="prompts-modal-backdrop" data-close-prompts-modal></div>
+      <section class="prompts-modal-dialog">
+        <button
+          id="prompts-modal-close"
+          class="prompts-modal-close auth-modal__close"
+        >
+          ×
+        </button>
+        <h3 class="prompts-modal__header-title">🎨 Выбрать образ</h3>
+        <div id="prompts-loading" class="hidden">Загрузка...</div>
+        <div id="prompts-categories"></div>
+        <div id="prompts-grid" class="prompts-grid"></div>
+      </section>
+    </div>
+
     <script>
       window.NANO_API_BASE_URL =
         window.location.hostname === "127.0.0.1" ||
@@ -374,5 +407,6 @@
           : "https://nanobananaa.up.railway.app";
     </script>
     <script src="/assets/js/generate.js"></script>
+    <script src="/assets/js/prompts.js"></script>
   </body>
 </html>
