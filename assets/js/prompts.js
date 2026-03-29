@@ -25,7 +25,6 @@
   let isPromptsLoading = false;
 
   function init() {
-    // Ждём загрузки DOM
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", doInit);
     } else {
@@ -58,28 +57,53 @@
     if (!promptsLibrary.length && !isPromptsLoading) {
       try {
         isPromptsLoading = true;
-        if (promptsLoading) promptsLoading.classList.remove("hidden");
-        if (promptsCategories) promptsCategories.innerHTML = "";
-        promptsGrid.innerHTML =
-          '<div style="padding:40px;text-align:center;color:#666;">Загрузка...</div>';
+
+        promptsLoading.classList.remove("hidden");
+        promptsLoading.innerHTML = `
+          <div class="loader-container">
+            <div class="loader-spinner"></div>
+            <span>Загрузка промптов...</span>
+          </div>
+        `;
+
+        promptsCategories.classList.add("hidden");
+        promptsGrid.classList.add("hidden");
 
         promptsLibrary = await fetchPromptsLibrary();
         promptsActiveCategory = "Все";
 
+        promptsLoading.classList.add("hidden");
+
+        promptsCategories.classList.remove("hidden");
+        promptsGrid.classList.remove("hidden");
+
         renderPromptsCategories();
         renderPromptsGrid();
       } catch (error) {
-        promptsGrid.innerHTML =
-          '<div style="padding:40px;text-align:center;color:#ff4444;">Ошибка загрузки</div>';
+        promptsLoading.classList.add("hidden");
+        promptsCategories.classList.add("hidden");
+        promptsGrid.classList.remove("hidden");
+
+        promptsGrid.innerHTML = `
+          <div class="prompts-empty">
+            <span class="error-icon">⚠️</span>
+            <p>Ошибка загрузки промптов</p>
+            <button class="retry-button" onclick="location.reload()">Обновить страницу</button>
+          </div>
+        `;
+
         if (typeof window.showToast === "function") {
-          window.showToast(error?.message || "Ошибка промптов", "error");
+          window.showToast("Ошибка загрузки промптов", "error");
         }
       } finally {
         isPromptsLoading = false;
-        if (promptsLoading) promptsLoading.classList.add("hidden");
       }
       return;
     }
+
+    promptsCategories.classList.remove("hidden");
+    promptsGrid.classList.remove("hidden");
+    promptsLoading.classList.add("hidden");
 
     renderPromptsCategories();
     renderPromptsGrid();
@@ -94,9 +118,16 @@
     const response = await fetch(`${API_BASE_URL}/api/prompts`, {
       method: "GET",
       credentials: "include",
+      headers: {
+        Accept: "application/json",
+      },
     });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
     const data = await response.json();
-    if (!response.ok) throw new Error(data?.error || "Ошибка сервера");
     return Array.isArray(data) ? data : [];
   }
 
@@ -146,7 +177,7 @@
 
     if (!items.length) {
       promptsGrid.innerHTML =
-        '<div style="padding:40px;text-align:center;color:#666;">Нет промптов</div>';
+        '<div class="prompts-empty">Нет промптов в этой категории</div>';
       return;
     }
 
@@ -155,20 +186,20 @@
       card.className = "prompt-card";
 
       card.innerHTML = `
-      <img src="${item.url || ""}" alt="${
+        <img src="${item.url || ""}" alt="${
         item.category || ""
       }" class="prompt-card__image" onerror="this.style.display='none'">
-      <div class="prompt-card__body">
-        <div class="prompt-card__meta">
-          <span class="prompt-card__badge">${item.category || ""}</span>
+        <div class="prompt-card__body">
+          <div class="prompt-card__meta">
+            <span class="prompt-card__badge">${item.category || ""}</span>
+          </div>
+          <p class="prompt-card__text" title="${(item.promt || "").replace(
+            /"/g,
+            "&quot;"
+          )}">${item.promt || ""}</p>
+          <button type="button" class="prompt-card__apply">Применить</button>
         </div>
-        <p class="prompt-card__text" title="${(item.promt || "").replace(
-          /"/g,
-          "&quot;"
-        )}">${item.promt || ""}</p>
-        <button type="button" class="prompt-card__apply">Применить</button>
-      </div>
-    `;
+      `;
 
       const applyBtn = card.querySelector(".prompt-card__apply");
       applyBtn.addEventListener("click", (e) => {
@@ -186,7 +217,8 @@
     promptInput.scrollIntoView({ behavior: "smooth", block: "center" });
     closePromptsModal();
     if (typeof window.showToast === "function")
-      window.showToast("Промпт применён!", "success");
+      window.showToast("Промпт применен!", "success");
   }
+
   init();
 })();

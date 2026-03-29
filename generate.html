@@ -29,6 +29,7 @@
     <meta name="twitter:image" content="/assets/images/nano-banana3.webp" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="stylesheet" href="/assets/css/generate.css" />
+    <link rel="stylesheet" href="/assets/css/generate-video.css" />
     <link rel="stylesheet" href="/assets/css/prompts.css" />
   </head>
   <body class="generator-body">
@@ -103,80 +104,87 @@
 
           <div class="generator-layout">
             <div class="generator-settings">
+              <div
+                class="generator-mode-tabs"
+                role="tablist"
+                aria-label="Тип генерации"
+              >
+                <button
+                  type="button"
+                  role="tab"
+                  id="mode-tab-image"
+                  class="generator-mode-tab is-active"
+                  aria-selected="true"
+                >
+                  Изображение
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  id="mode-tab-video"
+                  class="generator-mode-tab"
+                  aria-selected="false"
+                >
+                  Видео <span class="generator-mode-tab-badge">new</span>
+                </button>
+              </div>
               <form id="generator-form" class="generator-form">
-                <section class="panel">
-                  <div class="panel-header">
-                    <h2>Референс-изображения</h2>
-                    <span id="reference-count" class="count-badge">0/4</span>
-                  </div>
-                  <label
-                    for="reference-images"
-                    class="upload-tile"
-                    id="upload-tile"
-                  >
-                    <span class="upload-title">Загрузить</span>
-                    <span class="upload-subtitle">до 4 изображений</span>
-                  </label>
-                  <input
-                    id="reference-images"
-                    class="generator-file-input"
-                    type="file"
-                    accept="image/png,image/jpeg,image/webp"
-                    multiple
-                  />
-                  <div id="preview-grid" class="preview-grid"></div>
-                </section>
+                <div id="generator-panel-image" class="generator-mode-panel">
+                  <section class="panel">
+                    <div class="panel-header">
+                      <h2>Референс-изображения</h2>
+                      <span id="reference-count" class="count-badge">0/4</span>
+                    </div>
+                    <label
+                      for="reference-images"
+                      class="upload-tile"
+                      id="upload-tile"
+                    >
+                      <span class="upload-title">Загрузить</span>
+                      <span class="upload-subtitle">до 4 изображений</span>
+                    </label>
+                    <input
+                      id="reference-images"
+                      class="generator-file-input"
+                      type="file"
+                      accept="image/png,image/jpeg,image/webp"
+                      multiple
+                    />
+                    <div id="preview-grid" class="preview-grid"></div>
+                  </section>
 
-                <section class="panel">
-                  <h2>Промпт</h2>
-                  <textarea
-                    id="prompt"
-                    name="prompt"
-                    class="generator-textarea"
-                    placeholder="Опиши желаемый результат..."
-                  ></textarea>
-
-                  <button
-                    id="prompts-button"
-                    type="button"
-                    class="secondary-action-button"
-                  >
-                    🎨 Выбрать образ
-                  </button>
-                </section>
-
-                <section class="panel">
-                  <h2>Параметры</h2>
-                  <div class="controls-grid">
-                    <div id="resolution-group" class="controls-column">
-                      <span class="generator-label">Разрешение</span>
-                      <div class="resolution-buttons">
-                        <button
-                          type="button"
-                          class="resolution-button"
-                          data-size="1K"
-                        >
-                          1K
-                        </button>
-                        <button
-                          type="button"
-                          class="resolution-button"
-                          data-size="2K"
-                        >
-                          2K
-                        </button>
-                        <button
-                          type="button"
-                          class="resolution-button active"
-                          data-size="4K"
-                        >
-                          4K
-                        </button>
+                  <section class="panel">
+                    <h2>Параметры</h2>
+                    <div class="controls-grid">
+                      <div id="resolution-group" class="controls-column">
+                        <span class="generator-label">Разрешение</span>
+                        <div class="resolution-buttons">
+                          <button
+                            type="button"
+                            class="resolution-button"
+                            data-size="1K"
+                          >
+                            1K
+                          </button>
+                          <button
+                            type="button"
+                            class="resolution-button"
+                            data-size="2K"
+                          >
+                            2K
+                          </button>
+                          <button
+                            type="button"
+                            class="resolution-button active"
+                            data-size="4K"
+                          >
+                            4K
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <!-- <div id="images-amount-group" class="images-amount-group">
+                    <!-- <div id="images-amount-group" class="images-amount-group">
                     <span class="generator-label">Количество генераций</span>
                     <div class="images-stepper">
                       <button
@@ -197,39 +205,150 @@
                     </div>
                   </div> -->
 
-                  <span class="generator-label">Соотношение сторон</span>
-                  <div class="ratio-buttons" id="ratio-buttons">
-                    <button
-                      type="button"
-                      class="ratio-button active"
-                      data-ratio="auto"
+                    <span class="generator-label">Соотношение сторон</span>
+                    <div class="ratio-buttons" id="ratio-buttons">
+                      <button
+                        type="button"
+                        class="ratio-button active"
+                        data-ratio="auto"
+                      >
+                        Авто
+                      </button>
+                      <button
+                        type="button"
+                        class="ratio-button"
+                        data-ratio="1:1"
+                      >
+                        1:1
+                      </button>
+                      <button
+                        type="button"
+                        class="ratio-button"
+                        data-ratio="16:9"
+                      >
+                        16:9
+                      </button>
+                      <button
+                        type="button"
+                        class="ratio-button"
+                        data-ratio="9:16"
+                      >
+                        9:16
+                      </button>
+                      <button
+                        type="button"
+                        class="ratio-button"
+                        data-ratio="4:3"
+                      >
+                        4:3
+                      </button>
+                      <button
+                        type="button"
+                        class="ratio-button"
+                        data-ratio="3:4"
+                      >
+                        3:4
+                      </button>
+                    </div>
+                  </section>
+                </div>
+
+                <div
+                  id="generator-panel-video"
+                  class="generator-mode-panel hidden"
+                >
+                  <section class="panel">
+                    <div class="panel-header">
+                      <h2>Референс</h2>
+                      <span class="count-badge">1 фото</span>
+                    </div>
+                    <label
+                      for="video-reference-image"
+                      class="upload-tile"
+                      id="video-upload-tile"
                     >
-                      Авто
-                    </button>
-                    <button type="button" class="ratio-button" data-ratio="1:1">
-                      1:1
-                    </button>
-                    <button
-                      type="button"
-                      class="ratio-button"
-                      data-ratio="16:9"
+                      <span class="upload-title">Загрузить</span>
+                      <span class="upload-subtitle">одно изображение</span>
+                    </label>
+                    <input
+                      id="video-reference-image"
+                      class="generator-file-input"
+                      type="file"
+                      accept="image/png,image/jpeg,image/webp"
+                    />
+                    <div
+                      id="video-preview-grid"
+                      class="preview-grid video-preview-grid"
+                    ></div>
+                  </section>
+
+                  <section class="panel">
+                    <h2>Параметры</h2>
+                    <span class="generator-label">Звук</span>
+                    <div
+                      class="video-toggle-row"
+                      role="group"
+                      aria-label="Звук"
                     >
-                      16:9
-                    </button>
-                    <button
-                      type="button"
-                      class="ratio-button"
-                      data-ratio="9:16"
+                      <button
+                        type="button"
+                        class="video-toggle-btn active"
+                        id="video-sound-off"
+                        data-sound="false"
+                      >
+                        Без звука
+                      </button>
+                      <button
+                        type="button"
+                        class="video-toggle-btn"
+                        id="video-sound-on"
+                        data-sound="true"
+                      >
+                        Со звуком
+                      </button>
+                    </div>
+                    <span class="generator-label">Длительность</span>
+                    <div
+                      class="video-toggle-row"
+                      role="group"
+                      aria-label="Длительность"
                     >
-                      9:16
-                    </button>
-                    <button type="button" class="ratio-button" data-ratio="4:3">
-                      4:3
-                    </button>
-                    <button type="button" class="ratio-button" data-ratio="3:4">
-                      3:4
-                    </button>
-                  </div>
+                      <button
+                        type="button"
+                        class="video-toggle-btn active"
+                        id="video-duration-5"
+                        data-duration="5"
+                      >
+                        5 сек
+                      </button>
+                      <button
+                        type="button"
+                        class="video-toggle-btn"
+                        id="video-duration-10"
+                        data-duration="10"
+                      >
+                        10 сек
+                      </button>
+                    </div>
+                  </section>
+                </div>
+
+                <section class="panel generator-panel-shared">
+                  <h2>Промпт</h2>
+                  <textarea
+                    id="prompt"
+                    name="prompt"
+                    class="generator-textarea"
+                    placeholder="Опиши желаемый результат..."
+                  ></textarea>
+
+                  <button
+                    id="prompts-button"
+                    type="button"
+                    class="secondary-action-button"
+                  >
+                    🎨 Выбрать образ
+                  </button>
                 </section>
 
                 <button
@@ -248,7 +367,7 @@
               <section id="result-section" class="result-section">
                 <h2>Результат</h2>
                 <div id="result-loading" class="result-loading hidden">
-                  <div class="result-loading__title">
+                  <div id="result-loading-title" class="result-loading__title">
                     Генерация изображения...
                   </div>
                   <div class="result-loading__track">
@@ -263,6 +382,12 @@
                   class="result-image hidden"
                   alt="Сгенерированное изображение"
                 />
+                <video
+                  id="result-video"
+                  class="result-video hidden"
+                  controls
+                  playsinline
+                ></video>
                 <div id="result-gallery" class="result-gallery hidden"></div>
                 <div class="result-actions">
                   <a id="download-link" class="download-link hidden" download
@@ -319,7 +444,7 @@
         class="auth-modal__dialog"
         role="dialog"
         aria-modal="true"
-        aria-label="Вход через Telegram"
+        aria-label="Авторизация"
       >
         <button
           id="auth-modal-close"
@@ -329,12 +454,23 @@
         >
           ×
         </button>
-        <h3>Вход через Telegram</h3>
+        <h3>Авторизация</h3>
         <p>
-          Перед генерацией войдите через Telegram, чтобы мы могли определить ваш
-          аккаунт.
+          Перед генерацией войдите через Telegram или Google, чтобы мы могли
+          определить ваш аккаунт.
         </p>
-        <div class="auth-actions">
+        <div class="auth-actions auth-actions--stack">
+          <a
+            id="google-auth-modal-link"
+            class="google-auth-button google-auth-button--full"
+            href="#"
+            >Войти через Google
+            <img
+              src="/assets/images/google.svg"
+              width="20px"
+              height="20px"
+              ="Google"
+          /></a>
           <script
             async
             src="https://telegram.org/js/telegram-widget.js?22"
@@ -393,7 +529,7 @@
           ×
         </button>
         <h3 class="prompts-modal__header-title">🎨 Выбрать образ</h3>
-        <div id="prompts-loading" class="hidden">Загрузка...</div>
+        <div id="prompts-loading" class="hidden"></div>
         <div id="prompts-categories"></div>
         <div id="prompts-grid" class="prompts-grid"></div>
       </section>
@@ -407,6 +543,7 @@
           : "https://nanobananaa.up.railway.app";
     </script>
     <script src="/assets/js/generate.js"></script>
+    <script src="/assets/js/generate-video.js"></script>
     <script src="/assets/js/prompts.js"></script>
   </body>
 </html>

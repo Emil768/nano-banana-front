@@ -508,53 +508,6 @@ body {
   gap: 25px;
 }
 
-.tech-item {
-  background: white;
-  padding: 30px;
-  border-radius: 10px;
-  border: 2px solid #e2e8f0;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.tech-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  border-color: #667eea;
-}
-
-.tech-item h4 {
-  font-size: 1.5rem;
-  color: #667eea;
-  margin-bottom: 15px;
-  font-weight: 600;
-}
-
-.tech-item p {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: #4a5568;
-  margin-bottom: 20px;
-}
-
-.tech-image {
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.tech-image img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 .how-it-works {
   margin: 40px 0;
 }
@@ -756,6 +709,17 @@ body {
   padding: 8px 16px;
   background: #f8f9fa;
   border-radius: 20px;
+}
+
+.video-container {
+  width: 100%;
+}
+
+video {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  display: block;
 }
 
 .highlight-badge {
@@ -1417,14 +1381,13 @@ body {
     transform: scale(1);
   }
 
-  .pricing-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
+  .pricing-header h3 {
+    font-size: 22px;
   }
 
-  .pricing-tabs {
-    justify-content: flex-start;
+  .pricing-tabs button {
+    padding: 6px 14px;
+    font-size: 12px;
   }
 
   .how-pricing-steps {
@@ -1511,22 +1474,6 @@ body {
   .technologies {
     grid-template-columns: 1fr;
     gap: 20px;
-  }
-
-  .tech-item {
-    padding: 20px;
-  }
-
-  .tech-item h4 {
-    font-size: 1.3rem;
-  }
-
-  .tech-item p {
-    font-size: 1rem;
-  }
-
-  .tech-image {
-    margin-top: 15px;
   }
 
   .telegram-button {

@@ -34,6 +34,7 @@ const ratioButtons = document.querySelectorAll(".ratio-button");
 const authModal = document.getElementById("auth-modal");
 const authModalCloseButton = document.getElementById("auth-modal-close");
 const authModalBackdrop = document.querySelector("[data-close-auth-modal]");
+const generatorAuthBar = document.getElementById("generator-auth-bar");
 
 const billingModal = document.getElementById("billing-modal");
 const billingModalCloseButton = document.getElementById("billing-modal-close");
@@ -70,6 +71,12 @@ const imagesAmountEl = document.getElementById("images-amount");
 const decreaseImagesBtn = document.getElementById("decrease-images");
 const increaseImagesBtn = document.getElementById("increase-images");
 const generateButton = document.getElementById("generate-button");
+
+window.__nanoGenerateHooks = {
+  getMode: () => "image",
+  refreshLabel: null,
+  resetVideo: null,
+};
 
 const promptBlockedModal = document.getElementById("prompt-blocked-modal");
 const promptBlockedModalCloseButton = document.getElementById(
@@ -208,7 +215,7 @@ async function handleSubmit(event) {
   if (!currentAuthState) {
     openAuthModal();
     showToast(
-      "Сначала войди через Telegram, затем повтори генерацию.",
+      "Сначала войди через Telegram или Google, затем повтори генерацию.",
       "warning"
     );
     return;
@@ -505,14 +512,30 @@ function renderPreviews() {
 function setLoadingState(isLoading) {
   if (!generateButton) return;
   generateButton.disabled = isLoading;
-  generateButton.textContent = isLoading ? "Генерация..." : "Сгенерировать";
-  if (!isLoading) {
+  if (isLoading) {
+    generateButton.textContent = "Генерация...";
+  } else {
+    // Иначе refreshVideoButtonLabel выходит, видя ещё «Генерация...», и кнопка залипает.
+    generateButton.textContent = "";
     updateGenerateButtonAvailability();
   }
 }
 
+function setGoogleAuthLinks() {
+  const url = buildApiUrl("/auth/google/start");
+  document.getElementById("google-auth-top-link")?.setAttribute("href", url);
+  document.getElementById("google-auth-modal-link")?.setAttribute("href", url);
+}
+
+function updateAuthBarVisibility() {
+  if (!generatorAuthBar) return;
+  const show = authStateResolved && !currentAuthState && !isAuthResolving;
+  generatorAuthBar.classList.toggle("hidden", !show);
+}
+
 function bootstrapState() {
   captureSessionTokenFromUrl();
+  setGoogleAuthLinks();
   updateDiscountBadge();
   updateImagesAmountUI();
   applyVersionUI();
@@ -524,6 +547,12 @@ function hideResult() {
   resultSection?.classList.remove("hidden");
   resultPlaceholder?.classList.remove("hidden");
   resultImage?.classList.add("hidden");
+
+  const resultVideo = document.getElementById("result-video");
+  if (resultVideo) {
+    resultVideo.classList.add("hidden");
+    resultVideo.removeAttribute("src");
+  }
 
   if (resultGallery) {
     resultGallery.classList.add("hidden");
@@ -543,6 +572,11 @@ function showResult() {
   resultSection?.classList.remove("hidden");
   resultPlaceholder?.classList.add("hidden");
   resultImage?.classList.add("hidden");
+
+  const resultVideo = document.getElementById("result-video");
+  if (resultVideo) {
+    resultVideo.classList.add("hidden");
+  }
 
   if (resultGallery && generatedResults.length) {
     resultGallery.classList.remove("hidden");
@@ -753,6 +787,8 @@ function handleResetGenerator() {
     promptInput.value = "";
   }
 
+  window.__nanoGenerateHooks?.resetVideo?.();
+
   selectedFiles = [];
   imagesAmount = 1;
   renderPreviews();
@@ -815,27 +851,30 @@ async function refreshAuthState(options = {}) {
 
   if (showLoading) setAuthResolvingState(true);
 
-  const authState = await fetchAuthMe();
+  try {
+    const authState = await fetchAuthMe();
 
-  if (authState) {
-    currentAuthState = authState;
-    selectedVersion = normalizeVersion(
-      authState?.version || authState?.user?.version
-    );
-    renderAccount(authState);
-    setBalancePendingState(false);
-    applyVersionUI();
-    updateImagesAmountUI();
-    closeAuthModal();
-    startBalanceEvents();
-  } else {
-    stopBalanceEvents();
-    resetAccount();
+    if (authState) {
+      currentAuthState = authState;
+      selectedVersion = normalizeVersion(
+        authState?.version || authState?.user?.version
+      );
+      renderAccount(authState);
+      setBalancePendingState(false);
+      applyVersionUI();
+      updateImagesAmountUI();
+      closeAuthModal();
+      startBalanceEvents();
+    } else {
+      stopBalanceEvents();
+      resetAccount();
+    }
+  } finally {
+    if (initial) authStateResolved = true;
+    if (showLoading) setAuthResolvingState(false);
+    updateGenerateButtonAvailability();
+    updateAuthBarVisibility();
   }
-
-  if (initial) authStateResolved = true;
-  if (showLoading) setAuthResolvingState(false);
-  updateGenerateButtonAvailability();
 }
 
 function escapeHtml(value) {
@@ -1015,6 +1054,7 @@ function setAuthResolvingState(isLoading) {
   }
 
   updateGenerateButtonAvailability();
+  updateAuthBarVisibility();
 }
 
 function updateGenerateButtonAvailability() {
@@ -1026,14 +1066,17 @@ function updateGenerateButtonAvailability() {
     return;
   }
 
+  generateButton.disabled = false;
+
+  const mode = window.__nanoGenerateHooks?.getMode?.() ?? "image";
   if (
-    !generateButton.textContent ||
-    generateButton.textContent === "Проверка..."
+    mode === "video" &&
+    typeof window.__nanoGenerateHooks?.refreshLabel === "function"
   ) {
+    window.__nanoGenerateHooks.refreshLabel();
+  } else {
     generateButton.textContent = "Сгенерировать";
   }
-
-  generateButton.disabled = false;
 }
 
 function updateDiscountBadge() {
@@ -1077,7 +1120,7 @@ async function handleVersionChange(nextVersionRaw) {
   if (!currentAuthState) {
     openAuthModal();
     showToast(
-      "Сначала войди через Telegram, затем повтори действие.",
+      "Сначала войди через Telegram или Google, затем повтори действие.",
       "warning"
     );
     return;
@@ -1194,19 +1237,11 @@ function renderAccount(authState) {
   imagesAmount = Math.min(imagesAmount, getMaxGenerationsByBalance());
   updateImagesAmountUI();
 
-  const avatarUrl = authState?.user?.photo_url || authState?.user?.avatar_url;
-
-  if (accountAvatar && accountAvatarFallback) {
-    if (avatarUrl) {
-      accountAvatar.src = avatarUrl;
-      accountAvatar.classList.remove("hidden");
-      accountAvatarFallback.classList.add("hidden");
-    } else {
-      accountAvatar.removeAttribute("src");
-      accountAvatar.classList.add("hidden");
-      accountAvatarFallback.classList.remove("hidden");
-    }
+  if (accountAvatar) {
+    accountAvatar.removeAttribute("src");
+    accountAvatar.classList.add("hidden");
   }
+  accountAvatarFallback?.classList.remove("hidden");
 }
 
 function getCurrentBalanceByVersion(authState, version) {
@@ -1368,3 +1403,37 @@ function convertFileToJpegDataUrl(file) {
     reader.readAsDataURL(file);
   });
 }
+
+window.__nanoFileToBase64 = fileToBase64;
+window.__nanoFetchApiJson = fetchApiJson;
+window.__nanoShowToast = showToast;
+window.__nanoOpenBillingModal = openBillingModal;
+window.__nanoOpenAuthModal = openAuthModal;
+window.__nanoSetLoadingState = setLoadingState;
+window.__nanoShowLoadingResult = showLoadingResult;
+window.__nanoHideLoadingResult = hideLoadingResult;
+window.__nanoHideResult = hideResult;
+window.__nanoUpdateGenerateButtonAvailability = updateGenerateButtonAvailability;
+
+window.__nanoGenerateContext = {
+  get currentAuthState() {
+    return currentAuthState;
+  },
+  get selectedVersion() {
+    return selectedVersion;
+  },
+  get authStateResolved() {
+    return authStateResolved;
+  },
+  get isAuthResolving() {
+    return isAuthResolving;
+  },
+  getCurrentBalanceByVersion,
+  updateAccountBalanceDisplay,
+  applyBalanceFromServer(balance) {
+    if (!currentAuthState || typeof balance !== "number") return;
+    if (selectedVersion === "free") currentAuthState.balance_free = balance;
+    else currentAuthState.balance = balance;
+    updateAccountBalanceDisplay(currentAuthState);
+  },
+};
