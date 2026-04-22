@@ -1,6 +1,16 @@
 const MAX_IMAGES = 4;
 const MAX_BASE64_SIZE = 18 * 1024 * 1024;
 const TOAST_DURATION_MS = 3600;
+/** Текст для сбоев генерации (502 / пустой ответ и т.п.) — см. resolveGenerationErrorMessage */
+const GENERATION_FAILURE_TOAST_MS = 14000;
+const GENERATION_FAILURE_USER_MESSAGE = `Ошибка генерации.
+
+Вероятные причины:
+• невнятный текст;
+• взрослый контент;
+• сбой сервиса.
+
+Попробуйте ещё раз с другой формулировкой.`;
 const PRO_PRICE_PER_GEN = 8;
 const FREE_PRICE_PER_GEN = 5;
 const SESSION_TOKEN_STORAGE_KEY = "nano_session_token";
@@ -403,7 +413,12 @@ async function handleSubmit(event) {
 
     const message = resolveGenerationErrorMessage(error);
     const isInsufficient = message.includes("Недостаточно генераций");
-    showToast(message, isInsufficient ? "warning" : "error");
+    const isDetailedGenFailure = message.includes("Вероятные причины");
+    showToast(
+      message,
+      isInsufficient ? "warning" : "error",
+      isDetailedGenFailure ? GENERATION_FAILURE_TOAST_MS : TOAST_DURATION_MS
+    );
   }
 }
 
@@ -819,7 +834,7 @@ function ensureToastContainer() {
   return toastContainer;
 }
 
-function showToast(message, type = "info") {
+function showToast(message, type = "info", durationMs = TOAST_DURATION_MS) {
   if (!message) return;
 
   const host = ensureToastContainer();
@@ -838,7 +853,7 @@ function showToast(message, type = "info") {
     }, 250);
   };
 
-  window.setTimeout(removeToast, TOAST_DURATION_MS);
+  window.setTimeout(removeToast, durationMs);
   toast.addEventListener("click", removeToast, { once: true });
 
   while (host.childElementCount > 4) {
@@ -893,8 +908,12 @@ function resolveGenerationErrorMessage(error) {
     return "Недостаточно генераций. Пополните баланс.";
   }
 
-  if (raw.includes("попробуйте еще раз через 10 секунд")) {
-    return "Ошибка генерации, попробуйте ещё раз через 10 секунд.";
+  if (
+    raw.includes("попробуйте еще раз через 10 секунд") ||
+    raw.includes("GENERATION_FAILED") ||
+    raw.includes("Сервер не вернул изображение")
+  ) {
+    return GENERATION_FAILURE_USER_MESSAGE;
   }
 
   return raw || "Произошла ошибка.";

@@ -1002,6 +1002,7 @@ body.generator-body {
   color: #213868;
   font-size: 0.88rem;
   font-weight: 600;
+  white-space: pre-line;
   box-shadow: 0 14px 28px rgba(15, 24, 60, 0.18);
   transform: translateX(120%);
   opacity: 0;

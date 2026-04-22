@@ -123,16 +123,34 @@ body {
 }
 
 .hero-subtitle {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   opacity: 0.9;
   font-weight: 300;
-  margin-bottom: 30px;
   display: inline-block;
   padding: 6px 14px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 6px 16px rgba(17, 8, 35, 0.2);
+}
+
+.hero-subtitle.active {
+  background: transparent;
+  border: 1px solid rgba(255, 190, 80, 0.6);
+  color: rgba(255, 230, 179, 0.9);
+  font-weight: 500;
+  box-shadow: 0 0 12px rgba(255, 180, 60, 0.5);
+  opacity: 1;
+}
+
+.hero-tabs {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+  width: 50%;
 }
 
 .hero-cta-button {
@@ -1299,6 +1317,10 @@ video {
   .hero-subtitle {
     font-size: 1.2rem;
     padding: 5px 10px;
+  }
+
+  .hero-tabs {
+    width: 100%;
   }
 
   .hero-cta-button {

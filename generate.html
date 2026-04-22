@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="/assets/css/generate.css" />
     <link rel="stylesheet" href="/assets/css/generate-video.css" />
     <link rel="stylesheet" href="/assets/css/prompts.css" />
+    <link rel="stylesheet" href="/assets/css/promo-gift-modal.css" />
   </head>
   <body class="generator-body">
     <main class="generator-main">
@@ -438,6 +439,65 @@
       </div>
     </main>
 
+    <div
+      id="gift-promo-modal"
+      class="gift-promo-modal hidden"
+      aria-hidden="true"
+    >
+      <div class="gift-promo-modal__backdrop" data-close-gift-promo></div>
+      <section
+        class="gift-promo-modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="gift-promo-modal-title"
+      >
+        <button
+          id="gift-promo-modal-close"
+          class="gift-promo-modal__close"
+          type="button"
+          aria-label="Закрыть"
+        >
+          ×
+        </button>
+        <img
+          src="/assets/images/gift.jpg"
+          alt=""
+          class="gift-promo-modal__img"
+          loading="eager"
+        />
+        <div class="gift-promo-modal__body">
+          <p id="gift-promo-modal-title">
+            <strong
+              >Дарим 2 ГЕНЕРАЦИИ ВСЕГО ЗА 2 УСЛОВИЯ ! И да, это не
+              первоапрельская шутка...✋</strong
+            >
+          </p>
+          <p><strong>ВСЕГО 2 УСЛОВИЯ:</strong></p>
+          <ol class="gift-promo-modal__list">
+            <li>
+              <a
+                href="https://t.me/neiroBananchik"
+                target="_blank"
+                rel="noopener noreferrer"
+                >ПОДПИСАТЬСЯ НА КАНАЛ</a
+              >
+            </li>
+            <li>ПОСТАВИТЬ БАНАН НА ПОСТ 🍌</li>
+          </ol>
+          <p>
+            Ах да, и отписаться сюда
+            <a
+              href="https://t.me/NeiroBananchik_Support"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://t.me/NeiroBananchik_Support</a
+            >
+            и просто сказать свой id для зачисления! (id находится в шапке)
+          </p>
+        </div>
+      </section>
+    </div>
+
     <div id="auth-modal" class="auth-modal hidden" aria-hidden="true">
       <div class="auth-modal__backdrop" data-close-auth-modal></div>
       <section
@@ -542,6 +602,7 @@
           ? "http://127.0.0.1:3000"
           : "https://nanobananaa.up.railway.app";
     </script>
+    <script src="/assets/js/promo-gift-modal.js"></script>
     <script src="/assets/js/generate.js"></script>
     <script src="/assets/js/generate-video.js"></script>
     <script src="/assets/js/prompts.js"></script>
