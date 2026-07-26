@@ -5,6 +5,7 @@
   /** ~2 ч макс. ожидания, дальше — остановка с сообщением */
   const MAX_POLL_TICKS = 120;
   const GENERATOR_MODE_STORAGE_KEY = "nano_generator_mode";
+  const VIDEO_REF_SESSION_KEY = "nano_video_ref_image";
 
   let mode = MODE_IMAGE;
   let videoFile = null;
@@ -110,6 +111,49 @@
     setPlaceholderText();
     updatePromptsButtonVisibility();
     window.__nanoUpdateGenerateButtonAvailability?.();
+  }
+
+  function dataUrlToFile(dataUrl, baseName) {
+    const m = /^data:([^;]+);base64,(.+)$/i.exec(
+      String(dataUrl || "").replace(/\s/g, "")
+    );
+    if (!m) return null;
+    const mime = m[1];
+    const b64 = m[2];
+    try {
+      const binStr = atob(b64);
+      const len = binStr.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) bytes[i] = binStr.charCodeAt(i);
+      const ext = mime.includes("png")
+        ? "png"
+        : mime.includes("webp")
+        ? "webp"
+        : "jpg";
+      return new File([bytes], `${baseName}.${ext}`, { type: mime });
+    } catch {
+      return null;
+    }
+  }
+
+  function tryConsumePendingVideoReference() {
+    let dataUrl = null;
+    try {
+      dataUrl = sessionStorage.getItem(VIDEO_REF_SESSION_KEY);
+    } catch (_) {
+      return;
+    }
+    if (!dataUrl || !String(dataUrl).startsWith("data:")) return;
+    const file = dataUrlToFile(dataUrl, "nano-reference");
+    if (!file) return;
+    try {
+      sessionStorage.removeItem(VIDEO_REF_SESSION_KEY);
+    } catch (_) {
+      /* ignore */
+    }
+    videoFile = file;
+    renderVideoPreview();
+    refreshVideoButtonLabel();
   }
 
   function renderVideoPreview() {
@@ -357,7 +401,6 @@
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            version: c.selectedVersion,
             prompt,
             sound: videoSound,
             duration: videoDuration,
@@ -430,14 +473,30 @@
 
   form?.addEventListener("submit", onFormSubmitCapture, true);
 
+  let hasPendingVideoRef = false;
   try {
-    const saved = localStorage.getItem(GENERATOR_MODE_STORAGE_KEY);
-    if (saved === MODE_VIDEO) {
-      switchMode(MODE_VIDEO);
-    }
+    const raw = sessionStorage.getItem(VIDEO_REF_SESSION_KEY);
+    hasPendingVideoRef = Boolean(raw && String(raw).startsWith("data:"));
   } catch (_) {
     /* ignore */
   }
+
+  try {
+    const saved = localStorage.getItem(GENERATOR_MODE_STORAGE_KEY);
+    if (saved === MODE_VIDEO || hasPendingVideoRef) {
+      switchMode(MODE_VIDEO);
+    }
+  } catch (_) {
+    if (hasPendingVideoRef) {
+      try {
+        switchMode(MODE_VIDEO);
+      } catch {
+        /* ignore */
+      }
+    }
+  }
+
+  tryConsumePendingVideoReference();
 
   window.__nanoGenerateHooks.getMode = () => mode;
   window.__nanoGenerateHooks.refreshLabel = function () {

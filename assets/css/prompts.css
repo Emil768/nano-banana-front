@@ -22,6 +22,47 @@
   transform: translateY(-1px);
 }
 
+.secondary-action-button[data-tooltip] {
+  position: relative;
+  z-index: 1;
+}
+
+.secondary-action-button[data-tooltip]:hover,
+.secondary-action-button[data-tooltip]:focus-visible {
+  z-index: 5;
+}
+
+.secondary-action-button[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  padding: 9px 12px;
+  max-width: min(280px, calc(100vw - 32px));
+  width: max-content;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #f8fafc;
+  background: #0f172a;
+  border-radius: 10px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity 0.14s ease, visibility 0.14s ease, transform 0.14s ease;
+  pointer-events: none;
+  white-space: normal;
+  text-align: left;
+}
+
+.secondary-action-button[data-tooltip]:hover::after,
+.secondary-action-button[data-tooltip]:focus-visible::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
 /* Модалка промптов — оверлей */
 .prompts-modal {
   position: fixed;

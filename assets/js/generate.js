@@ -38,8 +38,6 @@ const downloadLink = document.getElementById("download-link");
 const resetButton = document.getElementById("reset-button");
 const resultPlaceholder = document.getElementById("result-placeholder");
 const referenceCount = document.getElementById("reference-count");
-const resolutionButtons = document.querySelectorAll(".resolution-button");
-const ratioButtons = document.querySelectorAll(".ratio-button");
 
 const authModal = document.getElementById("auth-modal");
 const authModalCloseButton = document.getElementById("auth-modal-close");
@@ -75,7 +73,6 @@ const topupButton = document.getElementById("topup-button");
 const versionTabPro = document.getElementById("version-tab-pro");
 const versionTabFree = document.getElementById("version-tab-free");
 const freeDiscountBadge = document.getElementById("free-discount-badge");
-const resolutionGroup = document.getElementById("resolution-group");
 
 const imagesAmountEl = document.getElementById("images-amount");
 const decreaseImagesBtn = document.getElementById("decrease-images");
@@ -114,8 +111,6 @@ const promptBlockedCancelButton = document.getElementById(
 );
 
 let lastPromptModeration = null;
-let selectedResolution = "4K";
-let selectedRatio = "auto";
 let selectedVersion = "pro";
 let selectedFiles = [];
 let currentAuthState = null;
@@ -136,22 +131,6 @@ bindEvents();
 renderPreviews();
 
 function bindEvents() {
-  resolutionButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      resolutionButtons.forEach((btn) => btn.classList.remove("active"));
-      button.classList.add("active");
-      selectedResolution = button.dataset.size;
-    });
-  });
-
-  ratioButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      ratioButtons.forEach((btn) => btn.classList.remove("active"));
-      button.classList.add("active");
-      selectedRatio = button.dataset.ratio;
-    });
-  });
-
   fileInput?.addEventListener("change", (event) => {
     const incomingFiles = Array.from(event.target.files || []);
     const beforeMergeCount = selectedFiles.length + incomingFiles.length;
@@ -280,35 +259,16 @@ async function handleSubmit(event) {
     );
 
     const payload = {
-      version: selectedVersion,
-      contents: [
-        {
-          parts: [
-            { text: prompt },
-            ...imagesPayload.map((image) => ({
-              inline_data: {
-                mime_type: image.mimeType,
-                data: image.data,
-              },
-            })),
-          ],
-        },
-      ],
-      generationConfig: {
-        responseModalities: ["IMAGE"],
-        imageConfig: {
-          ...(selectedVersion === "pro"
-            ? {
-                imageSize: selectedResolution,
-                aspectRatio: selectedRatio === "auto" ? "" : selectedRatio,
-              }
-            : {
-                aspectRatio: selectedRatio === "auto" ? "" : selectedRatio,
-              }),
-        },
-      },
-      numberOfImages: imagesAmount,
+      prompt,
     };
+    if (imagesAmount > 1) {
+      payload.numberOfImages = imagesAmount;
+    }
+    if (imagesPayload.length === 1) {
+      payload.image = imagesPayload[0];
+    } else if (imagesPayload.length > 1) {
+      payload.images = imagesPayload;
+    }
 
     const { response, data: result } = await fetchApiJson(
       "/api/generate-image",
@@ -325,6 +285,16 @@ async function handleSubmit(event) {
       if (response.status === 402 || result?.code === "INSUFFICIENT_BALANCE") {
         await openBillingModal({ silentPricingErrors: true });
         throw new Error("INSUFFICIENT_BALANCE");
+      }
+
+      if (
+        response.status === 422 &&
+        (result?.code === "GENERATION_SAFETY" ||
+          result?.code === "MISSING_IMAGE_DATA")
+      ) {
+        throw new Error(
+          result?.error || "Запрос не выполнен."
+        );
       }
 
       if (response.status === 422 || result?.code === "PROMPT_BLOCKED") {
@@ -380,6 +350,10 @@ async function handleSubmit(event) {
       updateImagesAmountUI();
     }
 
+    if (Array.isArray(result?.reconnectNotices) && result.reconnectNotices.length) {
+      showToast(result.reconnectNotices.join(" "), "info", 5200);
+    }
+
     if (result?.partial) {
       showToast(
         `Сгенерировано ${generatedResults.length} из ${
@@ -413,7 +387,9 @@ async function handleSubmit(event) {
 
     const message = resolveGenerationErrorMessage(error);
     const isInsufficient = message.includes("Недостаточно генераций");
-    const isDetailedGenFailure = message.includes("Вероятные причины");
+    const isDetailedGenFailure =
+      message.includes("Вероятные причины") ||
+      message.includes("Не удалось связаться с сервером");
     showToast(
       message,
       isInsufficient ? "warning" : "error",
@@ -903,9 +879,20 @@ function escapeHtml(value) {
 
 function resolveGenerationErrorMessage(error) {
   const raw = String(error?.message || "");
+  const lower = raw.toLowerCase();
 
   if (raw === "INSUFFICIENT_BALANCE") {
     return "Недостаточно генераций. Пополните баланс.";
+  }
+
+  if (
+    /failed to fetch|load failed|networkerror|network request failed|err_network|econnrefused|could not connect/i.test(
+      lower
+    )
+  ) {
+    return `Не удалось связаться с сервером.
+
+Проверьте интернет и попробуйте снова. Если интернет в порядке, сервис генерации мог быть временно недоступен — повторите через минуту.`;
   }
 
   if (
@@ -1119,8 +1106,6 @@ function applyVersionUI() {
     generatorCard.classList.toggle("mode-free", isFree);
     generatorCard.classList.toggle("mode-pro", !isFree);
   }
-
-  resolutionGroup?.classList.toggle("hidden", isFree);
 
   updateAccountBalanceDisplay(currentAuthState);
   imagesAmount = Math.min(imagesAmount, getMaxGenerationsByBalance());

@@ -894,7 +894,7 @@ body.generator-body {
   max-width: 100%;
   aspect-ratio: 4 / 3;
   height: auto;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 14px;
 }
 
