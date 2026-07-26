@@ -20,7 +20,7 @@ const FALLBACK_API_BASE_URL =
   window.location.hostname === "127.0.0.1" ||
   window.location.hostname === "localhost"
     ? "http://127.0.0.1:3000"
-    : "https://nanobananaa.up.railway.app";
+    : "https://nanobananaa.ru";
 
 const API_BASE_URL = (
   window.NANO_API_BASE_URL || FALLBACK_API_BASE_URL

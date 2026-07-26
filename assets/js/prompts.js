@@ -4,7 +4,7 @@
     (window.location.hostname === "127.0.0.1" ||
     window.location.hostname === "localhost"
       ? "http://127.0.0.1:3000"
-      : "https://nanobananaa.up.railway.app")
+      : "https://nanobananaa.ru")
   ).replace(/\/$/, "");
 
   const promptInput = document.getElementById("prompt");
