@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /api/
+Disallow: /admin/
+Disallow: /*?prompt=
+Disallow: /*?session=
+Disallow: /*?c=
+Allow: /
+
+Sitemap: https://nanobananaa.ru/sitemap.xml

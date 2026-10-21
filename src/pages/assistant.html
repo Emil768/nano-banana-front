@@ -1,0 +1,197 @@
+<!--meta
+{
+  "path": "/assistant/",
+  "nav": "assistant",
+  "gen": "assistant",
+  "body_class": "page-asst",
+  "sidebar": "collapsed",
+  "priority": 0.8,
+  "title": "ИИ-помощник онлайн на русском без VPN — чат с нейросетью | Nano Banana",
+  "og_title": "ИИ-помощник Банана — чат с нейросетью без VPN",
+  "description": "Банана — ИИ-ассистент: ответит на вопросы, напишет текст, переведёт и сгенерирует фото по описанию. Работает без VPN, на русском. Попробуйте бесплатно.",
+  "og_description": "Отвечает на вопросы, пишет тексты и генерирует фото по описанию. На русском, без VPN.",
+  "og_image": "https://nanobananaa.ru/og/assistant.png",
+  "scripts": [
+    "/assets/js/assistant.js"
+  ],
+  "jsonld": [
+    {
+      "@type": "WebApplication",
+      "name": "ИИ-помощник Банана",
+      "url": "https://nanobananaa.ru/assistant/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "ru",
+      "description": "ИИ-ассистент на русском без VPN: отвечает на вопросы, пишет тексты и генерирует фото по описанию.",
+      "offers": [
+        {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "RUB",
+          "description": "Пробный доступ, около {{trial_requests}} запросов"
+        },
+        {
+          "@type": "Offer",
+          "price": "{{price_from}}",
+          "priceCurrency": "RUB",
+          "description": "Пакет {{price_from_name}}: генерации фото и ИИ-ассистент на {{tier_days}} дней"
+        }
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "Nano Banana",
+        "url": "https://nanobananaa.ru/"
+      }
+    }
+  ],
+  "faq": [
+    [
+      "Это бесплатно?",
+      "Новым пользователям доступно около {{trial_requests}} бесплатных запросов к ассистенту. Дальше — пакеты от {{price_from}} ₽, ассистент в них работает {{tier_days}} дней."
+    ],
+    [
+      "Нужен ли VPN?",
+      "Нет. Банана работает из России без VPN, оплата через СБП."
+    ],
+    [
+      "Чем Банана отличается от ChatGPT?",
+      "Работает без VPN и иностранной карты, отвечает на русском и сразу генерирует картинки по описанию — не нужно переходить в другой сервис."
+    ],
+    [
+      "Какая нейросеть внутри?",
+      "Банана работает на модели GPT-6 Luna, а картинки создаёт отдельной моделью для генерации изображений."
+    ],
+    [
+      "Можно ли отправить своё фото?",
+      "Да. Прикрепите фото — Банана опишет его, подскажет, что улучшить, или использует как основу для новой картинки."
+    ],
+    [
+      "Сколько стоит одна картинка?",
+      "Одна картинка — одна генерация из вашего пакета. Переписка с ассистентом входит в лимит пакета."
+    ]
+  ]
+}
+-->
+<!--head-->
+    <link rel="stylesheet" href="/assets/css/assistant.css?v={{version}}" />
+<!--/head-->
+          <div class="asst" id="asst">
+            <aside class="asst-side" id="asst-side" aria-label="Чаты">
+              <!-- Всё, кроме плашки использования, прокручивается; плашка прибита к низу -->
+              <div class="asst-side__scroll">
+              <div class="asst-side__head">
+                <a class="logo" href="/" aria-label="Нано Банана — на главную"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="8" fill="#F2C94C"/><path d="M8 16c4 4 10 3 12-5" stroke="#1a1406" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>Nano Banana</a>
+                <button class="ico ico--s" type="button" data-asst-close aria-label="Закрыть меню">{{i_close}}</button>
+              </div>
+              <!-- Мобила: сюда JS кладёт копию навигации сайта -->
+              <nav class="asst-side__nav" id="asst-side-nav" aria-label="Разделы сайта"></nav>
+              <button class="asst-new" id="asst-new" type="button">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                Новый чат
+              </button>
+              <div class="asst-side__label">Недавние</div>
+              <div class="asst-chats" id="asst-chats"></div>
+              </div>
+              <div class="asst-usage" id="asst-usage" aria-live="polite"></div>
+            </aside>
+            <div class="asst-scrim" data-asst-close></div>
+
+            <div class="asst-main">
+              <header class="asst-top">
+                <button class="ico ico--s asst-top__menu" type="button" data-asst-open aria-label="Меню и чаты" aria-controls="asst-side" aria-expanded="false">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+                </button>
+                <div class="asst-top__title">
+                  <div class="asst-top__h" id="asst-title">&nbsp;</div>
+                  <span class="asst-top__model"><span class="asst-dot" aria-hidden="true"></span><span data-asst-model>GPT-6 Luna</span></span>
+                </div>
+                <button class="asst-model" type="button" disabled title="Выбор модели скоро" aria-label="Модель: GPT-6 Luna, выбор модели скоро">
+                  <span class="asst-dot" aria-hidden="true"></span>
+                  <span data-asst-model>GPT-6 Luna</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+                </button>
+                <div class="asst-bal">
+                  {{i_photo}}
+                  <span class="asst-bal__label">Генерации:</span>
+                  <strong data-asst-balance>—</strong>
+                </div>
+                <button class="b b--y b--s asst-topup" type="button" data-asst-topup>Пополнить</button>
+                <button class="asst-bal-m" type="button" data-asst-topup aria-label="Генерации на балансе, пополнить">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+                  <span data-asst-balance>—</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                </button>
+              </header>
+
+              <!-- Мобила: тонкая полоска использования под шапкой -->
+              <div class="asst-mbar" id="asst-mbar" hidden>
+                <span class="asst-mbar__label" data-usage-label>Использование сегодня</span>
+                <div class="asst-bar"><div class="asst-bar__fill" data-usage-fill></div></div>
+                <strong data-usage-pct>0%</strong>
+              </div>
+
+              <div class="asst-feed" id="asst-feed">
+                <!-- Пока грузим историю — лоадер вместо статики -->
+                <div class="asst-loading" id="asst-loading" role="status" aria-label="Загружаем переписку"><span class="inline-loader" aria-hidden="true"></span></div>
+                <div class="asst-feed__in" id="asst-feed-in" aria-live="polite">
+                  <!-- Приветствие нового чата: статичный текст, модель не вызывается и в историю не идёт -->
+                  <div class="asst-msg asst-msg--bot asst-greeting" id="asst-empty" hidden>
+                    <span class="asst-ava"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1C1B18" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><path d="M6 11c1.5 4 6 6 10 3 1-.8 1.8-1.8 2-3"/></svg></span>
+                    <div class="asst-msg__body"><div class="asst-text" id="asst-greeting-text"></div></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="asst-input">
+                <div class="asst-chips" role="group" aria-label="Подсказки">
+                  <button type="button" class="asst-chip" data-chip="Сделай аватарку">Сделай аватарку</button>
+                  <button type="button" class="asst-chip" data-chip="Улучши мой промт: ">Улучши мой промт</button>
+                  <button type="button" class="asst-chip" data-chip="Напиши подпись к посту про ">Напиши подпись к посту</button>
+                  <button type="button" class="asst-chip" data-chip="Что ты умеешь?">Что ты умеешь?</button>
+                </div>
+                <div class="asst-attach-list" id="asst-attach-list" hidden></div>
+                <form class="asst-form" id="asst-form">
+                  <button class="asst-form__attach" type="button" id="asst-attach" aria-label="Прикрепить фото или файл">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.5l-8.5 8.5a5 5 0 0 1-7-7l9-9a3.5 3.5 0 0 1 5 5l-9 9a2 2 0 0 1-3-3l8-8"/></svg>
+                  </button>
+                  <input type="file" id="asst-file" accept="image/png,image/jpeg,image/webp,.pdf,.docx,.xlsx,.csv,.txt,.md,.json,.xml,.yml,.yaml,.sql,.js,.mjs,.jsx,.ts,.tsx,.vue,.html,.css,.scss,.py,.rb,.php,.java,.kt,.swift,.go,.rs,.c,.h,.cpp,.cs,.sh" multiple hidden />
+                  <label for="asst-msg" class="sr-only">Сообщение ассистенту</label>
+                  <textarea id="asst-msg" rows="1" maxlength="2000" placeholder="Спроси что угодно, вставь фото (Cmd+V) или прикрепи файл"></textarea>
+                  <button class="asst-form__send" type="submit" id="asst-send" aria-label="Отправить" disabled>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- SEO: статичный текст в HTML. Гостю открыт под чатом, вошедшему — свёрнут под «О помощнике» -->
+          <details class="asst-about" id="asst-about" open>
+            <summary class="asst-about__toggle">О помощнике</summary>
+            <div class="asst-about__in">
+              <h1 class="h1">ИИ-помощник Банана: чат с нейросетью и генерация фото</h1>
+              <p class="lead">Банана — ИИ-ассистент на русском языке, который работает без VPN. Задайте вопрос, попросите написать текст, перевести, объяснить или придумать идею — он ответит за секунды. А ещё Банана умеет то, чего не умеют обычные чат-боты: по вашему описанию сам составит промт и сгенерирует картинку.</p>
+
+              <h2 class="h2">Что умеет ИИ-помощник</h2>
+              <ul class="asst-about__list">
+                <li>Отвечает на вопросы и объясняет сложное простыми словами</li>
+                <li>Пишет тексты: посты, поздравления, письма, описания товаров для маркетплейсов</li>
+                <li>Переводит с английского и на английский</li>
+                <li>Помогает с учёбой, работой и кодом</li>
+                <li>Генерирует фото по описанию: аватарки, открытки, обложки, картинки для постов</li>
+                <li>Улучшает ваши промты и разбирает фото, которые вы пришлёте</li>
+              </ul>
+
+              <h2 class="h2">Как это работает</h2>
+              <ol class="asst-about__list">
+                <li>Войдите через Telegram или Google.</li>
+                <li>Напишите, что нужно, — обычными словами, как человеку.</li>
+                <li>Если нужна картинка, Банана уточнит детали и сгенерирует её прямо в чате.</li>
+              </ol>
+
+              <h2 class="h2">Сколько стоит</h2>
+              <p>Попробовать ИИ-помощника можно бесплатно: новым пользователям доступно около {{trial_requests}} запросов. Дальше — пакеты от {{price_from}} ₽: в них входят генерации фото и ИИ-ассистент на {{tier_days}} дней. Подписки нет, генерации не сгорают. Оплата через СБП. <a href="/#pricing">Все тарифы</a></p>
+
+{{faq}}
+            </div>
+          </details>
+          <div class="toast" id="toast" role="status" aria-live="polite"></div>

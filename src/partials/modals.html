@@ -1,0 +1,303 @@
+    <div id="auth-modal" class="modal hidden" aria-hidden="true">
+      <div class="modal__backdrop" data-close-auth-modal></div>
+      <section
+        class="modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="auth-modal-title"
+      >
+        <button
+          id="auth-modal-close"
+          class="modal__close"
+          type="button"
+          aria-label="Закрыть"
+        >
+          ×
+        </button>
+        <div id="auth-modal-title" class="modal__title">Вход</div>
+        <p class="modal__text">
+          Перед генерацией войдите через Telegram или Google, чтобы мы могли
+          определить ваш аккаунт.
+        </p>
+        <div class="auth-actions">
+          <a id="google-auth-modal-link" class="auth-google" href="#"
+            ><img
+              src="/assets/images/google.svg"
+              width="20"
+              height="20"
+              alt=""
+            />Войти через Google</a
+          >
+          <div id="telegram-auth-widget" class="auth-telegram"></div>
+        </div>
+      </section>
+    </div>
+
+    <div id="billing-modal" class="modal hidden" aria-hidden="true">
+      <div class="modal__backdrop" data-close-billing-modal></div>
+      <section
+        class="modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="billing-modal-title"
+      >
+        <button
+          id="billing-modal-close"
+          class="modal__close"
+          type="button"
+          aria-label="Закрыть"
+        >
+          ×
+        </button>
+        <div id="billing-modal-title" class="modal__title">Пополнение</div>
+        <p class="modal__text">
+          Выберите тариф и нажмите «Оплатить». После успешной оплаты баланс
+          обновится автоматически. Пакеты от 499 ₽ открывают ИИ-ассистента
+          на 30 дней.
+        </p>
+        <div
+          id="billing-error"
+          class="billing-error hidden"
+          role="status"
+        ></div>
+        <div id="billing-loading" class="billing-loading hidden">
+          <span class="inline-loader" aria-hidden="true"></span>
+          Загружаем тарифы…
+        </div>
+        <div id="billing-plans" class="billing-plans"></div>
+        <div class="promo-box">
+          <div class="promo-box__head">
+            <span class="promo-box__title">У меня есть промокод</span>
+            <button
+              id="promo-toggle"
+              class="promo-switch"
+              type="button"
+              role="switch"
+              aria-checked="false"
+              aria-label="У меня есть промокод"
+            >
+              <span class="promo-switch__thumb"></span>
+            </button>
+          </div>
+          <div id="promo-body" class="promo-box__body hidden">
+            <div id="promo-form" class="promo-form">
+              <input
+                id="promo-input"
+                class="promo-input"
+                type="text"
+                placeholder="Введите промокод"
+                autocomplete="off"
+                autocapitalize="characters"
+                spellcheck="false"
+              />
+              <button id="promo-apply" class="promo-apply" type="button">
+                Применить
+              </button>
+            </div>
+            <div id="promo-applied" class="promo-applied hidden">
+              <span id="promo-applied-code" class="promo-chip"></span>
+              <button id="promo-remove" class="promo-remove" type="button">
+                Убрать
+              </button>
+            </div>
+            <p id="promo-message" class="promo-message" role="status">&nbsp;</p>
+          </div>
+        </div>
+        <div class="billing-total">
+          <span>К оплате</span>
+          <span class="billing-total__amount">
+            <span id="billing-total" class="billing-total__value">—</span>
+            <span id="billing-total-old" class="billing-total__old" hidden
+              >&nbsp;</span
+            >
+          </span>
+        </div>
+        <button
+          id="billing-pay-button"
+          type="button"
+          class="billing-pay-button"
+        >
+          Оплатить
+        </button>
+        <p class="billing-note">
+          Оплачивая, вы принимаете
+          <a href="/offer.pdf" target="_blank" rel="noopener noreferrer"
+            >условия оферты</a
+          >. Пакет генераций не сгорает.
+        </p>
+      </section>
+    </div>
+
+    <div id="howto-modal" class="modal hidden" aria-hidden="true">
+      <div class="modal__backdrop" data-close-howto-modal></div>
+      <section
+        class="modal__dialog modal__dialog--wide"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="howto-modal-title"
+      >
+        <button
+          id="howto-modal-close"
+          class="modal__close"
+          type="button"
+          aria-label="Закрыть"
+        >
+          ×
+        </button>
+        <div id="howto-modal-title" class="modal__title">Как пользоваться</div>
+        <p class="modal__text">
+          Загружаете фото, описываете текстом что хотите получить — нейросеть
+          делает результат.
+        </p>
+
+        <div class="howto-card">
+          <div class="howto-card__title">📷 Фото</div>
+          <div class="howto-flow">
+            <figure class="howto-flow__item">
+              <img
+                src="/assets/images/rules/photo.jpg"
+                alt="Исходное фото"
+                loading="lazy"
+              />
+              <figcaption>Загружаете фото</figcaption>
+            </figure>
+            <span class="howto-flow__arrow" aria-hidden="true">→</span>
+            <figure class="howto-flow__item howto-flow__item--result">
+              <img
+                src="/assets/images/rules/photo_res_web.jpg"
+                alt="Результат генерации фото"
+                loading="lazy"
+              />
+              <figcaption>Получаете результат</figcaption>
+            </figure>
+          </div>
+          <p class="howto-card__prompt">Текст: «добавь красивый фон»</p>
+        </div>
+
+        <div class="howto-card">
+          <div class="howto-card__title">🎬 Видео</div>
+          <div class="howto-flow">
+            <figure class="howto-flow__item">
+              <img
+                src="/assets/images/rules/video_ref.jpg"
+                alt="Исходное фото"
+                loading="lazy"
+              />
+              <figcaption>Загружаете фото</figcaption>
+            </figure>
+            <span class="howto-flow__arrow" aria-hidden="true">→</span>
+            <figure class="howto-flow__item howto-flow__item--result">
+              <video
+                id="howto-video-res"
+                data-src="/assets/images/rules/video_ref_res.mp4"
+                poster="/assets/images/rules/video_ref_poster.jpg"
+                preload="none"
+                loop
+                muted
+                playsinline
+              >
+                <track
+                  kind="captions"
+                  src="/assets/captions/empty.vtt"
+                  srclang="ru"
+                  label="Без звука"
+                />
+              </video>
+              <figcaption>Получаете видео</figcaption>
+            </figure>
+          </div>
+          <p class="howto-card__prompt">Текст: «оживи фото»</p>
+        </div>
+      </section>
+    </div>
+
+    <div
+      id="result-modal"
+      class="modal hidden"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Результат генерации"
+    >
+      <div class="modal__backdrop modal__backdrop--dense" data-close-result-modal></div>
+      <section class="modal__dialog modal__dialog--result">
+        <button
+          id="result-modal-close"
+          class="modal__close"
+          type="button"
+          aria-label="Закрыть"
+        >
+          ×
+        </button>
+        <img id="result-modal-image" class="result-modal__image" alt="Результат" />
+        <div class="result-modal__actions">
+          <a id="result-modal-animate" class="btn btn--ghost" href="#"
+            >Оживить фото</a
+          >
+          <a
+            id="result-modal-download"
+            class="btn btn--primary"
+            href="#"
+            download
+            >Скачать</a
+          >
+        </div>
+        <aside
+          id="result-feedback-cta"
+          class="result-feedback"
+          aria-label="Приглашение оставить отзыв"
+        >
+          <p>Понравилась генерация? Поделитесь отзывом — это меньше минуты.</p>
+          <a
+            id="result-feedback-cta-link"
+            class="btn btn--outline btn--sm"
+            href="/feedback.html"
+            >Оставить отзыв</a
+          >
+        </aside>
+      </section>
+    </div>
+
+    <div id="news-modal" class="modal hidden" aria-hidden="true">
+      <div class="modal__backdrop" data-close-news-modal></div>
+      <section
+        class="modal__dialog news-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="news-modal-title"
+      >
+        <button
+          class="modal__close"
+          type="button"
+          data-close-news-modal
+          aria-label="Закрыть"
+        >
+          ×
+        </button>
+        <div id="news-modal-title" class="modal__title">Новости</div>
+        <a
+          id="news-modal-link"
+          class="news-modal__link"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a>
+        <a
+          id="news-modal-image-link"
+          class="news-modal__shot"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="news-modal__scroll"
+            ><img id="news-modal-image" alt="Новый пост в Telegram-канале"
+          /></span></a>
+        <a
+          id="news-modal-cta"
+          class="b b--y news-modal__cta"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Открыть пост в Telegram</a
+        >
+      </section>
+    </div>

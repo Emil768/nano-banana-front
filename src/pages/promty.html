@@ -1,0 +1,118 @@
+<!--meta
+{
+  "path": "/promty/",
+  "nav": "prompts",
+  "gen": "",
+  "priority": 0.8,
+  "title": "Промты для обработки фото нейросетью — 30 готовых промтов для Нано Банана",
+  "og_title": "Промты для обработки фото — 30 готовых промтов",
+  "description": "Готовые промты для обработки фото: заменить фон, ретушь без пластика, сменить одежду, восстановить старое фото, улучшить качество. На русском и английском — нажмите «Попробовать», промт подставится в генератор.",
+  "scripts": ["/assets/js/promty.js"],
+  "crumbs": [["Главная", "/"], ["Промты", "/promty/"]],
+  "faq": [
+    ["Что такое промт?", "Промт — это текстовое описание того, что должна сделать нейросеть: кто в кадре, где, какой свет и стиль. Чем точнее промт, тем ближе результат к задумке."],
+    ["Как использовать готовый промт со своим фото?", "Нажмите «Попробовать» — промт подставится в генератор на главной. Прикрепите своё фото и нажмите «Создать»: нейросеть применит стиль из промта к вашему снимку."],
+    ["Что значит текст в квадратных скобках?", "Это место, которое нужно заменить на своё: какой фон, какая одежда, какой цвет. Нажмите «Попробовать» — в генераторе текст в первых скобках уже будет выделен, просто начните печатать."],
+    ["Зачем некоторым промтам 2 фото?", "Промты с пометкой «2 фото» берут что-то со второго снимка: фон, одежду, цвета или второго человека. Загрузите сначала своё фото, потом второе — порядок важен."],
+    ["Можно менять промт под себя?", "Да. После подстановки промт можно отредактировать: поменять одежду, фон, время суток или добавить детали."],
+    ["Промты бесплатные?", "Да, все промты на странице можно копировать и использовать бесплатно. Платите только за генерации — первая бесплатно."]
+  ]
+}
+-->
+          <section class="hero">
+            {{crumbs}}
+            <h1 class="h1">Промты для обработки фото</h1>
+            <p class="lead">
+              Готовые промты для обработки фото на русском и английском. Нажмите
+              «Попробовать» — промт подставится в генератор, останется добавить
+              своё фото.
+            </p>
+          </section>
+
+          <label class="search">
+            {{i_search}}
+            <input
+              id="promty-search"
+              type="search"
+              placeholder="Найти промт: фон, ретушь, одежда, свет…"
+              aria-label="Поиск промтов"
+              autocomplete="off"
+            />
+          </label>
+
+          <section id="obrabotka" class="sec" aria-labelledby="edit-title">
+            <div class="sec__head">
+              <div class="stack" style="gap: 8px">
+                <h2 id="edit-title" class="h2">Обработка своего фото</h2>
+                <p class="small muted" style="margin: 0">
+                  {{edit_count}} проверенных промтов. Текст в <mark class="slot">[скобках]</mark> замените на своё.
+                </p>
+              </div>
+            </div>
+            <div class="etabs" id="edit-cats" role="group" aria-label="Что сделать с фото">
+{{edit_tabs}}
+            </div>
+            <div class="egrid" id="edit-grid">
+{{edit_cards}}
+            </div>
+            <p class="pempty" id="edit-empty" hidden>
+              Ничего не нашлось. Попробуйте другое слово или категорию.
+            </p>
+          </section>
+
+          <a class="card linkcard" href="/promt-po-foto/">
+            <span class="tool__ic">{{i_scan}}</span>
+            <span class="linkcard__body">
+              <span class="linkcard__title">Есть картинка, а промта нет?</span>
+              <span class="linkcard__text">Загрузите фото — нейросеть составит промт за вас.</span>
+            </span>
+            <span class="linkcard__more">Промт по фото {{i_arrow}}</span>
+          </a>
+
+          <section class="card note-card" aria-labelledby="howto-prompt-title">
+            <h2 id="howto-prompt-title" class="h2">Как написать хороший промт</h2>
+            <div class="note-card__body">
+              <p><b>Сначала главное.</b> Кто или что в кадре: «девушка в красном пальто», «чашка кофе».</p>
+              <p><b>Потом обстановка и свет.</b> «Ночной город, неоновые вывески, мягкий свет сбоку».</p>
+              <p><b>В конце стиль.</b> «Как плёночное фото», «в стиле аниме», «студийная съёмка».</p>
+              <p><a href="/">Открыть генератор →</a></p>
+            </div>
+          </section>
+
+{{faq}}
+
+          <div id="edit-modal" class="modal hidden" aria-hidden="true">
+            <div class="modal__backdrop" data-close-edit-modal></div>
+            <section
+              class="modal__dialog emodal"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="edit-modal-title"
+            >
+              <button class="modal__close" type="button" data-close-edit-modal aria-label="Закрыть">×</button>
+              <div class="ecard__head">
+                <span class="ecard__ic" id="edit-modal-ic"></span>
+                <span class="ecard__cat" id="edit-modal-cat"></span>
+                <span class="ebadge" id="edit-modal-badge" hidden></span>
+              </div>
+              <div class="pmodal__title" id="edit-modal-title">Промт</div>
+              <p class="ecard__desc" id="edit-modal-desc"></p>
+              <div class="row">
+                <span class="gen-lbl">Язык промта</span>
+                <div class="sp"></div>
+                <div class="seg" role="radiogroup" aria-label="Язык промта">
+                  <button type="button" class="seg__btn is-active" role="radio" aria-checked="true" data-elang="ru">Русский</button>
+                  <button type="button" class="seg__btn" role="radio" aria-checked="false" data-elang="en">English</button>
+                </div>
+              </div>
+              <div class="ptbox" id="edit-modal-text"></div>
+              <p class="emodal__hint">
+                Замените текст в <mark class="slot">[скобках]</mark> на своё. В генераторе он будет уже выделен — просто начните печатать.
+              </p>
+              <div class="pmodal__actions">
+                <button class="b b--y b--lg" type="button" id="edit-modal-try">Попробовать с этим промтом</button>
+                <button class="ico" type="button" id="edit-modal-copy" aria-label="Скопировать промт" title="Скопировать">{{i_copy}}</button>
+              </div>
+            </section>
+          </div>
+          <div class="toast" id="toast" role="status" aria-live="polite"></div>

@@ -1,0 +1,523 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "user_settings",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $('Telegram Trigger').first().json.message?.chat?.id ?? $('Telegram Trigger').first().json.callback_query?.message?.chat?.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "select_type",
+              "fieldValue": "prompt"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        300,
+        600
+      ],
+      "name": "Промпт: режим промпта",
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "NqaSQRPjjkSfvQqL",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message?.chat?.id ?? $('Telegram Trigger').first().json.callback_query?.message?.chat?.id }}",
+        "text": "📸 Пришлите фото — опишу его готовым промптом на английском и русском. Бесплатно.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        520,
+        600
+      ],
+      "name": "Промпт: пришлите фото",
+      "credentials": {
+        "telegramApi": {
+          "id": "QPwvh7KJPNpEuvak",
+          "name": "nano_banana_ai_bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "9a1f0c3e-1b2d-4e5f-8a90-b1c2d3e4f501",
+              "leftValue": "={{ ($('Telegram Trigger').first().json.message.photo || []).length > 0 || /^image\\//.test(($('Telegram Trigger').first().json.message.document || {}).mime_type || \"\") }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        300,
+        900
+      ],
+      "name": "Промпт: есть фото?"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "📸 Нужно именно фото — пришлите картинку, и я опишу её промптом.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        520,
+        1060
+      ],
+      "name": "Промпт: нужно фото",
+      "credentials": {
+        "telegramApi": {
+          "id": "QPwvh7KJPNpEuvak",
+          "name": "nano_banana_ai_bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ ($('Telegram Trigger').first().json.message.photo || []).length ? $('Telegram Trigger').first().json.message.photo[$('Telegram Trigger').first().json.message.photo.length - 1].file_id : $('Telegram Trigger').first().json.message.document.file_id }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        520,
+        880
+      ],
+      "name": "Промпт: файл",
+      "credentials": {
+        "telegramApi": {
+          "id": "QPwvh7KJPNpEuvak",
+          "name": "nano_banana_ai_bot"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "binaryToPropery",
+        "binaryPropertyName": "data",
+        "destinationKey": "image_b64",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        740,
+        880
+      ],
+      "name": "Промпт: base64"
+    },
+    {
+      "parameters": {
+        "jsCode": "const SYSTEM_PROMPT = `You are an expert prompt writer for AI image models (GPT Image, Nano Banana / Gemini, Midjourney, Flux).\nYou receive one image. Write a detailed, ready-to-use prompt that lets a model reproduce the result as closely as possible.\nBe specific and concrete: exact colors, materials, textures, positions (left/right/foreground/background), sizes, counts. No vague words like \"beautiful\" or \"nice\".\n\nFORMAT: several short paragraphs separated by an empty line (\"\\\\n\\\\n\" inside the JSON string). Each paragraph covers one aspect.\nDo not use headings, labels, bullet points or markdown — just the paragraphs of the prompt itself.\n\nDescribe the whole image so a model can generate a very similar picture from scratch. 150–250 words, paragraphs in this order:\n1) Main subject(s): who or what, approximate age, build, face and hair, expression, clothing with colors, fabrics and details, accessories.\n2) Action and pose: what they are doing, body position, gaze direction, hands.\n3) Setting and background: location, objects around, what is in the foreground and background, weather or time of day.\n4) Composition and camera: shot type (close-up, medium, wide), camera angle and height, framing and placement in the frame, lens feel (e.g. 35mm, 85mm), depth of field, aspect ratio (portrait, square, landscape).\n5) Lighting: light sources, direction, hardness or softness, color temperature, shadows and highlights.\n6) Color palette, mood and style: main colors, contrast, atmosphere, and the medium (photo, film photo, 3D render, digital illustration, anime, oil painting, etc.), plus quality cues (sharp focus, natural skin texture, realistic details).\n\nRules:\n- Never name real people, celebrities or characters; describe them generically (\"a young man with short dark hair\").\n- Never mention brand names or logos; describe objects generically.\n- If the image has prominent text, include it in double quotes as it appears.\n- Do not start with \"The image shows\" or \"This is\". Write the prompt itself, in imperative/descriptive form.\n- The Russian version must be a natural, equally detailed translation with the same paragraphs.\n- If the image contains nudity, sexual content, a minor in any suggestive context, graphic violence or gore,\n  return exactly {\"error\":\"unsafe\"} and nothing else.\n\nReturn ONLY valid JSON, no markdown:\n{\"prompt_en\": \"<prompt in English, paragraphs separated by \\\\n\\\\n>\", \"prompt_ru\": \"<the same prompt in natural Russian, same paragraphs>\", \"tags_ru\": [\"3-5 short Russian tags: subject, style, light, mood\"]}`;\n\nconst mime = $('Промпт: файл').first().binary?.data?.mimeType || 'image/jpeg';\n\nreturn [{\n  json: {\n    body: {\n      model: 'gemini-3-flash-preview',\n      temperature: 0.4,\n      messages: [\n        { role: 'system', content: SYSTEM_PROMPT },\n        {\n          role: 'user',\n          content: [\n            { type: 'text', text: 'Write the prompt for this image.' },\n            { type: 'image_url', image_url: { url: `data:${mime};base64,${$input.first().json.image_b64}` } },\n          ],\n        },\n      ],\n    },\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        880
+      ],
+      "name": "Промпт: запрос"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.laozhang.ai/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer sk-"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.body) }}",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1180,
+        880
+      ],
+      "name": "Промпт: модель",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 3000,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const res = $input.first().json;\nconst choice = res.choices?.[0] || {};\nconst content = String(choice.message?.content || '');\n\nconst BLOCKED = '🚫 Модель отказалась описывать это фото.\\n\\nОбычно так бывает, если на фото:\\n• обнажённость или откровенные позы;\\n• ребёнок;\\n• кровь, насилие или оружие.\\n\\nПопробуйте другое фото.';\nconst FAILED = '🔴 Не получилось описать фото.\\n\\nВозможные причины:\\n• сервис сейчас перегружен;\\n• фото слишком тёмное, размытое или маленькое.\\n\\nПопробуйте ещё раз или пришлите другое фото.';\n\n// Фильтр модели: Gemini отвечает 200, но с finish_reason=content_filter\nif (choice.finish_reason === 'content_filter' || /PROHIBITED_CONTENT|SAFETY|blocked/i.test(content)) {\n  return [{ json: { ok: false, text: BLOCKED } }];\n}\n\n// JSON целиком или от первой { до последней } (если модель обернула в markdown)\nlet data = null;\ntry { data = JSON.parse(content); } catch {\n  const a = content.indexOf('{'), b = content.lastIndexOf('}');\n  if (a !== -1 && b > a) { try { data = JSON.parse(content.slice(a, b + 1)); } catch {} }\n}\n\nif (data?.error === 'unsafe') {\n  return [{ json: { ok: false, text: BLOCKED } }];\n}\nconst en = String(data?.prompt_en || '').trim();\nconst ru = String(data?.prompt_ru || '').trim();\nif (!en || !ru) {\n  return [{ json: { ok: false, text: FAILED } }];\n}\n\nconst esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');\nreturn [\n  { json: { ok: true, text: `🇬🇧 <b>Промпт на английском</b> (нажмите, чтобы скопировать)\\n<pre>${esc(en)}</pre>` } },\n  { json: { ok: true, text: `🇷🇺 <b>Промпт на русском</b>\\n<pre>${esc(ru)}</pre>` } },\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1400,
+        860
+      ],
+      "name": "Промпт: разбор"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "={{ $json.text }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1620,
+        860
+      ],
+      "name": "Промпт: отправить",
+      "credentials": {
+        "telegramApi": {
+          "id": "QPwvh7KJPNpEuvak",
+          "name": "nano_banana_ai_bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "🔴 Не получилось описать фото.\n\nВозможные причины:\n• сервис сейчас перегружен;\n• фото слишком тёмное, размытое или маленькое.\n\nПопробуйте ещё раз или пришлите другое фото.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1400,
+        1060
+      ],
+      "name": "Промпт: ошибка",
+      "credentials": {
+        "telegramApi": {
+          "id": "QPwvh7KJPNpEuvak",
+          "name": "nano_banana_ai_bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "🤖",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        520,
+        760
+      ],
+      "name": "Промпт: загрузка",
+      "credentials": {
+        "telegramApi": {
+          "id": "QPwvh7KJPNpEuvak",
+          "name": "nano_banana_ai_bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "deleteMessage",
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "messageId": "={{ $('Промпт: загрузка').first().json.result.message_id }}"
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1840,
+        960
+      ],
+      "name": "Промпт: убрать загрузку",
+      "executeOnce": true,
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "telegramApi": {
+          "id": "QPwvh7KJPNpEuvak",
+          "name": "nano_banana_ai_bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "✅ Готово! Скопируйте промпт — и идём генерировать 😎",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "⚡️ Перейти к генерации",
+                    "additionalFields": {
+                      "callback_data": "exit_photo"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2060,
+        620
+      ],
+      "name": "Промпт: дальше",
+      "executeOnce": true,
+      "credentials": {
+        "telegramApi": {
+          "id": "QPwvh7KJPNpEuvak",
+          "name": "nano_banana_ai_bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "5c1d2e3f-4a5b-4c6d-8e7f-90a1b2c3d4e5",
+              "leftValue": "={{ $('Промпт: разбор').first().json.ok === true }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1840,
+        620
+      ],
+      "name": "Промпт: получилось?",
+      "executeOnce": true
+    }
+  ],
+  "connections": {
+    "Промпт: есть фото?": {
+      "main": [
+        [
+          {
+            "node": "Промпт: загрузка",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Промпт: нужно фото",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Промпт: файл": {
+      "main": [
+        [
+          {
+            "node": "Промпт: base64",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Промпт: ошибка",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Промпт: base64": {
+      "main": [
+        [
+          {
+            "node": "Промпт: запрос",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Промпт: запрос": {
+      "main": [
+        [
+          {
+            "node": "Промпт: модель",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Промпт: модель": {
+      "main": [
+        [
+          {
+            "node": "Промпт: разбор",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Промпт: ошибка",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Промпт: разбор": {
+      "main": [
+        [
+          {
+            "node": "Промпт: отправить",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Промпт: режим промпта": {
+      "main": [
+        [
+          {
+            "node": "Промпт: пришлите фото",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Промпт: загрузка": {
+      "main": [
+        [
+          {
+            "node": "Промпт: файл",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Промпт: отправить": {
+      "main": [
+        [
+          {
+            "node": "Промпт: убрать загрузку",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Промпт: получилось?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Промпт: ошибка": {
+      "main": [
+        [
+          {
+            "node": "Промпт: убрать загрузку",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Промпт: получилось?": {
+      "main": [
+        [
+          {
+            "node": "Промпт: дальше",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    }
+  }
+}

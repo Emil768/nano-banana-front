@@ -3,3 +3,14 @@ node_modules
 backend/
 scripts/.env
 .venv
+
+# мусор macOS и Python
+.DS_Store
+__pycache__/
+*.pyc
+
+# ID юзеров для рассылки — не коммитить
+scripts/chat_ids.txt
+
+# скрины для publish_news.py
+scripts/news/

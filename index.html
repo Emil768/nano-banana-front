@@ -1,338 +1,1041 @@
-<!DOCTYPE html>
-<html lang="ru">
+<!doctype html>
+<html lang="ru" data-theme="light">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nano Banana - Генерация фото и видео для контента</title>
     <meta
-      name="description"
-      content="Nano Banana — Telegram-бот для генерации фото и контента для бизнеса и блогеров. Создавай уникальные изображения за секунды."
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
-    <meta
-      name="keywords"
-      content="генерация фото, генерация контента, Telegram бот, контент для бизнеса, AI фото, Nano Banana"
-    />
+    <title>Нано Банана — генерация фото по описанию нейросетью, бесплатно и на русском</title>
+    <meta name="description" content="Создайте фото по описанию или обработайте своё нейросетью: смена фона, стиль, оживление в видео. Без VPN, оплата через СБП, на сайте и в Telegram. Первое фото — бесплатно." />
     <meta name="robots" content="index, follow" />
-    <meta property="og:title" content="Nano Banana — генерация фото" />
-    <meta
-      property="og:description"
-      content="Создавай уникальные изображения для контента в Telegram за секунды."
-    />
+    <link rel="canonical" href="https://nanobananaa.ru/" />
+    <meta name="theme-color" content="#fbf9f6" />
+    <script>
+      // По умолчанию светлая тема; тёмная — только если юзер выбрал её сам.
+      // Ставим до отрисовки, чтобы не было мигания.
+      try {
+        if (localStorage.getItem("nano_theme") === "dark") {
+          delete document.documentElement.dataset.theme;
+          document
+            .querySelector('meta[name="theme-color"]')
+            .setAttribute("content", "#131210");
+        }
+      } catch (e) {}
+    </script>
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/assets/images/nano-banana3.webp" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:site_name" content="Нано Банана" />
+    <meta property="og:title" content="Нано Банана — генерация фото по описанию нейросетью" />
+    <meta property="og:description" content="Создайте фото по описанию или обработайте своё нейросетью: смена фона, стиль, оживление в видео. Без VPN, оплата через СБП, на сайте и в Telegram. Первое фото — бесплатно." />
+    <meta property="og:url" content="https://nanobananaa.ru/" />
+    <meta property="og:image" content="https://nanobananaa.ru/assets/images/nano-banana3.webp" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Nano Banana — генерация фото" />
-    <meta
-      name="twitter:description"
-      content="Telegram-бот для быстрого создания фото и контента."
+    <meta name="twitter:title" content="Нано Банана — генерация фото по описанию нейросетью" />
+    <meta name="twitter:description" content="Создайте фото по описанию или обработайте своё нейросетью: смена фона, стиль, оживление в видео. Без VPN, оплата через СБП, на сайте и в Telegram. Первое фото — бесплатно." />
+    <meta name="twitter:image" content="https://nanobananaa.ru/assets/images/nano-banana3.webp" />
+    <meta name="p:domain_verify" content="73bcd0e3f5e83affe91384cdb3b3273e" />
+    <!-- Pinterest строит пин по og-тегам, а не по Product-разметке: иначе в
+         превью подтягивается цена из offers. -->
+    <meta name="pinterest-rich-pin" content="false" />
+    <link rel="icon" href="/favicon.ico?v=20261013" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=20261013" />
+    <link rel="icon" type="image/png" sizes="120x120" href="/favicon-120.png?v=20261013" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=20261013" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Unbounded:wght@500;600&display=swap"
+      as="style"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
     />
-    <meta name="twitter:image" content="/assets/images/nano-banana3.webp" />
-    <link rel="icon" href="favicon.ico" />
-    <link rel="stylesheet" href="/assets/css/index.css" />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Unbounded:wght@500;600&display=swap"
+    /></noscript>
+    <link rel="stylesheet" href="/assets/css/site.css?v=20261013" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://nanobananaa.ru/#organization",
+            "name": "Нано Банана",
+            "alternateName": "Nano Banana",
+            "url": "https://nanobananaa.ru/",
+            "logo": "https://nanobananaa.ru/favicon-120.png",
+            "sameAs": [
+              "https://t.me/nano_bananaa_ai_bot"
+            ],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer support",
+              "url": "https://t.me/NeiroBananchik_Support",
+              "availableLanguage": [
+                "Russian"
+              ]
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://nanobananaa.ru/#website",
+            "url": "https://nanobananaa.ru/",
+            "name": "Нано Банана",
+            "publisher": {
+              "@id": "https://nanobananaa.ru/#organization"
+            },
+            "inLanguage": "ru-RU"
+          },
+          {
+            "@type": "Product",
+            "@id": "https://nanobananaa.ru/#product",
+            "name": "Генерация фото по описанию и обработка своих фото нейросетью — Нано Банана",
+            "description": "Сгенерируйте фото по описанию или обработайте своё нейросетью на сайте или в Telegram-боте Нано Банана. Первая генерация — бесплатно.",
+            "image": "https://nanobananaa.ru/assets/images/nano-banana3.webp",
+            "brand": {
+              "@type": "Brand",
+              "name": "Нано Банана"
+            },
+            "sku": "nano-banana-start",
+            "category": "Онлайн-сервис генерации изображений",
+            "offers": {
+              "@type": "AggregateOffer",
+              "url": "https://nanobananaa.ru/",
+              "priceCurrency": "RUB",
+              "lowPrice": "99",
+              "highPrice": "1999",
+              "offerCount": "4",
+              "availability": "https://schema.org/InStock",
+              "seller": {
+                "@id": "https://nanobananaa.ru/#organization"
+              }
+            }
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://nanobananaa.ru/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Что такое Нано Банана?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Нано Банана — сервис для генерации и обработки фото нейросетью: здесь на сайте и в Telegram-боте. Можно создать изображение по тексту, отредактировать своё фото или оживить его в видео."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Сколько стоит генерация фото в Нано Банана?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Пакеты начинаются от 99 рублей за 10 генераций. Есть тарифы на 55, 120 и 260 генераций — чем больше пакет, тем ниже цена за одно фото. Пакеты от 499 рублей открывают ИИ-ассистента на 30 дней. Генерации не сгорают."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Как сгенерировать фото по описанию бесплатно?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Войдите через Telegram или Google и опишите текстом, какое изображение хотите получить. Первая генерация — бесплатно, оплата понадобится только для следующих."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Можно ли редактировать своё фото, а не только генерировать с нуля?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Да. Прикрепите до 4 своих фото и напишите, что нужно изменить или в каком стиле обработать — нейросеть вернёт отредактированный вариант."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Можно ли сгенерировать видео, а не только фото?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Да, в разделе «Оживить фото» фото превращается в видео на 5 или 10 секунд — со звуком или без."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Работает ли без VPN и на русском?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Да. Сайт и бот работают из России без VPN, промт можно писать на русском, оплата — через СБП."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Сколько времени занимает генерация одного фото?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Обычно результат готов за 20–60 секунд, в редких случаях — до пары минут в зависимости от загруженности сервиса."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Есть ли условия и реквизиты продавца?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Да. Условия оказания услуг и реквизиты указаны в публичной оферте. Техподдержка — в Telegram."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Какой контент запрещено генерировать?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Запрещён контент 18+ и материалы, нарушающие законодательство — такие запросы автоматически отклоняются модерацией."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
   </head>
-  <body>
-    <!-- Первый экран / Заголовок -->
-    <section class="hero">
-      <div class="container container-column">
-        <img
-          src="/assets/images/photo_1.webp"
-          alt="Пример генерации контента"
-          class="hero-side-photo hero-side-photo-left"
-          loading="lazy"
-        />
-        <img
-          src="/assets/images/photo_2.webp"
-          alt="Пример генерации контента"
-          class="hero-side-photo hero-side-photo-right"
-          loading="lazy"
-        />
-        <h1 class="hero-title">
-          Nano Banana — создавай или редактируй фото в любом стиле 🎬
-        </h1>
-        <div class="hero-tabs">
-          <p class="hero-subtitle active">фотошоп</p>
-          <p class="hero-subtitle active">оживить фото</p>
-          <p class="hero-subtitle active">сгенерировать промпт</p>
-        </div>
-        <a href="/generate.html" class="support-button support-button-glow"
-          >Попробовать сейчас 🔥</a
-        >
+  <body data-gen="photo" class="">
+    <header class="mtop">
+      <a class="logo" href="/" aria-label="Нано Банана — на главную"
+        ><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="8" fill="#F2C94C"/><path d="M8 16c4 4 10 3 12-5" stroke="#1a1406" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>Nano Banana</a
+      >
+      <div class="sp"></div>
+      <div id="mobile-auth"></div>
+      <button class="ico theme-btn" type="button" data-theme-toggle aria-label="Сменить тему: светлая или тёмная" title="Светлая / тёмная тема"><svg class="theme-btn__moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="theme-btn__sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.9 4.9l1.4 1.4"/><path d="M17.7 17.7l1.4 1.4"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M4.9 19.1l1.4-1.4"/><path d="M17.7 6.3l1.4-1.4"/></svg></button>
+      <button
+        class="ico"
+        type="button"
+        data-sb-open
+        aria-label="Открыть меню"
+        aria-controls="sidebar"
+        aria-expanded="false"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg>
+      </button>
+    </header>
+    <nav class="mnav" aria-label="Инструменты">
+      <a href="/assistant/" class="is-hl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/><path d="M8.5 11h.01"/><path d="M12 11h.01"/><path d="M15.5 11h.01"/></svg>Чат GPT</a>
+      <a href="/" class="is-on" aria-current="page"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>Генерация фото</a>
+      <a href="/ozhivit-foto/"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="15" height="14" rx="2"/><path d="M17 10l5-3v10l-5-3"/></svg>Оживить фото</a>
+      <a href="/promt-po-foto/"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V6a2 2 0 012-2h2"/><path d="M16 4h2a2 2 0 012 2v2"/><path d="M20 16v2a2 2 0 01-2 2h-2"/><path d="M8 20H6a2 2 0 01-2-2v-2"/><path d="M8 10h8"/><path d="M8 14h5"/></svg>Промт по фото</a>
+      <a href="/promty/"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.65-.75 1.65-1.69 0-.44-.18-.84-.44-1.13-.29-.29-.44-.65-.44-1.13a1.64 1.64 0 011.67-1.67h2C19.49 16.38 22 13.87 22 10.82 21.97 6.01 17.46 2 12 2z"/><circle cx="13.5" cy="6.5" r="1" fill="currentColor"/><circle cx="17.5" cy="10.5" r="1" fill="currentColor"/><circle cx="8.5" cy="7.5" r="1" fill="currentColor"/><circle cx="6.5" cy="12.5" r="1" fill="currentColor"/></svg>Промты</a>
+    </nav>
 
-        <a
-          href="https://t.me/nano_bananaa_ai_bot"
-          target="_blank"
-          class="hero-cta-button hero-cta-button-small"
-        >
-          <script
-            async=""
-            src="https://mc.yandex.ru/metrika/tag.js?id=106429810"
-          ></script>
-          <script></script>
-          Попробуй в Telegram
-
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            xml:space="preserve"
-            viewBox="0 0 512 512"
-            class="styles_image___fQvm"
-          >
-            <path
-              d="M135.876 280.962 10.105 225.93c-14.174-6.197-13.215-26.621 1.481-31.456L489.845 36.811c12.512-4.121 24.705 7.049 21.691 19.881l-95.571 406.351c-2.854 12.14-17.442 17.091-27.09 9.19l-112.3-91.887z"
-              style="fill: #ebf0fa"
-            ></path>
-            <path
-              d="M396.465 124.56 135.876 280.962l31.885 147.899c2.86 13.269 18.5 19.117 29.364 10.981l79.451-59.497-65.372-53.499 193.495-191.693c5.673-5.621-1.385-14.704-8.234-10.593"
-              style="fill: #bec3d2"
-            ></path>
-            <path
-              d="M178.275 441.894c5.858 2.648 13.037 2.302 18.85-2.052l79.451-59.497-32.686-26.749-32.686-26.749z"
-              style="fill: #afb4c8"
-            ></path>
-          </svg>
-        </a>
-
-        <div>
-          <a href="#pains" class="scroll-down">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+    <div class="layout">
+      <aside id="sidebar" class="sb" aria-label="Меню сайта">
+        <div class="sb__in">
+          <div class="sb__head">
+            <a class="logo" href="/" aria-label="Нано Банана — на главную"
+              ><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="8" fill="#F2C94C"/><path d="M8 16c4 4 10 3 12-5" stroke="#1a1406" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>Nano Banana</a
             >
-              <path
-                d="M7 10L12 15L17 10"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+      <button class="ico theme-btn" type="button" data-theme-toggle aria-label="Сменить тему: светлая или тёмная" title="Светлая / тёмная тема"><svg class="theme-btn__moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="theme-btn__sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.9 4.9l1.4 1.4"/><path d="M17.7 17.7l1.4 1.4"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M4.9 19.1l1.4-1.4"/><path d="M17.7 6.3l1.4-1.4"/></svg></button>
+          </div>
+          <nav class="nav" aria-label="Разделы сайта">
+            <div class="nav__label">Инструменты</div>
+            <a class="nav__item nav__item--hl" href="/assistant/"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/><path d="M8.5 11h.01"/><path d="M12 11h.01"/><path d="M15.5 11h.01"/></svg><span class="nav__text">Чат GPT<span class="nav__tag">beta</span></span></a>
+            <a class="nav__item is-on" href="/" aria-current="page"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg><span class="nav__text">Генерация фото</span></a>
+            <a class="nav__item" href="/ozhivit-foto/"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="15" height="14" rx="2"/><path d="M17 10l5-3v10l-5-3"/></svg><span class="nav__text">Оживить фото<span class="nav__tag">видео</span></span></a>
+            <a class="nav__item" href="/promt-po-foto/"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V6a2 2 0 012-2h2"/><path d="M16 4h2a2 2 0 012 2v2"/><path d="M20 16v2a2 2 0 01-2 2h-2"/><path d="M8 20H6a2 2 0 01-2-2v-2"/><path d="M8 10h8"/><path d="M8 14h5"/></svg><span class="nav__text">Промт по фото<span class="nav__tag">new</span></span></a>
+            <a class="nav__item" href="/promty/"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.65-.75 1.65-1.69 0-.44-.18-.84-.44-1.13-.29-.29-.44-.65-.44-1.13a1.64 1.64 0 011.67-1.67h2C19.49 16.38 22 13.87 22 10.82 21.97 6.01 17.46 2 12 2z"/><circle cx="13.5" cy="6.5" r="1" fill="currentColor"/><circle cx="17.5" cy="10.5" r="1" fill="currentColor"/><circle cx="8.5" cy="7.5" r="1" fill="currentColor"/><circle cx="6.5" cy="12.5" r="1" fill="currentColor"/></svg><span class="nav__text">Промты</span></a>
+            <div class="nav__label">Сервис</div>
+            <a class="nav__item" href="/#pricing"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg><span class="nav__text">Тарифы</span></a>
+            <a class="nav__item" href="/#reviews"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9z"/></svg><span class="nav__text">Отзывы</span></a>
+            <a class="nav__item" href="#faq"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 015 .5c0 1.5-2.5 2-2.5 3.5"/><path d="M12 17h.01"/></svg><span class="nav__text">Вопросы</span></a>
+            <a class="nav__item" href="/pravila/"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span class="nav__text">Правила</span></a>
+          </nav>
+          <div class="sb__bottom">
+            <div id="site-header-auth" class="acc" aria-live="polite">
+              <div class="acc__title">Первое фото — бесплатно</div>
+              <div class="acc__note">Аккаунт и баланс общие с ботом</div>
+            </div>
+            <a
+              class="b b--y"
+              href="https://t.me/nano_bananaa_ai_bot"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4L3 11l6 2 2 6 3-4 5 4z"/><path d="M9 13l12-9"/></svg>Открыть в Telegram</a
+            >
+            <div class="sb__rating">
+              <span class="stars" aria-hidden="true">★★★★★</span> 5.0 · отзывы
+              из бота
+            </div>
+          </div>
+        </div>
+      </aside>
+      <div class="sb-scrim" data-sb-close></div>
+
+      <main class="main">
+        <div class="col">
+<section class="hero">
+            <span class="eyebrow">Первая генерация — бесплатно</span>
+            <h1 class="h1">Нано Банана — фото по описанию за секунды</h1>
+            <p class="lead">
+              Опишите кадр словами или пришлите своё фото — нейросеть
+              сгенерирует, обработает и оживит его в видео. На русском, без VPN,
+              оплата через СБП.
+            </p>
+          </section>
+
+          <div class="stack">
+            <div
+              id="generator"
+              class="gen-card"
+              role="group"
+              aria-label="Генерация фото по описанию"
+            >
+              <div class="row">
+                <label class="gen-lbl" for="prompt">Что сгенерировать</label>
+                <div class="sp"></div>
+                <button type="button" id="howto-button" class="btn-howto">
+                  Как это работает?
+                </button>
+              </div>
+              <textarea
+                id="prompt"
+                class="gen-input"
+                autocomplete="off"
+                rows="3"
+                required
+                oninput="this.setCustomValidity('')"
+                oninvalid="this.setCustomValidity('Введите текст промпта.')"
+                placeholder="Например: я в деловом костюме на фоне ночного города, мягкий свет"
+              ></textarea>
+
+              <div class="gen-chips" data-chips-mode="photo">
+                <button type="button" class="chip" data-prompt="заменить фон">заменить фон</button>
+                <button type="button" class="chip" data-prompt="портрет в студии">портрет в студии</button>
+                <button type="button" class="chip" data-prompt="стиль 90-х">стиль 90-х</button>
+                <button type="button" class="chip" data-prompt="убери лишнее с фото">убрать лишнее</button>
+                <button type="button" class="chip" data-prompt="смени одежду на">смена одежды</button>
+                <button type="button" class="chip" data-prompt="улучши качество и детализацию фото">апскейл</button>
+              </div>
+
+              <input
+                id="home-images"
+                class="gen-file-input"
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+                multiple
+                aria-label="Выбрать до 4 референс-фото с устройства (PNG, JPEG, WebP)"
               />
-            </svg>
-          </a>
-        </div>
-      </div>
-    </section>
+              <div id="home-preview-grid" class="gen-previews"></div>
 
-    <!-- Боли и ситуация -->
-    <section id="pains" class="pains">
-      <div class="container">
-        <div class="pains-content">
-          <div class="pain-list">
-            <div class="pain-item">
-              <p>
-                Нужны уникальные фото и видео для контента, но нет времени и
-                бюджета на съёмки?
-              </p>
-            </div>
-            <div class="pain-item">
-              <p>
-                Тратишь тысячи рублей на каждую съёмку, а результат не всегда
-                оправдывает ожидания?
-              </p>
-            </div>
-            <div class="pain-item">
-              <p>Нужен контент срочно, но стандартные стоки не подходят?</p>
-            </div>
-          </div>
-
-          <div class="consequences">
-            <h3>Что будет, если оставить как есть?</h3>
-            <ul>
-              <li>
-                Постоянная зависимость от внешних специалистов и их графиков
-              </li>
-              <li>
-                Большие расходы на каждую съёмку — тысячи рублей за один проект
-              </li>
-              <li>Задержки в публикациях из-за ожидания съёмок</li>
-            </ul>
-          </div>
-
-          <div class="solution-intro">
-            <h3>Что же делать?</h3>
-            <p class="solution-text">У нас есть решение!</p>
-            <div class="solution-process">
-              <div class="process-step">
-                <div class="process-icon">📤</div>
-                <h4>Загрузи</h4>
-                <p>Отправь фото в Telegram бот</p>
-              </div>
-              <div class="process-arrow">→</div>
-              <div class="process-step">
-                <div class="process-icon">✍️</div>
-                <h4>Опиши</h4>
-                <p>Напиши промпт с желаемым результатом</p>
-              </div>
-              <div class="process-arrow">→</div>
-              <div class="process-step">
-                <div class="process-icon">⚡</div>
-                <h4>Получи</h4>
-                <p>Готовый контент за секунды</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Выгоды и продукт -->
-    <section class="benefits-product">
-      <div class="container">
-        <div class="product-section">
-          <h2 class="section-title">Как это работает</h2>
-          <div class="product-description">
-            <div class="video-container">
-              <video controls width="600" height="400" loop>
-                <source
-                  src="https://res.cloudinary.com/dpbomqf1s/video/upload/v1774197640/video/Comp_1_3_c8fctp.mp4"
-                  type="video/mp4"
-                />
-                <source
-                  src="https://res.cloudinary.com/dpbomqf1s/video/upload/v1774197640/video/Comp_1_3_c8fctp.mp4"
-                  type="video/webm"
-                />
-                Не удалось загрузить видео
-              </video>
-            </div>
-            <div class="pricing-section">
-              <div class="pricing-header">
-                <h3>Тарифные планы</h3>
-                <div class="pricing-tabs">
-                  <button
-                    type="button"
-                    class="pricing-tab active"
-                    data-tab="pro"
-                  >
-                    Pro
-                  </button>
-                </div>
+              <div class="gen-foot">
+                <button
+                  id="home-attach"
+                  class="icon-btn"
+                  type="button"
+                  title="Прикрепить до 4 референс-фото"
+                  aria-label="Прикрепить до 4 референс-фото для правки по исходнику"
+                >
+                  <img src="/assets/images/attachment.svg" alt="" width="18" height="18" decoding="async" />
+                </button>
+                <span class="gen-meta__files"><span id="home-files-count">0/4</span> фото</span>
+                <button
+                  id="home-photo-transparent"
+                  class="switch"
+                  type="button"
+                  role="switch"
+                  aria-checked="false"
+                >
+                  Прозрачный фон
+                  <span class="switch__track" aria-hidden="true"><span class="switch__thumb"></span></span>
+                </button>
+                <div class="sp"></div>
+                <button id="home-generate" class="gen-submit__btn" type="button">Создать</button>
               </div>
 
-              <div class="pricing-content">
-                <div class="pricing-tab-content active" id="pro-tab">
-                  <div class="pricing-grid">
-                    <div class="pricing-card">
-                      <div class="pricing-badge">⭐ Старт</div>
-                      <div class="pricing-amount">10 генераций</div>
-                      <div class="pricing-price-per">
-                        <strong>9.9 ₽/ген</strong>
-                      </div>
-                      <div class="pricing-price"><strong>99 ₽</strong></div>
-                      <ul class="pricing-features">
-                        <li>Идеально для первого опыта</li>
-                        <li>Попробуйте качество наших моделей</li>
-                      </ul>
-                    </div>
-                    <div class="pricing-card highlight">
-                      <div class="pricing-badge">💎 Профи</div>
-                      <div class="pricing-amount">60 генераций</div>
-                      <div class="pricing-price-per">
-                        <strong>8.3 ₽/ген</strong>
-                      </div>
-                      <div class="pricing-price"><strong>499 ₽</strong></div>
-                      <ul class="pricing-features">
-                        <li><strong>⭐ Популярный выбор</strong></li>
-                        <li>Для регулярного использования</li>
-                      </ul>
-                    </div>
-                    <div class="pricing-card">
-                      <div class="pricing-badge">🚀 Мега</div>
-                      <div class="pricing-amount">130 генераций</div>
-                      <div class="pricing-price-per">
-                        <strong>7.7 ₽/ген</strong>
-                      </div>
-                      <div class="pricing-price"><strong>999 ₽</strong></div>
-                      <ul class="pricing-features">
-                        <li>Для активных создателей</li>
-                        <li>Оптимальное соотношение цены/объёма</li>
-                      </ul>
-                    </div>
-                    <div class="pricing-card">
-                      <div class="pricing-badge">👑 Ультра</div>
-                      <div class="pricing-amount">435 генераций</div>
-                      <div class="pricing-price-per">
-                        <strong>6.9 ₽/ген</strong>
-                      </div>
-                      <div class="pricing-price"><strong>2999 ₽</strong></div>
-                      <ul class="pricing-features">
-                        <li>Для профессионалов и команд</li>
-                        <li><strong>Максимальная экономия</strong></li>
-                      </ul>
-                    </div>
+              <div id="home-gen-progress" class="gen-progress hidden" aria-hidden="true">
+                <span class="gen-progress__bar"></span>
+              </div>
+              <p id="home-gen-status" class="gen-status" aria-live="polite">&nbsp;</p>
+              <div class="promo-pill-row">
+                <button id="promo-pill" class="promo-pill hidden" type="button" hidden>
+                  <span id="promo-pill-code" class="promo-pill__code"></span>
+                  <span id="promo-pill-percent"></span>
+                  <span>скидка</span>
+                </button>
+                <span id="promo-pill-note" class="promo-pill__note" hidden>
+                  <span id="promo-pill-text"></span>
+                  <span id="promo-pill-timer" class="promo-pill__timer"></span>
+                </span>
+              </div>
+            </div>
+
+                <div id="home-result-panel" class="result-panel hidden">
+                  <div class="result-panel__head">
+                    <span class="result-panel__title">Результат готов</span>
+                    <button
+                      type="button"
+                      id="home-result-reset"
+                      class="result-panel__reset"
+                    >
+                      Сбросить
+                    </button>
+                  </div>
+                  <div class="result-panel__media">
+                    <img
+                      id="home-result"
+                      class="hidden"
+                      alt="Сгенерированное изображение"
+                      title="Открыть крупнее"
+                      decoding="async"
+                    />
+                    <video
+                      id="home-result-video"
+                      class="hidden"
+                      controls
+                      playsinline
+                    >
+                      <track
+                        kind="captions"
+                        src="/assets/captions/empty.vtt"
+                        srclang="ru"
+                        label="Без звука"
+                      />
+                    </video>
+                  </div>
+                  <div class="result-panel__actions">
+                    <button
+                      type="button"
+                      id="home-result-animate"
+                      class="btn btn--ghost"
+                    >
+                      Оживить фото
+                    </button>
+                    <a
+                      id="home-result-download"
+                      class="btn btn--primary hidden"
+                      href="#"
+                      download="nano-banana.png"
+                      >Скачать</a
+                    >
+                  </div>
+                  <div class="result-panel__feedback">
+                    <span>Понравилось? Отзыв займёт меньше минуты.</span>
+                    <a
+                      id="home-result-feedback"
+                      class="btn btn--outline btn--sm"
+                      href="/feedback.html"
+                      >Оставить отзыв</a
+                    >
                   </div>
                 </div>
+
+            <p class="proof">
+              <span class="stars" aria-hidden="true">★★★★★</span>
+              <span>5.0 — по отзывам пользователей бота</span>
+              <span aria-hidden="true">·</span>
+              <span>Результат за 20–60 секунд</span>
+            </p>
+          </div>
+
+          <section class="sec" aria-labelledby="tools-title">
+            <h2 id="tools-title" class="h2">Что ещё умеет Нано Банана</h2>
+            <div class="grid grid--4">
+              <a class="card tool" href="/assistant/">
+                <span class="tool__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/><path d="M8.5 11h.01"/><path d="M12 11h.01"/><path d="M15.5 11h.01"/></svg></span>
+                <h3 class="h3">ИИ-помощник</h3>
+                <span class="tool__text">Чат с нейросетью на русском без VPN: ответит, напишет текст и сгенерирует фото по описанию</span>
+                <span class="tool__more">Чат с нейросетью <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+              </a>
+              <a class="card tool" href="/ozhivit-foto/">
+                <span class="tool__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="15" height="14" rx="2"/><path d="M17 10l5-3v10l-5-3"/></svg></span>
+                <h3 class="h3">Оживить фото</h3>
+                <span class="tool__text">Фото превращается в видео на 5 или 10 секунд, со звуком или без</span>
+                <span class="tool__more">Открыть <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+              </a>
+              <a class="card tool" href="/promt-po-foto/">
+                <span class="tool__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V6a2 2 0 012-2h2"/><path d="M16 4h2a2 2 0 012 2v2"/><path d="M20 16v2a2 2 0 01-2 2h-2"/><path d="M8 20H6a2 2 0 01-2-2v-2"/><path d="M8 10h8"/><path d="M8 14h5"/></svg></span>
+                <h3 class="h3">Промт по фото</h3>
+                <span class="tool__text">Загрузите картинку — нейросеть составит подробный промт, чтобы сгенерировать похожее</span>
+                <span class="tool__more">Открыть <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+              </a>
+              <a class="card tool" href="/promty/">
+                <span class="tool__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.65-.75 1.65-1.69 0-.44-.18-.84-.44-1.13-.29-.29-.44-.65-.44-1.13a1.64 1.64 0 011.67-1.67h2C19.49 16.38 22 13.87 22 10.82 21.97 6.01 17.46 2 12 2z"/><circle cx="13.5" cy="6.5" r="1" fill="currentColor"/><circle cx="17.5" cy="10.5" r="1" fill="currentColor"/><circle cx="8.5" cy="7.5" r="1" fill="currentColor"/><circle cx="6.5" cy="12.5" r="1" fill="currentColor"/></svg></span>
+                <h3 class="h3">Промты</h3>
+                <span class="tool__text">Готовые идеи для фото — подставляются в генератор в один клик</span>
+                <span class="tool__more">Открыть <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+              </a>
+            </div>
+          </section>
+
+          <section id="examples" class="sec" aria-labelledby="examples-title">
+            <div class="sec__head">
+              <h2 id="examples-title" class="h2">До и после</h2>
+              <span class="small muted">Слева — что вы присылаете, справа — результат</span>
+            </div>
+            <div class="grid grid--2">
+              <figure class="card ba">
+                <div class="ba__pair">
+                  <div class="ba__tile">
+                    <img src="/assets/images/rules/photo.jpg" width="1000" height="1546" alt="Фото до обработки нейросетью: студийный белый фон" loading="lazy" />
+                    <span class="ba__badge">До</span>
+                  </div>
+                  <div class="ba__tile">
+                    <img src="/assets/images/rules/photo_res_web.jpg" width="1000" height="1546" alt="Фото после обработки нейросетью: фон заменён на солнечный лофт с окном" loading="lazy" />
+                    <span class="ba__badge ba__badge--accent">После</span>
+                  </div>
+                </div>
+                <figcaption class="small muted">Запрос: «добавь красивый фон»</figcaption>
+              </figure>
+              <figure class="card ba">
+                <div class="ba__pair">
+                  <div class="ba__tile">
+                    <img src="/assets/images/rules/video_ref.jpg" width="800" height="1196" alt="Исходное фото для генерации видео" loading="lazy" />
+                    <span class="ba__badge">Фото</span>
+                  </div>
+                  <div class="ba__tile">
+                    <video src="/assets/images/rules/video_ref_res.mp4" poster="/assets/images/rules/video_ref_poster.jpg" autoplay loop muted playsinline preload="none">
+                      <track kind="captions" src="/assets/captions/empty.vtt" srclang="ru" label="Без звука" />
+                    </video>
+                    <span class="ba__badge ba__badge--accent">Видео</span>
+                  </div>
+                </div>
+                <figcaption class="small muted">Запрос: «оживи фото»</figcaption>
+              </figure>
+            </div>
+          </section>
+
+          <section id="pricing" class="sec" aria-labelledby="pricing-title">
+            <div class="sec__head tariffs__head">
+              <div>
+                <h2 id="pricing-title" class="h2">Тарифы</h2>
+                <span class="small muted">Платите за генерации, а не за подписку. Чем больше пакет — тем дешевле генерация.</span>
+              </div>
+              <a class="tariffs__new" href="/assistant/"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg><span><strong>Новое:</strong> ИИ-ассистент</span></a>
+            </div>
+            <div class="tariffs">
+              <article class="card tariff">
+                <div class="tariff__head">
+                  <div class="tariff__row">
+                    <h3 class="tariff__name">Старт</h3>
+                    
+                  </div>
+                  <span class="tariff__sub">Попробовать</span>
+                </div>
+                <div class="tariff__price">
+                  <span class="tariff__sum">99 ₽</span>
+                  <span class="tariff__per">9,9 ₽ за генерацию</span>
+                </div>
+                <ul class="tariff__list">
+                  <li><span class="tariff__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></span><span><strong>10</strong> генераций фото</span></li>
+                  <li><span class="tariff__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></span><span class="tariff__ai"><span><strong>ИИ-ассистент</strong> — пробный</span><span class="tariff__note">~20 запросов разово</span></span></li>
+                </ul>
+                <button type="button" class="b b--lg b--g" data-plan-price="99">Выбрать</button>
+              </article>
+              <article class="card tariff">
+                <div class="tariff__head">
+                  <div class="tariff__row">
+                    <h3 class="tariff__name">Профи</h3>
+                    
+                  </div>
+                  <span class="tariff__disc">−8% за штуку</span>
+                </div>
+                <div class="tariff__price">
+                  <span class="tariff__sum">499 ₽</span>
+                  <span class="tariff__per">9,1 ₽ за генерацию</span>
+                </div>
+                <ul class="tariff__list">
+                  <li><span class="tariff__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></span><span><strong>55</strong> генераций фото</span></li>
+                  <li><span class="tariff__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></span><span class="tariff__ai"><span><strong>ИИ-ассистент</strong> на 30 дней</span><span class="tariff__note">~15 запросов каждые 5 часов</span></span></li>
+                </ul>
+                <button type="button" class="b b--lg b--g" data-plan-price="499">Выбрать</button>
+              </article>
+              <article class="card tariff tariff--hot">
+                <div class="tariff__head">
+                  <div class="tariff__row">
+                    <h3 class="tariff__name">Мега</h3>
+                    <span class="tariff__flag">Выбор большинства</span>
+                  </div>
+                  <span class="tariff__disc">−16% за штуку</span>
+                </div>
+                <div class="tariff__price">
+                  <span class="tariff__sum">999 ₽</span>
+                  <span class="tariff__per">8,3 ₽ за генерацию</span>
+                </div>
+                <ul class="tariff__list">
+                  <li><span class="tariff__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></span><span><strong>120</strong> генераций фото</span></li>
+                  <li><span class="tariff__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></span><span class="tariff__ai"><span><strong>ИИ-ассистент</strong> на 30 дней</span><span class="tariff__note">~30 запросов каждые 5 часов</span></span></li>
+                </ul>
+                <button type="button" class="b b--lg b--y" data-plan-price="999">Выбрать</button>
+              </article>
+              <article class="card tariff tariff--shine">
+                <div class="tariff__head">
+                  <div class="tariff__row">
+                    <h3 class="tariff__name">Ультра</h3>
+                    <span class="tariff__flag">Максимум выгоды</span>
+                  </div>
+                  <span class="tariff__disc">−22% за штуку</span>
+                </div>
+                <div class="tariff__price">
+                  <span class="tariff__sum">1 999 ₽</span>
+                  <span class="tariff__per">7,7 ₽ за генерацию</span>
+                </div>
+                <ul class="tariff__list">
+                  <li><span class="tariff__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></span><span><strong>260</strong> генераций фото</span></li>
+                  <li><span class="tariff__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></span><span class="tariff__ai"><span><strong>ИИ-ассистент</strong> на 30 дней</span><span class="tariff__note">~60 запросов каждые 5 часов</span></span></li>
+                </ul>
+                <button type="button" class="b b--lg b--g" data-plan-price="1999">Выбрать</button>
+              </article>
+            </div>
+          </section>
+
+          <section id="reviews" class="sec" aria-labelledby="reviews-title">
+            <h2 id="reviews-title" class="h2">Что пишут в боте</h2>
+            <div class="grid grid--3">
+              <figure class="card review">
+                <span class="stars" aria-label="Оценка 5 из 5">★★★★★</span>
+                <blockquote>Работать очень удобно, быстро и легко можно воплотить свою идею.</blockquote>
+                <figcaption>@katerina_ex</figcaption>
+              </figure>
+              <figure class="card review">
+                <span class="stars" aria-label="Оценка 5 из 5">★★★★★</span>
+                <blockquote>Это лучшее приложение, которым я когда-либо пользовалась. Фотографии четкие, качество на высоте.</blockquote>
+                <figcaption>@elnaramurat1</figcaption>
+              </figure>
+              <figure class="card review">
+                <span class="stars" aria-label="Оценка 5 из 5">★★★★★</span>
+                <blockquote>Очень хорошие генерации фото, лучшее из приложений, которыми я пользовалась.</blockquote>
+                <figcaption>@Zalina_Tsechoeva</figcaption>
+              </figure>
+              <figure class="card review">
+                <span class="stars" aria-label="Оценка 5 из 5">★★★★★</span>
+                <blockquote>Классно сделал!</blockquote>
+                <figcaption>@ICRAZEI</figcaption>
+              </figure>
+              <figure class="card review">
+                <span class="stars" aria-label="Оценка 5 из 5">★★★★★</span>
+                <blockquote>Очень качественно, спасибо большое!</blockquote>
+                <figcaption>@paipas</figcaption>
+              </figure>
+              <figure class="card review">
+                <span class="stars" aria-label="Оценка 5 из 5">★★★★★</span>
+                <blockquote>Всё. Бот бомба.</blockquote>
+                <figcaption>@oxaechka1</figcaption>
+              </figure>
+            </div>
+          </section>
+
+          <section id="faq" class="sec" aria-labelledby="faq-title">
+            <h2 id="faq-title" class="h2">Частые вопросы</h2>
+            <div class="faq-list" data-faq-accordion>
+              <div class="faq-item is-open">
+                <button type="button" class="faq-item__trigger" aria-expanded="true">
+                  <span>Что такое Нано Банана?</span>
+                  <span class="faq-item__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-item__panel">
+                  <div class="faq-item__content"><p>Нано Банана — сервис для генерации и обработки фото нейросетью: здесь на сайте и в Telegram-боте. Можно создать изображение по тексту, отредактировать своё фото или оживить его в видео.</p></div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <button type="button" class="faq-item__trigger" aria-expanded="false">
+                  <span>Сколько стоит генерация фото в Нано Банана?</span>
+                  <span class="faq-item__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-item__panel">
+                  <div class="faq-item__content"><p>Пакеты начинаются от <strong>99 рублей</strong> за 10 генераций. Есть тарифы на 55, 120 и 260 генераций — чем больше пакет, тем ниже цена за одно фото. Пакеты от 499 рублей открывают ИИ-ассистента на 30 дней. Генерации не сгорают.</p></div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <button type="button" class="faq-item__trigger" aria-expanded="false">
+                  <span>Как сгенерировать фото по описанию бесплатно?</span>
+                  <span class="faq-item__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-item__panel">
+                  <div class="faq-item__content"><p>Войдите через Telegram или Google и опишите текстом, какое изображение хотите получить. Первая генерация — бесплатно, оплата понадобится только для следующих.</p></div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <button type="button" class="faq-item__trigger" aria-expanded="false">
+                  <span>Можно ли редактировать своё фото, а не только генерировать с нуля?</span>
+                  <span class="faq-item__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-item__panel">
+                  <div class="faq-item__content"><p>Да. Прикрепите до 4 своих фото и напишите, что нужно изменить или в каком стиле обработать — нейросеть вернёт отредактированный вариант.</p></div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <button type="button" class="faq-item__trigger" aria-expanded="false">
+                  <span>Можно ли сгенерировать видео, а не только фото?</span>
+                  <span class="faq-item__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-item__panel">
+                  <div class="faq-item__content"><p>Да, в разделе <a href="/ozhivit-foto/">«Оживить фото»</a> фото превращается в видео на 5 или 10 секунд — со звуком или без.</p></div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <button type="button" class="faq-item__trigger" aria-expanded="false">
+                  <span>Работает ли без VPN и на русском?</span>
+                  <span class="faq-item__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-item__panel">
+                  <div class="faq-item__content"><p>Да. Сайт и бот работают из России без VPN, промт можно писать на русском, оплата — через СБП.</p></div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <button type="button" class="faq-item__trigger" aria-expanded="false">
+                  <span>Сколько времени занимает генерация одного фото?</span>
+                  <span class="faq-item__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-item__panel">
+                  <div class="faq-item__content"><p>Обычно результат готов за 20–60 секунд, в редких случаях — до пары минут в зависимости от загруженности сервиса.</p></div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <button type="button" class="faq-item__trigger" aria-expanded="false">
+                  <span>Есть ли условия и реквизиты продавца?</span>
+                  <span class="faq-item__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-item__panel">
+                  <div class="faq-item__content"><p>Да. Условия оказания услуг и реквизиты указаны в <a href="/offer.pdf" target="_blank" rel="noopener noreferrer">публичной оферте</a>. Техподдержка — <a href="https://t.me/NeiroBananchik_Support" target="_blank" rel="noopener noreferrer">в Telegram</a>.</p></div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <button type="button" class="faq-item__trigger" aria-expanded="false">
+                  <span>Какой контент запрещено генерировать?</span>
+                  <span class="faq-item__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-item__panel">
+                  <div class="faq-item__content"><p>Запрещён контент 18+ и материалы, нарушающие законодательство — такие запросы автоматически отклоняются модерацией.</p></div>
+                </div>
               </div>
             </div>
+          </section>
+        </div>
+
+        <footer class="foot">
+          <span>&copy; 2026 Нано Банана</span>
+          <nav aria-label="Документы и поддержка">
+            <a href="/assistant/">ИИ-помощник</a>
+            <a href="/offer.pdf" target="_blank" rel="noopener noreferrer"
+              >Условия и оферта</a
+            >
+            <a
+              href="https://t.me/NeiroBananchik_Support"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Техподдержка</a
+            >
+            <a href="/feedback.html">Оставить отзыв</a>
+          </nav>
+        </footer>
+      </main>
+    </div>
+
+
+    <div id="auth-modal" class="modal hidden" aria-hidden="true">
+      <div class="modal__backdrop" data-close-auth-modal></div>
+      <section
+        class="modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="auth-modal-title"
+      >
+        <button
+          id="auth-modal-close"
+          class="modal__close"
+          type="button"
+          aria-label="Закрыть"
+        >
+          ×
+        </button>
+        <div id="auth-modal-title" class="modal__title">Вход</div>
+        <p class="modal__text">
+          Перед генерацией войдите через Telegram или Google, чтобы мы могли
+          определить ваш аккаунт.
+        </p>
+        <div class="auth-actions">
+          <a id="google-auth-modal-link" class="auth-google" href="#"
+            ><img
+              src="/assets/images/google.svg"
+              width="20"
+              height="20"
+              alt=""
+            />Войти через Google</a
+          >
+          <div id="telegram-auth-widget" class="auth-telegram"></div>
+        </div>
+      </section>
+    </div>
+
+    <div id="billing-modal" class="modal hidden" aria-hidden="true">
+      <div class="modal__backdrop" data-close-billing-modal></div>
+      <section
+        class="modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="billing-modal-title"
+      >
+        <button
+          id="billing-modal-close"
+          class="modal__close"
+          type="button"
+          aria-label="Закрыть"
+        >
+          ×
+        </button>
+        <div id="billing-modal-title" class="modal__title">Пополнение</div>
+        <p class="modal__text">
+          Выберите тариф и нажмите «Оплатить». После успешной оплаты баланс
+          обновится автоматически. Пакеты от 499 ₽ открывают ИИ-ассистента
+          на 30 дней.
+        </p>
+        <div
+          id="billing-error"
+          class="billing-error hidden"
+          role="status"
+        ></div>
+        <div id="billing-loading" class="billing-loading hidden">
+          <span class="inline-loader" aria-hidden="true"></span>
+          Загружаем тарифы…
+        </div>
+        <div id="billing-plans" class="billing-plans"></div>
+        <div class="promo-box">
+          <div class="promo-box__head">
+            <span class="promo-box__title">У меня есть промокод</span>
+            <button
+              id="promo-toggle"
+              class="promo-switch"
+              type="button"
+              role="switch"
+              aria-checked="false"
+              aria-label="У меня есть промокод"
+            >
+              <span class="promo-switch__thumb"></span>
+            </button>
+          </div>
+          <div id="promo-body" class="promo-box__body hidden">
+            <div id="promo-form" class="promo-form">
+              <input
+                id="promo-input"
+                class="promo-input"
+                type="text"
+                placeholder="Введите промокод"
+                autocomplete="off"
+                autocapitalize="characters"
+                spellcheck="false"
+              />
+              <button id="promo-apply" class="promo-apply" type="button">
+                Применить
+              </button>
+            </div>
+            <div id="promo-applied" class="promo-applied hidden">
+              <span id="promo-applied-code" class="promo-chip"></span>
+              <button id="promo-remove" class="promo-remove" type="button">
+                Убрать
+              </button>
+            </div>
+            <p id="promo-message" class="promo-message" role="status">&nbsp;</p>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- Оффер и CTA -->
-    <section class="offer-cta">
-      <div class="container">
-        <div class="benefits-recap">
-          <h3>Что ты получаешь:</h3>
-          <ul>
-            <li>Рабочий контент для бизнеса и карьеры мгновенно, без съёмок</li>
-            <li>Удобство единого инструмента вместо разрозненных сервисов</li>
-            <li>Без риска — пробные версии для тестирования</li>
-            <li>Поддержку сообщества и бота</li>
-            <li>Всё в одном месте</li>
-            <li>Самые выгодные цены за генерации на рынке</li>
-          </ul>
-        </div>
-
-        <div class="offer-block">
-          <h3>Готов попробовать?</h3>
-
-          <a
-            href="https://t.me/nano_bananaa_ai_bot"
-            target="_blank"
-            class="hero-cta-button"
-          >
-            <script
-              async=""
-              src="https://mc.yandex.ru/metrika/tag.js?id=106429810"
-            ></script>
-            <script></script>
-            Перейти в Telegram
-
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              xml:space="preserve"
-              viewBox="0 0 512 512"
-              class="styles_image___fQvm"
+        <div class="billing-total">
+          <span>К оплате</span>
+          <span class="billing-total__amount">
+            <span id="billing-total" class="billing-total__value">—</span>
+            <span id="billing-total-old" class="billing-total__old" hidden
+              >&nbsp;</span
             >
-              <path
-                d="M135.876 280.962 10.105 225.93c-14.174-6.197-13.215-26.621 1.481-31.456L489.845 36.811c12.512-4.121 24.705 7.049 21.691 19.881l-95.571 406.351c-2.854 12.14-17.442 17.091-27.09 9.19l-112.3-91.887z"
-                style="fill: #ebf0fa"
-              ></path>
-              <path
-                d="M396.465 124.56 135.876 280.962l31.885 147.899c2.86 13.269 18.5 19.117 29.364 10.981l79.451-59.497-65.372-53.499 193.495-191.693c5.673-5.621-1.385-14.704-8.234-10.593"
-                style="fill: #bec3d2"
-              ></path>
-              <path
-                d="M178.275 441.894c5.858 2.648 13.037 2.302 18.85-2.052l79.451-59.497-32.686-26.749-32.686-26.749z"
-                style="fill: #afb4c8"
-              ></path>
-            </svg>
-          </a>
+          </span>
         </div>
-      </div>
-    </section>
+        <button
+          id="billing-pay-button"
+          type="button"
+          class="billing-pay-button"
+        >
+          Оплатить
+        </button>
+        <p class="billing-note">
+          Оплачивая, вы принимаете
+          <a href="/offer.pdf" target="_blank" rel="noopener noreferrer"
+            >условия оферты</a
+          >. Пакет генераций не сгорает.
+        </p>
+      </section>
+    </div>
 
-    <footer class="footer">
-      <div class="container">
-        <a href="/offer.pdf" target="_blank"> Условия и оферта</a>
-        <a href="https://t.me/NeiroBananchik_Support" target="_blank">
-          Тех. поддержка
-        </a>
-        <p>&copy; 2026 Nano Banana. Все права защищены.</p>
-      </div>
-    </footer>
+    <div id="howto-modal" class="modal hidden" aria-hidden="true">
+      <div class="modal__backdrop" data-close-howto-modal></div>
+      <section
+        class="modal__dialog modal__dialog--wide"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="howto-modal-title"
+      >
+        <button
+          id="howto-modal-close"
+          class="modal__close"
+          type="button"
+          aria-label="Закрыть"
+        >
+          ×
+        </button>
+        <div id="howto-modal-title" class="modal__title">Как пользоваться</div>
+        <p class="modal__text">
+          Загружаете фото, описываете текстом что хотите получить — нейросеть
+          делает результат.
+        </p>
 
-    <script src="/assets/js/index.js"></script>
+        <div class="howto-card">
+          <div class="howto-card__title">📷 Фото</div>
+          <div class="howto-flow">
+            <figure class="howto-flow__item">
+              <img
+                src="/assets/images/rules/photo.jpg"
+                alt="Исходное фото"
+                loading="lazy"
+              />
+              <figcaption>Загружаете фото</figcaption>
+            </figure>
+            <span class="howto-flow__arrow" aria-hidden="true">→</span>
+            <figure class="howto-flow__item howto-flow__item--result">
+              <img
+                src="/assets/images/rules/photo_res_web.jpg"
+                alt="Результат генерации фото"
+                loading="lazy"
+              />
+              <figcaption>Получаете результат</figcaption>
+            </figure>
+          </div>
+          <p class="howto-card__prompt">Текст: «добавь красивый фон»</p>
+        </div>
+
+        <div class="howto-card">
+          <div class="howto-card__title">🎬 Видео</div>
+          <div class="howto-flow">
+            <figure class="howto-flow__item">
+              <img
+                src="/assets/images/rules/video_ref.jpg"
+                alt="Исходное фото"
+                loading="lazy"
+              />
+              <figcaption>Загружаете фото</figcaption>
+            </figure>
+            <span class="howto-flow__arrow" aria-hidden="true">→</span>
+            <figure class="howto-flow__item howto-flow__item--result">
+              <video
+                id="howto-video-res"
+                data-src="/assets/images/rules/video_ref_res.mp4"
+                poster="/assets/images/rules/video_ref_poster.jpg"
+                preload="none"
+                loop
+                muted
+                playsinline
+              >
+                <track
+                  kind="captions"
+                  src="/assets/captions/empty.vtt"
+                  srclang="ru"
+                  label="Без звука"
+                />
+              </video>
+              <figcaption>Получаете видео</figcaption>
+            </figure>
+          </div>
+          <p class="howto-card__prompt">Текст: «оживи фото»</p>
+        </div>
+      </section>
+    </div>
+
+    <div
+      id="result-modal"
+      class="modal hidden"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Результат генерации"
+    >
+      <div class="modal__backdrop modal__backdrop--dense" data-close-result-modal></div>
+      <section class="modal__dialog modal__dialog--result">
+        <button
+          id="result-modal-close"
+          class="modal__close"
+          type="button"
+          aria-label="Закрыть"
+        >
+          ×
+        </button>
+        <img id="result-modal-image" class="result-modal__image" alt="Результат" />
+        <div class="result-modal__actions">
+          <a id="result-modal-animate" class="btn btn--ghost" href="#"
+            >Оживить фото</a
+          >
+          <a
+            id="result-modal-download"
+            class="btn btn--primary"
+            href="#"
+            download
+            >Скачать</a
+          >
+        </div>
+        <aside
+          id="result-feedback-cta"
+          class="result-feedback"
+          aria-label="Приглашение оставить отзыв"
+        >
+          <p>Понравилась генерация? Поделитесь отзывом — это меньше минуты.</p>
+          <a
+            id="result-feedback-cta-link"
+            class="btn btn--outline btn--sm"
+            href="/feedback.html"
+            >Оставить отзыв</a
+          >
+        </aside>
+      </section>
+    </div>
+
+    <div id="news-modal" class="modal hidden" aria-hidden="true">
+      <div class="modal__backdrop" data-close-news-modal></div>
+      <section
+        class="modal__dialog news-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="news-modal-title"
+      >
+        <button
+          class="modal__close"
+          type="button"
+          data-close-news-modal
+          aria-label="Закрыть"
+        >
+          ×
+        </button>
+        <div id="news-modal-title" class="modal__title">Новости</div>
+        <a
+          id="news-modal-link"
+          class="news-modal__link"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a>
+        <a
+          id="news-modal-image-link"
+          class="news-modal__shot"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="news-modal__scroll"
+            ><img id="news-modal-image" alt="Новый пост в Telegram-канале"
+          /></span></a>
+        <a
+          id="news-modal-cta"
+          class="b b--y news-modal__cta"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Открыть пост в Telegram</a
+        >
+      </section>
+    </div>
+
+    <script src="/assets/js/index.js?v=20261013"></script>
+
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
       (function (m, e, t, r, i, k, a) {
@@ -347,17 +1050,17 @@
             return;
           }
         }
-        (k = e.createElement(t)),
+        ((k = e.createElement(t)),
           (a = e.getElementsByTagName(t)[0]),
           (k.async = 1),
           (k.src = r),
-          a.parentNode.insertBefore(k, a);
+          a.parentNode.insertBefore(k, a));
       })(
         window,
         document,
         "script",
         "https://mc.yandex.ru/metrika/tag.js?id=106429810",
-        "ym"
+        "ym",
       );
       ym(106429810, "init", {
         ssr: true,

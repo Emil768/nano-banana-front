@@ -1,0 +1,291 @@
+<!--meta
+{
+  "path": "/",
+  "nav": "photo",
+  "gen": "photo",
+  "priority": 1.0,
+  "title": "Нано Банана — генерация фото по описанию нейросетью, бесплатно и на русском",
+  "og_title": "Нано Банана — генерация фото по описанию нейросетью",
+  "description": "Создайте фото по описанию или обработайте своё нейросетью: смена фона, стиль, оживление в видео. Без VPN, оплата через СБП, на сайте и в Telegram. Первое фото — бесплатно.",
+  "jsonld": [
+    {
+      "@type": "Organization",
+      "@id": "https://nanobananaa.ru/#organization",
+      "name": "Нано Банана",
+      "alternateName": "Nano Banana",
+      "url": "https://nanobananaa.ru/",
+      "logo": "https://nanobananaa.ru/favicon-120.png",
+      "sameAs": ["https://t.me/nano_bananaa_ai_bot"],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "url": "https://t.me/NeiroBananchik_Support",
+        "availableLanguage": ["Russian"]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://nanobananaa.ru/#website",
+      "url": "https://nanobananaa.ru/",
+      "name": "Нано Банана",
+      "publisher": { "@id": "https://nanobananaa.ru/#organization" },
+      "inLanguage": "ru-RU"
+    },
+    {
+      "@type": "Product",
+      "@id": "https://nanobananaa.ru/#product",
+      "name": "Генерация фото по описанию и обработка своих фото нейросетью — Нано Банана",
+      "description": "Сгенерируйте фото по описанию или обработайте своё нейросетью на сайте или в Telegram-боте Нано Банана. Первая генерация — бесплатно.",
+      "image": "https://nanobananaa.ru/assets/images/nano-banana3.webp",
+      "brand": { "@type": "Brand", "name": "Нано Банана" },
+      "sku": "nano-banana-start",
+      "category": "Онлайн-сервис генерации изображений",
+      "offers": {
+        "@type": "AggregateOffer",
+        "url": "https://nanobananaa.ru/",
+        "priceCurrency": "RUB",
+        "lowPrice": "{{price_min}}",
+        "highPrice": "{{price_max}}",
+        "offerCount": "{{plans_count}}",
+        "availability": "https://schema.org/InStock",
+        "seller": { "@id": "https://nanobananaa.ru/#organization" }
+      }
+    }
+  ],
+  "faq": [
+    ["Что такое Нано Банана?", "Нано Банана — сервис для генерации и обработки фото нейросетью: здесь на сайте и в Telegram-боте. Можно создать изображение по тексту, отредактировать своё фото или оживить его в видео."],
+    ["Сколько стоит генерация фото в Нано Банана?", "Пакеты начинаются от <strong>99 рублей</strong> за 10 генераций. Есть тарифы на {{gens_list}} генераций — чем больше пакет, тем ниже цена за одно фото. Пакеты от {{price_from}} рублей открывают ИИ-ассистента на {{tier_days}} дней. Генерации не сгорают."],
+    ["Как сгенерировать фото по описанию бесплатно?", "Войдите через Telegram или Google и опишите текстом, какое изображение хотите получить. Первая генерация — бесплатно, оплата понадобится только для следующих."],
+    ["Можно ли редактировать своё фото, а не только генерировать с нуля?", "Да. Прикрепите до 4 своих фото и напишите, что нужно изменить или в каком стиле обработать — нейросеть вернёт отредактированный вариант."],
+    ["Можно ли сгенерировать видео, а не только фото?", "Да, в разделе <a href=\"/ozhivit-foto/\">«Оживить фото»</a> фото превращается в видео на 5 или 10 секунд — со звуком или без."],
+    ["Работает ли без VPN и на русском?", "Да. Сайт и бот работают из России без VPN, промт можно писать на русском, оплата — через СБП."],
+    ["Сколько времени занимает генерация одного фото?", "Обычно результат готов за 20–60 секунд, в редких случаях — до пары минут в зависимости от загруженности сервиса."],
+    ["Есть ли условия и реквизиты продавца?", "Да. Условия оказания услуг и реквизиты указаны в <a href=\"/offer.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">публичной оферте</a>. Техподдержка — <a href=\"https://t.me/NeiroBananchik_Support\" target=\"_blank\" rel=\"noopener noreferrer\">в Telegram</a>."],
+    ["Какой контент запрещено генерировать?", "Запрещён контент 18+ и материалы, нарушающие законодательство — такие запросы автоматически отклоняются модерацией."]
+  ]
+}
+-->
+          <section class="hero">
+            <span class="eyebrow">Первая генерация — бесплатно</span>
+            <h1 class="h1">Нано Банана — фото по описанию за секунды</h1>
+            <p class="lead">
+              Опишите кадр словами или пришлите своё фото — нейросеть
+              сгенерирует, обработает и оживит его в видео. На русском, без VPN,
+              оплата через СБП.
+            </p>
+          </section>
+
+          <div class="stack">
+            <div
+              id="generator"
+              class="gen-card"
+              role="group"
+              aria-label="Генерация фото по описанию"
+            >
+              <div class="row">
+                <label class="gen-lbl" for="prompt">Что сгенерировать</label>
+                <div class="sp"></div>
+                <button type="button" id="howto-button" class="btn-howto">
+                  Как это работает?
+                </button>
+              </div>
+              <textarea
+                id="prompt"
+                class="gen-input"
+                autocomplete="off"
+                rows="3"
+                required
+                oninput="this.setCustomValidity('')"
+                oninvalid="this.setCustomValidity('Введите текст промпта.')"
+                placeholder="Например: я в деловом костюме на фоне ночного города, мягкий свет"
+              ></textarea>
+
+              <div class="gen-chips" data-chips-mode="photo">
+                <button type="button" class="chip" data-prompt="заменить фон">заменить фон</button>
+                <button type="button" class="chip" data-prompt="портрет в студии">портрет в студии</button>
+                <button type="button" class="chip" data-prompt="стиль 90-х">стиль 90-х</button>
+                <button type="button" class="chip" data-prompt="убери лишнее с фото">убрать лишнее</button>
+                <button type="button" class="chip" data-prompt="смени одежду на">смена одежды</button>
+                <button type="button" class="chip" data-prompt="улучши качество и детализацию фото">апскейл</button>
+              </div>
+
+              <input
+                id="home-images"
+                class="gen-file-input"
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+                multiple
+                aria-label="Выбрать до 4 референс-фото с устройства (PNG, JPEG, WebP)"
+              />
+              <div id="home-preview-grid" class="gen-previews"></div>
+
+              <div class="gen-foot">
+                <button
+                  id="home-attach"
+                  class="icon-btn"
+                  type="button"
+                  title="Прикрепить до 4 референс-фото"
+                  aria-label="Прикрепить до 4 референс-фото для правки по исходнику"
+                >
+                  <img src="/assets/images/attachment.svg" alt="" width="18" height="18" decoding="async" />
+                </button>
+                <span class="gen-meta__files"><span id="home-files-count">0/4</span> фото</span>
+                <button
+                  id="home-photo-transparent"
+                  class="switch"
+                  type="button"
+                  role="switch"
+                  aria-checked="false"
+                >
+                  Прозрачный фон
+                  <span class="switch__track" aria-hidden="true"><span class="switch__thumb"></span></span>
+                </button>
+                <div class="sp"></div>
+                <button id="home-generate" class="gen-submit__btn" type="button">Создать</button>
+              </div>
+
+              <div id="home-gen-progress" class="gen-progress hidden" aria-hidden="true">
+                <span class="gen-progress__bar"></span>
+              </div>
+              <p id="home-gen-status" class="gen-status" aria-live="polite">&nbsp;</p>
+              <div class="promo-pill-row">
+                <button id="promo-pill" class="promo-pill hidden" type="button" hidden>
+                  <span id="promo-pill-code" class="promo-pill__code"></span>
+                  <span id="promo-pill-percent"></span>
+                  <span>скидка</span>
+                </button>
+                <span id="promo-pill-note" class="promo-pill__note" hidden>
+                  <span id="promo-pill-text"></span>
+                  <span id="promo-pill-timer" class="promo-pill__timer"></span>
+                </span>
+              </div>
+            </div>
+
+{{result_panel}}
+
+            <p class="proof">
+              <span class="stars" aria-hidden="true">★★★★★</span>
+              <span>5.0 — по отзывам пользователей бота</span>
+              <span aria-hidden="true">·</span>
+              <span>Результат за 20–60 секунд</span>
+            </p>
+          </div>
+
+          <section class="sec" aria-labelledby="tools-title">
+            <h2 id="tools-title" class="h2">Что ещё умеет Нано Банана</h2>
+            <div class="grid grid--4">
+              <a class="card tool" href="/assistant/">
+                <span class="tool__ic">{{i_chat}}</span>
+                <h3 class="h3">ИИ-помощник</h3>
+                <span class="tool__text">Чат с нейросетью на русском без VPN: ответит, напишет текст и сгенерирует фото по описанию</span>
+                <span class="tool__more">Чат с нейросетью {{i_arrow}}</span>
+              </a>
+              <a class="card tool" href="/ozhivit-foto/">
+                <span class="tool__ic">{{i_video}}</span>
+                <h3 class="h3">Оживить фото</h3>
+                <span class="tool__text">Фото превращается в видео на 5 или 10 секунд, со звуком или без</span>
+                <span class="tool__more">Открыть {{i_arrow}}</span>
+              </a>
+              <a class="card tool" href="/promt-po-foto/">
+                <span class="tool__ic">{{i_scan}}</span>
+                <h3 class="h3">Промт по фото</h3>
+                <span class="tool__text">Загрузите картинку — нейросеть составит подробный промт, чтобы сгенерировать похожее</span>
+                <span class="tool__more">Открыть {{i_arrow}}</span>
+              </a>
+              <a class="card tool" href="/promty/">
+                <span class="tool__ic">{{i_palette}}</span>
+                <h3 class="h3">Промты</h3>
+                <span class="tool__text">Готовые идеи для фото — подставляются в генератор в один клик</span>
+                <span class="tool__more">Открыть {{i_arrow}}</span>
+              </a>
+            </div>
+          </section>
+
+          <section id="examples" class="sec" aria-labelledby="examples-title">
+            <div class="sec__head">
+              <h2 id="examples-title" class="h2">До и после</h2>
+              <span class="small muted">Слева — что вы присылаете, справа — результат</span>
+            </div>
+            <div class="grid grid--2">
+              <figure class="card ba">
+                <div class="ba__pair">
+                  <div class="ba__tile">
+                    <img src="/assets/images/rules/photo.jpg" width="1000" height="1546" alt="Фото до обработки нейросетью: студийный белый фон" loading="lazy" />
+                    <span class="ba__badge">До</span>
+                  </div>
+                  <div class="ba__tile">
+                    <img src="/assets/images/rules/photo_res_web.jpg" width="1000" height="1546" alt="Фото после обработки нейросетью: фон заменён на солнечный лофт с окном" loading="lazy" />
+                    <span class="ba__badge ba__badge--accent">После</span>
+                  </div>
+                </div>
+                <figcaption class="small muted">Запрос: «добавь красивый фон»</figcaption>
+              </figure>
+              <figure class="card ba">
+                <div class="ba__pair">
+                  <div class="ba__tile">
+                    <img src="/assets/images/rules/video_ref.jpg" width="800" height="1196" alt="Исходное фото для генерации видео" loading="lazy" />
+                    <span class="ba__badge">Фото</span>
+                  </div>
+                  <div class="ba__tile">
+                    <video src="/assets/images/rules/video_ref_res.mp4" poster="/assets/images/rules/video_ref_poster.jpg" autoplay loop muted playsinline preload="none">
+                      <track kind="captions" src="/assets/captions/empty.vtt" srclang="ru" label="Без звука" />
+                    </video>
+                    <span class="ba__badge ba__badge--accent">Видео</span>
+                  </div>
+                </div>
+                <figcaption class="small muted">Запрос: «оживи фото»</figcaption>
+              </figure>
+            </div>
+          </section>
+
+          <section id="pricing" class="sec" aria-labelledby="pricing-title">
+            <div class="sec__head tariffs__head">
+              <div>
+                <h2 id="pricing-title" class="h2">Тарифы</h2>
+                <span class="small muted">Платите за генерации, а не за подписку. Чем больше пакет — тем дешевле генерация.</span>
+              </div>
+              <a class="tariffs__new" href="/assistant/">{{i_sparkle}}<span><strong>Новое:</strong> ИИ-ассистент</span></a>
+            </div>
+            <div class="tariffs">
+{{tariff_cards}}
+            </div>
+          </section>
+
+          <section id="reviews" class="sec" aria-labelledby="reviews-title">
+            <h2 id="reviews-title" class="h2">Что пишут в боте</h2>
+            <div class="grid grid--3">
+              <figure class="card review">
+                <span class="stars" aria-label="Оценка 5 из 5">★★★★★</span>
+                <blockquote>Работать очень удобно, быстро и легко можно воплотить свою идею.</blockquote>
+                <figcaption>@katerina_ex</figcaption>
+              </figure>
+              <figure class="card review">
+                <span class="stars" aria-label="Оценка 5 из 5">★★★★★</span>
+                <blockquote>Это лучшее приложение, которым я когда-либо пользовалась. Фотографии четкие, качество на высоте.</blockquote>
+                <figcaption>@elnaramurat1</figcaption>
+              </figure>
+              <figure class="card review">
+                <span class="stars" aria-label="Оценка 5 из 5">★★★★★</span>
+                <blockquote>Очень хорошие генерации фото, лучшее из приложений, которыми я пользовалась.</blockquote>
+                <figcaption>@Zalina_Tsechoeva</figcaption>
+              </figure>
+              <figure class="card review">
+                <span class="stars" aria-label="Оценка 5 из 5">★★★★★</span>
+                <blockquote>Классно сделал!</blockquote>
+                <figcaption>@ICRAZEI</figcaption>
+              </figure>
+              <figure class="card review">
+                <span class="stars" aria-label="Оценка 5 из 5">★★★★★</span>
+                <blockquote>Очень качественно, спасибо большое!</blockquote>
+                <figcaption>@paipas</figcaption>
+              </figure>
+              <figure class="card review">
+                <span class="stars" aria-label="Оценка 5 из 5">★★★★★</span>
+                <blockquote>Всё. Бот бомба.</blockquote>
+                <figcaption>@oxaechka1</figcaption>
+              </figure>
+            </div>
+          </section>
+
+{{faq}}
+

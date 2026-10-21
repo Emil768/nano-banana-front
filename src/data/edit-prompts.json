@@ -1,0 +1,330 @@
+{
+  "categories": [
+    {
+      "id": "fon",
+      "name": "Фон"
+    },
+    {
+      "id": "portret",
+      "name": "Портрет и лицо"
+    },
+    {
+      "id": "obraz",
+      "name": "Одежда и образ"
+    },
+    {
+      "id": "udalit",
+      "name": "Удалить и восстановить"
+    },
+    {
+      "id": "svet",
+      "name": "Свет, цвет и качество"
+    },
+    {
+      "id": "kadr",
+      "name": "Кадр и стиль"
+    }
+  ],
+  "prompts": [
+    {
+      "id": 1,
+      "slug": "zamenit-fon",
+      "category": "fon",
+      "title": "Заменить фон",
+      "description": "Меняет только фон, человек остаётся как был: лицо, поза, одежда.",
+      "images": 1,
+      "prompt_en": "Replace only the background with [a modern hotel lobby at golden hour]. Keep the person exactly the same: face, facial features, skin tone, age, hairstyle, expression, pose and clothing. Match the lighting direction and color of the new background, add realistic shadows and clean edges around the hair. Do not change the aspect ratio or framing.",
+      "prompt_ru": "Замени только фон на [современное лобби отеля в золотой час]. Человека оставь точно таким же: лицо, черты лица, тон кожи, возраст, причёску, выражение, позу и одежду. Подстрой свет и цвет под новый фон, добавь реалистичные тени и чистые края вокруг волос. Не меняй пропорции и кадр."
+    },
+    {
+      "id": 2,
+      "slug": "perenesti-fon-s-drugogo-foto",
+      "category": "fon",
+      "title": "Перенести фон с другого фото",
+      "description": "Загрузите 2 фото: первое — вы, второе — фон, который нужно перенести.",
+      "images": 2,
+      "prompt_en": "Use image 1 only for the person and image 2 only for the background. Place the person from image 1 into the scene from image 2. Keep the person's face, body proportions, pose and clothing unchanged. Match the perspective, lighting, shadows and color of image 2 so it looks like one real photo. Keep the aspect ratio of image 1.",
+      "prompt_ru": "Используй фото 1 только для человека, а фото 2 только для фона. Перенеси человека с фото 1 в сцену с фото 2. Лицо, пропорции тела, позу и одежду не меняй. Подстрой перспективу, свет, тени и цвет под фото 2, чтобы всё выглядело как один настоящий снимок. Сохрани пропорции фото 1."
+    },
+    {
+      "id": 3,
+      "slug": "belyj-studijnyj-fon",
+      "category": "fon",
+      "title": "Белый студийный фон",
+      "description": "Чистый белый фон с мягкой тенью — для товаров, маркетплейсов и документов.",
+      "images": 1,
+      "prompt_en": "Isolate the main subject and place it on a seamless pure white studio background. Keep the exact shape, proportions, colors, materials, logos and text on the subject. Add one soft natural shadow underneath, no props, no reflections. Do not crop the subject and keep the original aspect ratio.",
+      "prompt_ru": "Вырежи главный объект и помести его на чистый белый студийный фон. Точно сохрани форму, пропорции, цвета, материалы, логотипы и надписи. Добавь одну мягкую естественную тень снизу, без лишних предметов и отражений. Не обрезай объект и сохрани пропорции кадра."
+    },
+    {
+      "id": 4,
+      "slug": "razmyt-fon-kak-na-portretnik",
+      "category": "fon",
+      "title": "Размыть фон как на портретник",
+      "description": "Эффект дорогого объектива: человек в резкости, фон мягко размыт.",
+      "images": 1,
+      "prompt_en": "Add a natural background blur like an 85mm f/1.8 portrait lens. Keep the person fully sharp, with clean transitions around the hair and shoulders. Do not change the person, the colors or the framing — only the depth of field of the background.",
+      "prompt_ru": "Добавь естественное размытие фона, как у портретного объектива 85 мм f/1.8. Человек должен остаться полностью резким, с аккуратными краями вокруг волос и плеч. Не меняй человека, цвета и кадр — только глубину резкости фона."
+    },
+    {
+      "id": 5,
+      "slug": "zamenit-nebo",
+      "category": "fon",
+      "title": "Заменить небо",
+      "description": "Серое или пересвеченное небо → красивое закатное или ясное.",
+      "images": 1,
+      "prompt_en": "Replace only the sky with [a soft sunset sky with warm clouds]. Keep the horizon, buildings, trees and people unchanged. Match the new light on the scene so the colors and shadows look natural. Keep the original aspect ratio.",
+      "prompt_ru": "Замени только небо на [мягкий закат с тёплыми облаками]. Линию горизонта, здания, деревья и людей не меняй. Подстрой свет на всей сцене под новое небо, чтобы цвета и тени выглядели естественно. Сохрани пропорции кадра."
+    },
+    {
+      "id": 6,
+      "slug": "estestvennaya-retush",
+      "category": "portret",
+      "title": "Естественная ретушь",
+      "description": "Убирает прыщики и покраснения, но без «пластиковой» кожи и фильтров.",
+      "images": 1,
+      "prompt_en": "Retouch this portrait naturally. Remove temporary blemishes, redness and under-eye shadows, but keep the real skin texture, pores, freckles and natural asymmetry. Do not change the face shape, eyes, nose, lips, age or expression. No beauty filter, no plastic skin.",
+      "prompt_ru": "Сделай естественную ретушь портрета. Убери временные прыщики, покраснения и тени под глазами, но сохрани настоящую текстуру кожи, поры, веснушки и естественную асимметрию. Не меняй форму лица, глаза, нос, губы, возраст и выражение. Без бьюти-фильтра и пластиковой кожи."
+    },
+    {
+      "id": 7,
+      "slug": "delovoj-portret-dlya-rezyume",
+      "category": "portret",
+      "title": "Деловой портрет для резюме",
+      "description": "Из обычного селфи — аккуратное фото для резюме, LinkedIn или hh.ru.",
+      "images": 1,
+      "prompt_en": "Turn this photo into a professional headshot. Keep the same face, facial features, skin tone, age and hairstyle. Change the clothing to [a navy blazer and white shirt], use a neutral light gray background and soft studio lighting. Head and shoulders framing, looking at the camera, natural confident expression.",
+      "prompt_ru": "Сделай из этого фото деловой портрет. Сохрани то же лицо, черты лица, тон кожи, возраст и причёску. Замени одежду на [тёмно-синий пиджак и белую рубашку], фон — нейтральный светло-серый, мягкий студийный свет. Кадр по плечи, взгляд в камеру, естественное уверенное выражение."
+    },
+    {
+      "id": 8,
+      "slug": "otkryt-zakrytye-glaza",
+      "category": "portret",
+      "title": "Открыть закрытые глаза",
+      "description": "Моргнули на удачном кадре — нейросеть откроет глаза.",
+      "images": 1,
+      "prompt_en": "Open only the person's closed eyes naturally. Keep the eye shape, eye color and eyelids consistent with the person's face, looking [at the camera]. Do not change anything else in the photo.",
+      "prompt_ru": "Открой только закрытые глаза человека, естественно. Форма глаз, цвет и веки должны соответствовать его лицу, взгляд — [в камеру]. Больше ничего на фото не меняй."
+    },
+    {
+      "id": 9,
+      "slug": "ubrat-bliki-s-ochkov",
+      "category": "portret",
+      "title": "Убрать блики с очков",
+      "description": "Отражения в линзах мешают видеть глаза — убираем.",
+      "images": 1,
+      "prompt_en": "Remove only the glare and reflections on the eyeglass lenses so the eyes are clearly visible. Keep the glasses frame, eye shape, eye color and gaze direction unchanged. Do not change anything else.",
+      "prompt_ru": "Убери только блики и отражения на линзах очков, чтобы глаза было хорошо видно. Оправу, форму глаз, цвет и направление взгляда не меняй. Больше ничего не трогай."
+    },
+    {
+      "id": 10,
+      "slug": "dobavit-legkuyu-ulybku",
+      "category": "portret",
+      "title": "Добавить лёгкую улыбку",
+      "description": "Серьёзное лицо → естественная улыбка, человек остаётся узнаваемым.",
+      "images": 1,
+      "prompt_en": "Change only the facial expression to a natural, subtle smile. Keep the same face, identity, eyes, teeth shape, age and head position. Everything else in the photo stays exactly the same.",
+      "prompt_ru": "Измени только выражение лица на естественную лёгкую улыбку. Сохрани то же лицо, узнаваемость, глаза, форму зубов, возраст и положение головы. Всё остальное на фото оставь без изменений."
+    },
+    {
+      "id": 11,
+      "slug": "smenit-odezhdu",
+      "category": "obraz",
+      "title": "Сменить одежду",
+      "description": "Примерить другой наряд без похода в магазин.",
+      "images": 1,
+      "prompt_en": "Change only the clothing to [a black leather jacket, white t-shirt and blue jeans]. Keep the person's face, hair, body shape, pose and the background unchanged. The new clothes must fit the body and pose with realistic folds and lighting.",
+      "prompt_ru": "Замени только одежду на [чёрную кожаную куртку, белую футболку и синие джинсы]. Лицо, волосы, фигуру, позу и фон не меняй. Новая одежда должна сидеть по фигуре и позе, с реалистичными складками и светом."
+    },
+    {
+      "id": 12,
+      "slug": "primerit-odezhdu-s-drugogo-foto",
+      "category": "obraz",
+      "title": "Примерить одежду с другого фото",
+      "description": "Загрузите 2 фото: себя и вещь (из магазина, маркетплейса, с другого человека).",
+      "images": 2,
+      "prompt_en": "Use image 1 for the person and image 2 only for the clothing item. Dress the person from image 1 in the [jacket] from image 2, keeping its exact color, pattern, material and details. Keep the person's face, body shape, pose and background from image 1 unchanged.",
+      "prompt_ru": "Используй фото 1 для человека, а фото 2 только для вещи. Одень человека с фото 1 в [куртку] с фото 2, точно сохранив её цвет, принт, материал и детали. Лицо, фигуру, позу и фон с фото 1 не меняй."
+    },
+    {
+      "id": 13,
+      "slug": "smenit-prichesku-ili-cvet-volos",
+      "category": "obraz",
+      "title": "Сменить причёску или цвет волос",
+      "description": "Проверить новую стрижку или цвет до похода в салон.",
+      "images": 1,
+      "prompt_en": "Change only the hair to [a shoulder-length bob in warm copper color]. Keep the face, facial features, skin tone, expression and everything else unchanged. Make the hair look natural with realistic texture and lighting.",
+      "prompt_ru": "Измени только волосы на [каре до плеч тёплого медного цвета]. Лицо, черты лица, тон кожи, выражение и всё остальное не меняй. Волосы должны выглядеть естественно, с реалистичной текстурой и светом."
+    },
+    {
+      "id": 14,
+      "slug": "smenit-cvet-odezhdy",
+      "category": "obraz",
+      "title": "Сменить цвет одежды",
+      "description": "Та же вещь, другой цвет — удобно для каталога и примерки.",
+      "images": 1,
+      "prompt_en": "Change only the color of the [dress] to [emerald green]. Keep the fabric texture, folds, shadows, shape and all other parts of the photo exactly the same.",
+      "prompt_ru": "Измени только цвет [платья] на [изумрудно-зелёный]. Текстуру ткани, складки, тени, фасон и всё остальное на фото оставь точно таким же."
+    },
+    {
+      "id": 15,
+      "slug": "dobavit-aksessuar",
+      "category": "obraz",
+      "title": "Добавить аксессуар",
+      "description": "Очки, шапка, украшения, часы — дорисовать реалистично.",
+      "images": 1,
+      "prompt_en": "Add [black sunglasses] to the person. Keep the face, hair, pose and background unchanged. The accessory must fit naturally with correct size, perspective, shadows and reflections.",
+      "prompt_ru": "Добавь человеку [чёрные солнцезащитные очки]. Лицо, волосы, позу и фон не меняй. Аксессуар должен сидеть естественно: правильный размер, перспектива, тени и отражения."
+    },
+    {
+      "id": 16,
+      "slug": "udalit-lishnij-predmet",
+      "category": "udalit",
+      "title": "Удалить лишний предмет",
+      "description": "Уберите мусор, провода, сумку, знак — что угодно из кадра.",
+      "images": 1,
+      "prompt_en": "Remove only the [red bag on the floor on the left]. Fill the area naturally so it matches the surrounding surface, texture and lighting. Do not change anything else in the photo.",
+      "prompt_ru": "Удали только [красную сумку на полу слева]. Заполни это место естественно, чтобы оно совпадало с поверхностью, текстурой и светом вокруг. Больше ничего на фото не меняй."
+    },
+    {
+      "id": 17,
+      "slug": "ubrat-lyudej-s-zadnego-plana",
+      "category": "udalit",
+      "title": "Убрать людей с заднего плана",
+      "description": "Туристы и случайные прохожие в кадре — убираем, вы остаётесь.",
+      "images": 1,
+      "prompt_en": "Remove all people in the background, keep only [the person in the foreground]. Rebuild the background naturally where they were. Do not change the main person, the scene or the framing.",
+      "prompt_ru": "Убери всех людей на заднем плане, оставь только [человека на переднем плане]. Естественно восстанови фон на их месте. Главного человека, сцену и кадр не меняй."
+    },
+    {
+      "id": 18,
+      "slug": "vosstanovit-staroe-foto",
+      "category": "udalit",
+      "title": "Восстановить старое фото",
+      "description": "Царапины, пятна, заломы, выцветание — возвращаем снимку жизнь.",
+      "images": 1,
+      "prompt_en": "Restore this old photo. Remove scratches, dust, stains, creases and noise, fix faded contrast and sharpen details. Keep every person's face, identity, age and expression exactly as they are. Keep the original period look and framing, do not add new details.",
+      "prompt_ru": "Восстанови это старое фото. Убери царапины, пыль, пятна, заломы и шум, верни контраст и чёткость. Лица, узнаваемость, возраст и выражения всех людей сохрани точно такими же. Оставь атмосферу того времени и кадр, ничего нового не дорисовывай."
+    },
+    {
+      "id": 19,
+      "slug": "raskrasit-cherno-beloe-foto",
+      "category": "udalit",
+      "title": "Раскрасить чёрно-белое фото",
+      "description": "Старое ч/б фото в естественных цветах.",
+      "images": 1,
+      "prompt_en": "Colorize this black and white photo with natural, realistic colors appropriate for [the 1970s]. Keep all faces, details, composition and framing unchanged. Use believable skin tones and avoid oversaturated colors.",
+      "prompt_ru": "Раскрась это чёрно-белое фото в естественные реалистичные цвета, характерные для [1970-х]. Лица, детали, композицию и кадр не меняй. Тон кожи — правдоподобный, без кислотных цветов."
+    },
+    {
+      "id": 20,
+      "slug": "ubrat-provoda-i-musor",
+      "category": "udalit",
+      "title": "Убрать провода и мусор",
+      "description": "Провода, столбы, мусор на улице — чистый кадр для соцсетей.",
+      "images": 1,
+      "prompt_en": "Remove all power lines, wires and litter from the photo. Rebuild the sky, walls and ground naturally in those areas. Keep the people, buildings, colors and framing unchanged.",
+      "prompt_ru": "Удали с фото все провода, линии электропередач и мусор. Естественно восстанови небо, стены и землю на их месте. Людей, здания, цвета и кадр не меняй."
+    },
+    {
+      "id": 21,
+      "slug": "ispravit-osveschenie",
+      "category": "svet",
+      "title": "Исправить освещение",
+      "description": "Тёмное лицо, жёсткие тени, жёлтый свет — делаем как в студии.",
+      "images": 1,
+      "prompt_en": "Improve only the lighting: add soft, even light on the face like from a large window, soften harsh shadows and fix the white balance. Keep the person, colors of clothing, background and framing the same.",
+      "prompt_ru": "Улучши только освещение: добавь мягкий ровный свет на лицо, как от большого окна, смягчи жёсткие тени и исправь баланс белого. Человека, цвета одежды, фон и кадр оставь прежними."
+    },
+    {
+      "id": 22,
+      "slug": "osvetlit-temnoe-foto",
+      "category": "svet",
+      "title": "Осветлить тёмное фото",
+      "description": "Снимок в темноте на телефон → видно детали, но атмосфера остаётся.",
+      "images": 1,
+      "prompt_en": "Brighten this low-light photo: reveal details in the shadows, reduce noise and keep colors natural. Keep the night atmosphere, the people and the scene unchanged. Do not make it look like daytime.",
+      "prompt_ru": "Осветли это тёмное фото: проявить детали в тенях, убрать шум, цвета оставить естественными. Сохрани ночную атмосферу, людей и сцену без изменений. Не превращай в дневное фото."
+    },
+    {
+      "id": 23,
+      "slug": "povysit-chetkost-i-kachestvo",
+      "category": "svet",
+      "title": "Повысить чёткость и качество",
+      "description": "Размытое или маленькое фото → резче и детальнее.",
+      "images": 1,
+      "prompt_en": "Enhance this photo: increase sharpness and fine detail, remove blur, noise and compression artifacts. Keep the faces, colors, composition and aspect ratio exactly the same. Do not add or change any objects.",
+      "prompt_ru": "Улучши качество фото: повысь резкость и детализацию, убери размытие, шум и артефакты сжатия. Лица, цвета, композицию и пропорции оставь точно такими же. Ничего не добавляй и не меняй."
+    },
+    {
+      "id": 24,
+      "slug": "cveta-kak-na-referense",
+      "category": "svet",
+      "title": "Цвета как на референсе",
+      "description": "Загрузите 2 фото: ваше и то, чьи цвета нравятся.",
+      "images": 2,
+      "prompt_en": "Use image 1 as the photo to edit and image 2 only as a color reference. Apply the color grading, tones and mood of image 2 to image 1. Do not copy any objects, people or composition from image 2. Keep everything in image 1 the same except colors.",
+      "prompt_ru": "Используй фото 1 как фото для обработки, а фото 2 только как референс по цвету. Перенеси цветокоррекцию, тона и настроение с фото 2 на фото 1. Не копируй объекты, людей и композицию с фото 2. На фото 1 меняются только цвета."
+    },
+    {
+      "id": 25,
+      "slug": "den-vecher",
+      "category": "svet",
+      "title": "День → вечер",
+      "description": "Дневное фото превращается в закат или вечер с огнями.",
+      "images": 1,
+      "prompt_en": "Change the time of day to [sunset / evening blue hour]: warm low sunlight or deep blue sky with glowing street lights and windows. Keep the buildings, people, composition and framing unchanged. Realistic, no fantasy colors.",
+      "prompt_ru": "Смени время суток на [закат / вечерний синий час]: тёплое низкое солнце или глубокое синее небо со светящимися фонарями и окнами. Здания, людей, композицию и кадр не меняй. Реалистично, без фантастических цветов."
+    },
+    {
+      "id": 26,
+      "slug": "sohranit-proporcii-i-kadr",
+      "category": "kadr",
+      "title": "Сохранить пропорции и кадр",
+      "description": "Добавьте в конец любого промта, чтобы нейросеть не обрезала и не растягивала фото.",
+      "images": 1,
+      "prompt_en": "Keep the original aspect ratio, resolution and framing. Do not crop, stretch, zoom or reposition anything. Change only what is described above.",
+      "prompt_ru": "Сохрани исходные пропорции, разрешение и кадр. Не обрезай, не растягивай, не приближай и ничего не сдвигай. Меняй только то, что описано выше."
+    },
+    {
+      "id": 27,
+      "slug": "rasshirit-kadr",
+      "category": "kadr",
+      "title": "Расширить кадр",
+      "description": "Вертикальное фото → горизонтальное (или наоборот) без обрезки.",
+      "images": 1,
+      "prompt_en": "Extend this photo to a [16:9 horizontal] format. Keep the original image unchanged in the center and naturally continue the background on the sides with matching perspective, lighting and details. Do not stretch or move the subject.",
+      "prompt_ru": "Расширь фото до формата [16:9 горизонтальный]. Исходное изображение оставь без изменений по центру, а по бокам естественно продолжи фон с той же перспективой, светом и деталями. Не растягивай и не сдвигай объект."
+    },
+    {
+      "id": 28,
+      "slug": "pomestit-sebya-v-druguyu-scenu",
+      "category": "kadr",
+      "title": "Поместить себя в другую сцену",
+      "description": "Вы на пляже, в Париже, на обложке журнала — лицо остаётся вашим.",
+      "images": 1,
+      "prompt_en": "Place the person from the photo into [a café terrace in Paris in the morning]. Keep the face, facial features, skin tone, age, hairstyle and body proportions exactly the same. Match lighting and shadows to the new scene, realistic photo, [vertical 4:5] format.",
+      "prompt_ru": "Помести человека с фото в [утреннее кафе на террасе в Париже]. Лицо, черты лица, тон кожи, возраст, причёску и пропорции тела сохрани точно такими же. Свет и тени подстрой под новую сцену, реалистичное фото, формат [вертикальный 4:5]."
+    },
+    {
+      "id": 29,
+      "slug": "obedinit-dvuh-lyudej-na-odnom-foto",
+      "category": "kadr",
+      "title": "Объединить двух людей на одном фото",
+      "description": "Загрузите 2 фото — получите совместный снимок, как будто стояли рядом.",
+      "images": 2,
+      "prompt_en": "Combine the person from image 1 and the person from image 2 into one realistic photo, standing side by side [in a park]. Keep both faces, identities, ages, hairstyles and clothing exactly as in their original photos. Match lighting, scale and shadows so they look like they were photographed together.",
+      "prompt_ru": "Объедини человека с фото 1 и человека с фото 2 в один реалистичный снимок, они стоят рядом [в парке]. Лица, узнаваемость, возраст, причёски и одежду обоих сохрани точно как на исходных фото. Подстрой свет, масштаб и тени, чтобы казалось, что их сфотографировали вместе."
+    },
+    {
+      "id": 30,
+      "slug": "perevesti-v-drugoj-stil",
+      "category": "kadr",
+      "title": "Перевести в другой стиль",
+      "description": "Аниме, 3D-мультфильм, акварель, комикс — с сохранением композиции.",
+      "images": 1,
+      "prompt_en": "Transform this photo into [a 3D animated movie style]. Keep the same composition, pose, clothing and recognizable facial features of the person. Only the rendering style changes.",
+      "prompt_ru": "Преврати это фото в [стиль 3D-мультфильма]. Сохрани ту же композицию, позу, одежду и узнаваемые черты лица человека. Меняется только стиль отрисовки."
+    }
+  ]
+}

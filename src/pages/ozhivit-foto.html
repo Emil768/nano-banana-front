@@ -1,0 +1,211 @@
+<!--meta
+{
+  "path": "/ozhivit-foto/",
+  "nav": "video",
+  "gen": "video",
+  "priority": 0.9,
+  "title": "Оживить фото нейросетью онлайн бесплатно — видео 5–10 сек | Нано Банана",
+  "og_title": "Оживить фото нейросетью онлайн — Нано Банана",
+  "description": "Оживите фото нейросетью онлайн: видео на 5 или 10 секунд, со звуком или без. Первая генерация бесплатно, на русском, без VPN.",
+  "og_image": "https://nanobananaa.ru/assets/images/rules/video_ref_poster.jpg",
+  "crumbs": [["Главная", "/"], ["Оживить фото", "/ozhivit-foto/"]],
+  "jsonld": [
+    {
+      "@type": "HowTo",
+      "name": "Как оживить фото нейросетью",
+      "totalTime": "PT5M",
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "Загрузите фото", "text": "Подойдёт портрет, старое семейное фото, питомец или пейзаж." },
+        { "@type": "HowToStep", "position": 2, "name": "Опишите движение", "text": "Своими словами на русском: «улыбается», «ветер», «камера приближается»." },
+        { "@type": "HowToStep", "position": 3, "name": "Скачайте видео", "text": "5 или 10 секунд, со звуком или без — готово для сторис и Reels." }
+      ]
+    }
+  ],
+  "faq": [
+    ["Можно ли оживить фото бесплатно?", "Первая генерация на новом аккаунте бесплатная, но её хватает на фото. Видео стоит от 5 генераций: 5 секунд без звука — 5 генераций, 10 секунд — 10, со звуком — вдвое больше. Пакет от <strong>99 ₽</strong> за 10 генераций."],
+    ["Сколько секунд длится видео?", "5 или 10 секунд — выбираете перед генерацией. Этого хватает для сторис, Reels и открыток."],
+    ["Можно сделать видео со звуком?", "Да, переключите «Со звуком» — нейросеть добавит звук под сцену. Такое видео стоит вдвое больше генераций."],
+    ["Получится оживить старое чёрно-белое фото?", "Да. Загрузите скан или фото снимка, лучше крупным планом, и опишите движение: «человек улыбается и моргает». Чем чётче лицо на исходнике, тем естественнее результат."],
+    ["Сколько ждать результат?", "Обычно видео готово за 2–5 минут. Страницу можно не обновлять — результат появится сам."],
+    ["Нужен ли VPN?", "Нет. Сайт и Telegram-бот работают из России без VPN, промт пишется на русском, оплата — через СБП."]
+  ]
+}
+-->
+          <section class="hero">
+            {{crumbs}}
+            <span class="eyebrow">Фото → видео на 5 или 10 секунд</span>
+            <h1 class="h1">Оживить фото нейросетью онлайн</h1>
+            <p class="lead">
+              Загрузите фото и напишите, что должно произойти — нейросеть
+              превратит его в видео со звуком или без. На русском, без VPN,
+              прямо в браузере или в Telegram.
+            </p>
+          </section>
+
+          <div class="stack">
+            <div
+              id="generator"
+              class="gen-card"
+              role="group"
+              aria-label="Оживить фото: видео из фото"
+            >
+              <div class="gen-split">
+                <div class="drop" data-dropzone>
+                  <div class="drop__empty">
+                    <span class="drop__ic" style="margin: 0 auto 10px">{{i_upload}}</span>
+                    <div class="drop__title">Перетащите фото сюда</div>
+                    <div class="small muted" style="margin: 6px 0 14px">JPG или PNG · лицо лучше крупным планом</div>
+                    <button id="home-attach" class="b b--g" type="button">Выбрать файл</button>
+                  </div>
+                  <div id="home-preview-grid" class="gen-previews"></div>
+                  <input
+                    id="home-images"
+                    class="gen-file-input"
+                    type="file"
+                    accept="image/png,image/jpeg,image/webp"
+                    aria-label="Выбрать фото для видео (PNG, JPEG, WebP)"
+                  />
+                </div>
+
+                <div class="gen-split__side">
+                  <label class="gen-lbl" for="prompt">Что должно произойти</label>
+                  <textarea
+                    id="prompt"
+                    class="gen-input"
+                    rows="3"
+                    required
+                    oninput="this.setCustomValidity('')"
+                    oninvalid="this.setCustomValidity('Опишите, что должно произойти.')"
+                    placeholder="Например: человек улыбается и машет рукой, лёгкий ветер. Или соберите из подсказок ниже"
+                  ></textarea>
+
+                  <div class="vchips" data-chips-mode="video" data-chips-append>
+                    <div class="vchips__group">
+                      <span class="vchips__label">Движение</span>
+                      <div class="gen-chips">
+                        <button type="button" class="chip" data-prompt="человек мягко улыбается" aria-pressed="false">улыбка</button>
+                        <button type="button" class="chip" data-prompt="естественно моргает" aria-pressed="false">моргание</button>
+                        <button type="button" class="chip" data-prompt="плавно поворачивает голову" aria-pressed="false">поворот головы</button>
+                        <button type="button" class="chip" data-prompt="машет рукой в камеру" aria-pressed="false">машет рукой</button>
+                        <button type="button" class="chip" data-prompt="искренне смеётся" aria-pressed="false">смех</button>
+                        <button type="button" class="chip" data-prompt="слегка кивает" aria-pressed="false">кивок</button>
+                      </div>
+                    </div>
+                    <div class="vchips__group">
+                      <span class="vchips__label">Камера</span>
+                      <div class="gen-chips">
+                        <button type="button" class="chip" data-prompt="камера медленно приближается" aria-pressed="false">наезд</button>
+                        <button type="button" class="chip" data-prompt="камера медленно отъезжает" aria-pressed="false">отъезд</button>
+                        <button type="button" class="chip" data-prompt="камера плавно облетает вокруг" aria-pressed="false">облёт</button>
+                        <button type="button" class="chip" data-prompt="камера плавно панорамирует слева направо" aria-pressed="false">панорама</button>
+                        <button type="button" class="chip" data-prompt="камера неподвижна" aria-pressed="false">статичный кадр</button>
+                      </div>
+                    </div>
+                    <div class="vchips__group">
+                      <span class="vchips__label">Атмосфера</span>
+                      <div class="gen-chips">
+                        <button type="button" class="chip" data-prompt="лёгкий ветер шевелит волосы и одежду" aria-pressed="false">лёгкий ветер</button>
+                        <button type="button" class="chip" data-prompt="за кадром падает снег" aria-pressed="false">снег</button>
+                        <button type="button" class="chip" data-prompt="идёт дождь, капли на стекле" aria-pressed="false">дождь</button>
+                        <button type="button" class="chip" data-prompt="мягкие солнечные блики" aria-pressed="false">солнечные блики</button>
+                        <button type="button" class="chip" data-prompt="огни на фоне мягко мерцают" aria-pressed="false">огни мерцают</button>
+                        <button type="button" class="chip" data-prompt="оживи старое фото бережно, естественные движения" aria-pressed="false">старое фото</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="home-video-controls" class="gen-video-options" role="group" aria-label="Параметры видео">
+                    <div class="seg-group">
+                      <span id="home-video-duration-label" class="seg-group__label">Длительность</span>
+                      <div class="seg" role="radiogroup" aria-labelledby="home-video-duration-label">
+                        <button type="button" id="home-video-duration-5" class="seg__btn is-active" role="radio" aria-checked="true">5 сек</button>
+                        <button type="button" id="home-video-duration-10" class="seg__btn" role="radio" aria-checked="false">10 сек</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="gen-foot">
+                    <span class="small muted">Готово за 2–5 минут</span>
+                    <div class="sp"></div>
+                    <button id="home-generate" class="gen-submit__btn" type="button">Оживить фото</button>
+                  </div>
+                  <div id="home-gen-progress" class="gen-progress hidden" aria-hidden="true">
+                    <span class="gen-progress__bar"></span>
+                  </div>
+                  <p id="home-gen-status" class="gen-status" aria-live="polite">&nbsp;</p>
+                  <div class="promo-pill-row">
+                    <button id="promo-pill" class="promo-pill hidden" type="button" hidden>
+                      <span id="promo-pill-code" class="promo-pill__code"></span>
+                      <span id="promo-pill-percent"></span>
+                      <span>скидка</span>
+                    </button>
+                    <span id="promo-pill-note" class="promo-pill__note" hidden>
+                      <span id="promo-pill-text"></span>
+                      <span id="promo-pill-timer" class="promo-pill__timer"></span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+{{result_panel}}
+          </div>
+
+          <section class="sec" aria-labelledby="examples-title">
+            <div class="sec__head">
+              <h2 id="examples-title" class="h2">Пример оживлённого фото</h2>
+              <span class="small muted">Слева — исходник, справа — видео</span>
+            </div>
+            <div class="grid grid--2">
+              <figure class="card ba">
+                <div class="ba__pair">
+                  <div class="ba__tile">
+                    <img src="/assets/images/rules/video_ref.jpg" width="800" height="1196" alt="Исходное фото, которое оживили нейросетью" loading="lazy" />
+                    <span class="ba__badge">Фото</span>
+                  </div>
+                  <div class="ba__tile">
+                    <video src="/assets/images/rules/video_ref_res.mp4" poster="/assets/images/rules/video_ref_poster.jpg" autoplay loop muted playsinline preload="none">
+                      <track kind="captions" src="/assets/captions/empty.vtt" srclang="ru" label="Без звука" />
+                    </video>
+                    <span class="ba__badge ba__badge--accent">Видео</span>
+                  </div>
+                </div>
+                <figcaption class="small muted">Запрос: «оживи фото»</figcaption>
+              </figure>
+
+              <div class="card ideas">
+                <h3 class="h3">Идеи для оживления</h3>
+                <p class="small muted" style="margin: 0">Нажмите — промт подставится в генератор наверху.</p>
+                <div class="ideas__list" data-chips-mode="video">
+                  <button type="button" class="chip ideas__item" data-prompt="человек мягко улыбается и машет рукой в камеру, лёгкий ветер шевелит волосы">👋 Улыбается и машет рукой</button>
+                  <button type="button" class="chip ideas__item" data-prompt="оживи старое фото бережно: человек слегка улыбается, моргает и чуть поворачивает голову, естественные движения">🖼 Старое семейное фото</button>
+                  <button type="button" class="chip ideas__item" data-prompt="кот медленно поворачивает голову, щурится и шевелит ушами, мягкий дневной свет">🐱 Питомец поворачивает голову</button>
+                  <button type="button" class="chip ideas__item" data-prompt="камера медленно приближается, на фоне мягко мерцают огни ночного города">🌃 Камера наезжает, огни города</button>
+                  <button type="button" class="chip ideas__item" data-prompt="волны набегают на берег, облака медленно плывут по небу, лёгкий ветер">🌊 Пейзаж: волны и облака</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="sec" aria-labelledby="steps-title">
+            <h2 id="steps-title" class="h2">Как оживить фото за 3 шага</h2>
+            <div class="grid grid--3">
+              <div class="card step">
+                <span class="step__n">1</span>
+                <h3 class="h3">Загрузите фото</h3>
+                <p>Подойдёт портрет, старое семейное фото, питомец или пейзаж.</p>
+              </div>
+              <div class="card step">
+                <span class="step__n">2</span>
+                <h3 class="h3">Опишите движение</h3>
+                <p>Своими словами на русском: «улыбается», «ветер», «камера приближается».</p>
+              </div>
+              <div class="card step">
+                <span class="step__n">3</span>
+                <h3 class="h3">Скачайте видео</h3>
+                <p>5 или 10 секунд, со звуком или без — готово для сторис и Reels.</p>
+              </div>
+            </div>
+          </section>
+
+{{faq}}

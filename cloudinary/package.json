@@ -1,0 +1,22 @@
+{
+  "name": "cloudinary",
+  "version": "1.0.0",
+  "description": "",
+  "main": "update.js",
+  "type": "module",
+  "scripts": {
+    "start": "node update.js",
+    "upload:s3": "node upload-s3.js",
+    "reformat:prompts": "node reformat-prompts-json.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.758.0",
+    "cloudinary": "^2.9.0",
+    "dotenv": "^17.3.1",
+    "xlsx": "^0.18.5"
+  }
+}

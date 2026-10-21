@@ -1,0 +1,120 @@
+<!--meta
+{
+  "robots": "noindex, follow",
+  "path": "/ubrat-fon/",
+  "nav": "bg",
+  "gen": "bg",
+  "priority": 0.9,
+  "title": "Убрать фон с фото онлайн бесплатно — PNG с прозрачным фоном | Нано Банана",
+  "og_title": "Убрать фон с фото онлайн — Нано Банана",
+  "description": "Уберите фон с фото онлайн бесплатно: нейросеть вырежет человека или предмет и отдаст PNG с прозрачным фоном. На русском, без VPN, за секунды.",
+  "crumbs": [["Главная", "/"], ["Убрать фон", "/ubrat-fon/"]],
+  "jsonld": [
+    {
+      "@type": "HowTo",
+      "name": "Как убрать фон с фото онлайн",
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "Загрузите фото", "text": "Перетащите JPG или PNG в окно или выберите файл." },
+        { "@type": "HowToStep", "position": 2, "name": "Нажмите «Убрать фон»", "text": "Нейросеть вырежет человека или предмет, фон станет прозрачным." },
+        { "@type": "HowToStep", "position": 3, "name": "Скачайте результат", "text": "Прозрачный фон сохраняется в PNG — готово для аватарки или карточки товара." }
+      ]
+    }
+  ],
+  "faq": [
+    ["Можно убрать фон бесплатно?", "Первая генерация на новом аккаунте бесплатная — её хватит, чтобы убрать фон с одного фото. Дальше — пакеты от <strong>99 ₽</strong> за 10 генераций, одно фото = одна генерация."],
+    ["В каком формате скачать результат?", "В PNG с прозрачным фоном — его можно сразу вставить в презентацию, на карточку товара или в стикер."],
+    ["Можно заменить фон на другой, а не удалить?", "Да, это делается в <a href=\"/\">генераторе на главной</a>: прикрепите фото и напишите, какой фон нужен — «пляж на закате», «светлая студия», «белый фон». Готовые промты — в разделе <a href=\"/promty/#zamenit-fon\">«Промты»</a>."],
+    ["Подойдёт для карточек маркетплейса?", "Да. Белый фон или PNG без фона — стандартные требования Wildberries и Ozon к главному фото. Для лучшего результата снимайте товар целиком и при хорошем свете."],
+    ["Нужна ли регистрация?", "Нужно войти через Telegram или Google — это один клик. Аккаунт и баланс общие с Telegram-ботом."]
+  ]
+}
+-->
+          <section class="hero">
+            {{crumbs}}
+            <span class="eyebrow">PNG с прозрачным фоном</span>
+            <h1 class="h1">Убрать фон с фото онлайн</h1>
+            <p class="lead">
+              Загрузите фото — нейросеть аккуратно вырежет человека или предмет и
+              отдаст PNG с прозрачным фоном — для карточек товаров, аватарок,
+              стикеров и презентаций.
+            </p>
+          </section>
+
+          <div
+            id="generator"
+            class="gen-card"
+            role="group"
+            aria-label="Убрать фон с фото"
+          >
+            <div class="grid grid--2">
+              <div class="drop" data-dropzone>
+                <div class="drop__empty">
+                  <span class="drop__ic" style="margin: 0 auto 10px">{{i_upload}}</span>
+                  <div class="drop__title">Перетащите фото сюда</div>
+                  <div class="small muted" style="margin: 6px 0 14px">JPG или PNG</div>
+                  <button id="home-attach" class="b b--g" type="button">Выбрать файл</button>
+                </div>
+                <div id="home-preview-grid" class="gen-previews"></div>
+                <input
+                  id="home-images"
+                  class="gen-file-input"
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp"
+                  aria-label="Выбрать фото (PNG, JPEG, WebP)"
+                />
+              </div>
+
+              <div class="bg-out checker">
+                <span class="bg-out__ph">Здесь появится результат</span>
+                <span class="bg-out__tag">PNG · прозрачный фон</span>
+{{result_panel}}
+              </div>
+            </div>
+
+            <!-- Промт собирается в index.js (всегда прозрачный фон), поле только для генератора -->
+            <input type="hidden" id="prompt" />
+
+            <div class="gen-foot">
+              <span class="small muted">1 фото = 1 генерация · готово за 20–60 секунд</span>
+              <div class="sp"></div>
+              <button id="home-generate" class="gen-submit__btn" type="button">Убрать фон</button>
+            </div>
+            <div id="home-gen-progress" class="gen-progress hidden" aria-hidden="true">
+              <span class="gen-progress__bar"></span>
+            </div>
+            <p id="home-gen-status" class="gen-status" aria-live="polite">&nbsp;</p>
+            <div class="promo-pill-row">
+              <button id="promo-pill" class="promo-pill hidden" type="button" hidden>
+                <span id="promo-pill-code" class="promo-pill__code"></span>
+                <span id="promo-pill-percent"></span>
+                <span>скидка</span>
+              </button>
+              <span id="promo-pill-note" class="promo-pill__note" hidden>
+                <span id="promo-pill-text"></span>
+                <span id="promo-pill-timer" class="promo-pill__timer"></span>
+              </span>
+            </div>
+          </div>
+
+          <section class="sec" aria-labelledby="use-title">
+            <h2 id="use-title" class="h2">Для чего убирают фон</h2>
+            <div class="grid grid--3">
+              <div class="card step">
+                <span class="step__n">1</span>
+                <h3 class="h3">Карточки товаров</h3>
+                <p>Белый фон или PNG без фона для главного фото на Wildberries, Ozon и Авито.</p>
+              </div>
+              <div class="card step">
+                <span class="step__n">2</span>
+                <h3 class="h3">Аватарки и портреты</h3>
+                <p>Вырезать себя с неудачного фона — и поставить на любой свой фон в редакторе.</p>
+              </div>
+              <div class="card step">
+                <span class="step__n">3</span>
+                <h3 class="h3">Стикеры и дизайн</h3>
+                <p>PNG с прозрачным фоном — для стикеров, презентаций, обложек и коллажей.</p>
+              </div>
+            </div>
+          </section>
+
+{{faq}}

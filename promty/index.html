@@ -1,0 +1,1168 @@
+<!doctype html>
+<html lang="ru" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Промты для обработки фото нейросетью — 30 готовых промтов для Нано Банана</title>
+    <meta name="description" content="Готовые промты для обработки фото: заменить фон, ретушь без пластика, сменить одежду, восстановить старое фото, улучшить качество. На русском и английском — нажмите «Попробовать», промт подставится в генератор." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://nanobananaa.ru/promty/" />
+    <meta name="theme-color" content="#fbf9f6" />
+    <script>
+      // По умолчанию светлая тема; тёмная — только если юзер выбрал её сам.
+      // Ставим до отрисовки, чтобы не было мигания.
+      try {
+        if (localStorage.getItem("nano_theme") === "dark") {
+          delete document.documentElement.dataset.theme;
+          document
+            .querySelector('meta[name="theme-color"]')
+            .setAttribute("content", "#131210");
+        }
+      } catch (e) {}
+    </script>
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:site_name" content="Нано Банана" />
+    <meta property="og:title" content="Промты для обработки фото — 30 готовых промтов" />
+    <meta property="og:description" content="Готовые промты для обработки фото: заменить фон, ретушь без пластика, сменить одежду, восстановить старое фото, улучшить качество. На русском и английском — нажмите «Попробовать», промт подставится в генератор." />
+    <meta property="og:url" content="https://nanobananaa.ru/promty/" />
+    <meta property="og:image" content="https://nanobananaa.ru/assets/images/nano-banana3.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Промты для обработки фото — 30 готовых промтов" />
+    <meta name="twitter:description" content="Готовые промты для обработки фото: заменить фон, ретушь без пластика, сменить одежду, восстановить старое фото, улучшить качество. На русском и английском — нажмите «Попробовать», промт подставится в генератор." />
+    <meta name="twitter:image" content="https://nanobananaa.ru/assets/images/nano-banana3.webp" />
+    <meta name="p:domain_verify" content="73bcd0e3f5e83affe91384cdb3b3273e" />
+    <!-- Pinterest строит пин по og-тегам, а не по Product-разметке: иначе в
+         превью подтягивается цена из offers. -->
+    <meta name="pinterest-rich-pin" content="false" />
+    <link rel="icon" href="/favicon.ico?v=20261013" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=20261013" />
+    <link rel="icon" type="image/png" sizes="120x120" href="/favicon-120.png?v=20261013" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=20261013" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Unbounded:wght@500;600&display=swap"
+      as="style"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
+    />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Unbounded:wght@500;600&display=swap"
+    /></noscript>
+    <link rel="stylesheet" href="/assets/css/site.css?v=20261013" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Главная",
+                "item": "https://nanobananaa.ru/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Промты",
+                "item": "https://nanobananaa.ru/promty/"
+              }
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://nanobananaa.ru/promty/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Что такое промт?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Промт — это текстовое описание того, что должна сделать нейросеть: кто в кадре, где, какой свет и стиль. Чем точнее промт, тем ближе результат к задумке."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Как использовать готовый промт со своим фото?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Нажмите «Попробовать» — промт подставится в генератор на главной. Прикрепите своё фото и нажмите «Создать»: нейросеть применит стиль из промта к вашему снимку."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Что значит текст в квадратных скобках?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Это место, которое нужно заменить на своё: какой фон, какая одежда, какой цвет. Нажмите «Попробовать» — в генераторе текст в первых скобках уже будет выделен, просто начните печатать."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Зачем некоторым промтам 2 фото?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Промты с пометкой «2 фото» берут что-то со второго снимка: фон, одежду, цвета или второго человека. Загрузите сначала своё фото, потом второе — порядок важен."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Можно менять промт под себя?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Да. После подстановки промт можно отредактировать: поменять одежду, фон, время суток или добавить детали."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Промты бесплатные?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Да, все промты на странице можно копировать и использовать бесплатно. Платите только за генерации — первая бесплатно."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body data-gen="" class="">
+    <header class="mtop">
+      <a class="logo" href="/" aria-label="Нано Банана — на главную"
+        ><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="8" fill="#F2C94C"/><path d="M8 16c4 4 10 3 12-5" stroke="#1a1406" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>Nano Banana</a
+      >
+      <div class="sp"></div>
+      <div id="mobile-auth"></div>
+      <button class="ico theme-btn" type="button" data-theme-toggle aria-label="Сменить тему: светлая или тёмная" title="Светлая / тёмная тема"><svg class="theme-btn__moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="theme-btn__sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.9 4.9l1.4 1.4"/><path d="M17.7 17.7l1.4 1.4"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M4.9 19.1l1.4-1.4"/><path d="M17.7 6.3l1.4-1.4"/></svg></button>
+      <button
+        class="ico"
+        type="button"
+        data-sb-open
+        aria-label="Открыть меню"
+        aria-controls="sidebar"
+        aria-expanded="false"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg>
+      </button>
+    </header>
+    <nav class="mnav" aria-label="Инструменты">
+      <a href="/assistant/" class="is-hl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/><path d="M8.5 11h.01"/><path d="M12 11h.01"/><path d="M15.5 11h.01"/></svg>Чат GPT</a>
+      <a href="/"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>Генерация фото</a>
+      <a href="/ozhivit-foto/"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="15" height="14" rx="2"/><path d="M17 10l5-3v10l-5-3"/></svg>Оживить фото</a>
+      <a href="/promt-po-foto/"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V6a2 2 0 012-2h2"/><path d="M16 4h2a2 2 0 012 2v2"/><path d="M20 16v2a2 2 0 01-2 2h-2"/><path d="M8 20H6a2 2 0 01-2-2v-2"/><path d="M8 10h8"/><path d="M8 14h5"/></svg>Промт по фото</a>
+      <a href="/promty/" class="is-on" aria-current="page"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.65-.75 1.65-1.69 0-.44-.18-.84-.44-1.13-.29-.29-.44-.65-.44-1.13a1.64 1.64 0 011.67-1.67h2C19.49 16.38 22 13.87 22 10.82 21.97 6.01 17.46 2 12 2z"/><circle cx="13.5" cy="6.5" r="1" fill="currentColor"/><circle cx="17.5" cy="10.5" r="1" fill="currentColor"/><circle cx="8.5" cy="7.5" r="1" fill="currentColor"/><circle cx="6.5" cy="12.5" r="1" fill="currentColor"/></svg>Промты</a>
+    </nav>
+
+    <div class="layout">
+      <aside id="sidebar" class="sb" aria-label="Меню сайта">
+        <div class="sb__in">
+          <div class="sb__head">
+            <a class="logo" href="/" aria-label="Нано Банана — на главную"
+              ><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="8" fill="#F2C94C"/><path d="M8 16c4 4 10 3 12-5" stroke="#1a1406" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>Nano Banana</a
+            >
+      <button class="ico theme-btn" type="button" data-theme-toggle aria-label="Сменить тему: светлая или тёмная" title="Светлая / тёмная тема"><svg class="theme-btn__moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="theme-btn__sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.9 4.9l1.4 1.4"/><path d="M17.7 17.7l1.4 1.4"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M4.9 19.1l1.4-1.4"/><path d="M17.7 6.3l1.4-1.4"/></svg></button>
+          </div>
+          <nav class="nav" aria-label="Разделы сайта">
+            <div class="nav__label">Инструменты</div>
+            <a class="nav__item nav__item--hl" href="/assistant/"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/><path d="M8.5 11h.01"/><path d="M12 11h.01"/><path d="M15.5 11h.01"/></svg><span class="nav__text">Чат GPT<span class="nav__tag">beta</span></span></a>
+            <a class="nav__item" href="/"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg><span class="nav__text">Генерация фото</span></a>
+            <a class="nav__item" href="/ozhivit-foto/"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="15" height="14" rx="2"/><path d="M17 10l5-3v10l-5-3"/></svg><span class="nav__text">Оживить фото<span class="nav__tag">видео</span></span></a>
+            <a class="nav__item" href="/promt-po-foto/"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V6a2 2 0 012-2h2"/><path d="M16 4h2a2 2 0 012 2v2"/><path d="M20 16v2a2 2 0 01-2 2h-2"/><path d="M8 20H6a2 2 0 01-2-2v-2"/><path d="M8 10h8"/><path d="M8 14h5"/></svg><span class="nav__text">Промт по фото<span class="nav__tag">new</span></span></a>
+            <a class="nav__item is-on" href="/promty/" aria-current="page"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.65-.75 1.65-1.69 0-.44-.18-.84-.44-1.13-.29-.29-.44-.65-.44-1.13a1.64 1.64 0 011.67-1.67h2C19.49 16.38 22 13.87 22 10.82 21.97 6.01 17.46 2 12 2z"/><circle cx="13.5" cy="6.5" r="1" fill="currentColor"/><circle cx="17.5" cy="10.5" r="1" fill="currentColor"/><circle cx="8.5" cy="7.5" r="1" fill="currentColor"/><circle cx="6.5" cy="12.5" r="1" fill="currentColor"/></svg><span class="nav__text">Промты</span></a>
+            <div class="nav__label">Сервис</div>
+            <a class="nav__item" href="/#pricing"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg><span class="nav__text">Тарифы</span></a>
+            <a class="nav__item" href="/#reviews"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9z"/></svg><span class="nav__text">Отзывы</span></a>
+            <a class="nav__item" href="#faq"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 015 .5c0 1.5-2.5 2-2.5 3.5"/><path d="M12 17h.01"/></svg><span class="nav__text">Вопросы</span></a>
+            <a class="nav__item" href="/pravila/"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span class="nav__text">Правила</span></a>
+          </nav>
+          <div class="sb__bottom">
+            <div id="site-header-auth" class="acc" aria-live="polite">
+              <div class="acc__title">Первое фото — бесплатно</div>
+              <div class="acc__note">Аккаунт и баланс общие с ботом</div>
+            </div>
+            <a
+              class="b b--y"
+              href="https://t.me/nano_bananaa_ai_bot"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4L3 11l6 2 2 6 3-4 5 4z"/><path d="M9 13l12-9"/></svg>Открыть в Telegram</a
+            >
+            <div class="sb__rating">
+              <span class="stars" aria-hidden="true">★★★★★</span> 5.0 · отзывы
+              из бота
+            </div>
+          </div>
+        </div>
+      </aside>
+      <div class="sb-scrim" data-sb-close></div>
+
+      <main class="main">
+        <div class="col">
+<section class="hero">
+            <nav aria-label="Хлебные крошки"><ol class="crumbs"><li><a href="/">Главная</a></li><li aria-current="page">Промты</li></ol></nav>
+            <h1 class="h1">Промты для обработки фото</h1>
+            <p class="lead">
+              Готовые промты для обработки фото на русском и английском. Нажмите
+              «Попробовать» — промт подставится в генератор, останется добавить
+              своё фото.
+            </p>
+          </section>
+
+          <label class="search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+            <input
+              id="promty-search"
+              type="search"
+              placeholder="Найти промт: фон, ретушь, одежда, свет…"
+              aria-label="Поиск промтов"
+              autocomplete="off"
+            />
+          </label>
+
+          <section id="obrabotka" class="sec" aria-labelledby="edit-title">
+            <div class="sec__head">
+              <div class="stack" style="gap: 8px">
+                <h2 id="edit-title" class="h2">Обработка своего фото</h2>
+                <p class="small muted" style="margin: 0">
+                  30 проверенных промтов. Текст в <mark class="slot">[скобках]</mark> замените на своё.
+                </p>
+              </div>
+            </div>
+            <div class="etabs" id="edit-cats" role="group" aria-label="Что сделать с фото">
+              <button class="etab is-on" type="button" data-ecat="" aria-pressed="true"><span>Все</span><span class="etab__n">30</span></button>
+              <button class="etab" type="button" data-ecat="fon" aria-pressed="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg><span>Фон</span><span class="etab__n">5</span></button>
+              <button class="etab" type="button" data-ecat="portret" aria-pressed="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Портрет и лицо</span><span class="etab__n">5</span></button>
+              <button class="etab" type="button" data-ecat="obraz" aria-pressed="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3l-5 3 2 5 3-1v11h8V10l3 1 2-5-5-3a4 4 0 01-8 0z"/></svg><span>Одежда и образ</span><span class="etab__n">5</span></button>
+              <button class="etab" type="button" data-ecat="udalit" aria-pressed="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4V2"/><path d="M15 16v-2"/><path d="M8 9h2"/><path d="M20 9h2"/><path d="M17.8 11.8L19 13"/><path d="M15 9h.01"/><path d="M17.8 6.2L19 5"/><path d="M11 6.2L9.7 5"/><path d="M3 21l9-9"/></svg><span>Удалить и восстановить</span><span class="etab__n">5</span></button>
+              <button class="etab" type="button" data-ecat="svet" aria-pressed="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.9 4.9l1.4 1.4"/><path d="M17.7 17.7l1.4 1.4"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M4.9 19.1l1.4-1.4"/><path d="M17.7 6.3l1.4-1.4"/></svg><span>Свет, цвет и качество</span><span class="etab__n">5</span></button>
+              <button class="etab" type="button" data-ecat="kadr" aria-pressed="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2v14a2 2 0 002 2h14"/><path d="M18 22V8a2 2 0 00-2-2H2"/></svg><span>Кадр и стиль</span><span class="etab__n">5</span></button>
+            </div>
+            <div class="egrid" id="edit-grid">
+              <article class="card ecard" data-slug="zamenit-fon" data-ecat="fon" data-en="Replace only the background with [a modern hotel lobby at golden hour]. Keep the person exactly the same: face, facial features, skin tone, age, hairstyle, expression, pose and clothing. Match the lighting direction and color of the new background, add realistic shadows and clean edges around the hair. Do not change the aspect ratio or framing." data-ru="Замени только фон на [современное лобби отеля в золотой час]. Человека оставь точно таким же: лицо, черты лица, тон кожи, возраст, причёску, выражение, позу и одежду. Подстрой свет и цвет под новый фон, добавь реалистичные тени и чистые края вокруг волос. Не меняй пропорции и кадр." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></span>
+                  <span class="ecard__cat">Фон</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Заменить фон</button></h3>
+                <p class="ecard__desc">Меняет только фон, человек остаётся как был: лицо, поза, одежда.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Заменить фон»"><span>Замени только фон на <mark>[современное лобби отеля в золотой час]</mark>. Человека оставь точно таким же: лицо, черты лица, тон кожи, возраст, причёску, выражение, позу и одежду. Подстрой свет и цвет под новый фон, добавь реалистичные тени и чистые края вокруг волос. Не меняй пропорции и кадр.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="perenesti-fon-s-drugogo-foto" data-ecat="fon" data-en="Use image 1 only for the person and image 2 only for the background. Place the person from image 1 into the scene from image 2. Keep the person's face, body proportions, pose and clothing unchanged. Match the perspective, lighting, shadows and color of image 2 so it looks like one real photo. Keep the aspect ratio of image 1." data-ru="Используй фото 1 только для человека, а фото 2 только для фона. Перенеси человека с фото 1 в сцену с фото 2. Лицо, пропорции тела, позу и одежду не меняй. Подстрой перспективу, свет, тени и цвет под фото 2, чтобы всё выглядело как один настоящий снимок. Сохрани пропорции фото 1." data-images="2">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></span>
+                  <span class="ecard__cat">Фон</span>
+                  <span class="ebadge" title="Нужно загрузить 2 фото"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="3" width="13" height="13" rx="2"/><path d="M16 21H5a2 2 0 01-2-2V8"/></svg>2 фото</span>
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Перенести фон с другого фото</button></h3>
+                <p class="ecard__desc">Загрузите 2 фото: первое — вы, второе — фон, который нужно перенести.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Перенести фон с другого фото»"><span>Используй фото 1 только для человека, а фото 2 только для фона. Перенеси человека с фото 1 в сцену с фото 2. Лицо, пропорции тела, позу и одежду не меняй. Подстрой перспективу, свет, тени и цвет под фото 2, чтобы всё выглядело как один настоящий снимок. Сохрани пропорции фото 1.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="belyj-studijnyj-fon" data-ecat="fon" data-en="Isolate the main subject and place it on a seamless pure white studio background. Keep the exact shape, proportions, colors, materials, logos and text on the subject. Add one soft natural shadow underneath, no props, no reflections. Do not crop the subject and keep the original aspect ratio." data-ru="Вырежи главный объект и помести его на чистый белый студийный фон. Точно сохрани форму, пропорции, цвета, материалы, логотипы и надписи. Добавь одну мягкую естественную тень снизу, без лишних предметов и отражений. Не обрезай объект и сохрани пропорции кадра." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></span>
+                  <span class="ecard__cat">Фон</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Белый студийный фон</button></h3>
+                <p class="ecard__desc">Чистый белый фон с мягкой тенью — для товаров, маркетплейсов и документов.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Белый студийный фон»"><span>Вырежи главный объект и помести его на чистый белый студийный фон. Точно сохрани форму, пропорции, цвета, материалы, логотипы и надписи. Добавь одну мягкую естественную тень снизу, без лишних предметов и отражений. Не обрезай объект и сохрани пропорции кадра.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="razmyt-fon-kak-na-portretnik" data-ecat="fon" data-en="Add a natural background blur like an 85mm f/1.8 portrait lens. Keep the person fully sharp, with clean transitions around the hair and shoulders. Do not change the person, the colors or the framing — only the depth of field of the background." data-ru="Добавь естественное размытие фона, как у портретного объектива 85 мм f/1.8. Человек должен остаться полностью резким, с аккуратными краями вокруг волос и плеч. Не меняй человека, цвета и кадр — только глубину резкости фона." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></span>
+                  <span class="ecard__cat">Фон</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Размыть фон как на портретник</button></h3>
+                <p class="ecard__desc">Эффект дорогого объектива: человек в резкости, фон мягко размыт.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Размыть фон как на портретник»"><span>Добавь естественное размытие фона, как у портретного объектива 85 мм f/1.8. Человек должен остаться полностью резким, с аккуратными краями вокруг волос и плеч. Не меняй человека, цвета и кадр — только глубину резкости фона.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="zamenit-nebo" data-ecat="fon" data-en="Replace only the sky with [a soft sunset sky with warm clouds]. Keep the horizon, buildings, trees and people unchanged. Match the new light on the scene so the colors and shadows look natural. Keep the original aspect ratio." data-ru="Замени только небо на [мягкий закат с тёплыми облаками]. Линию горизонта, здания, деревья и людей не меняй. Подстрой свет на всей сцене под новое небо, чтобы цвета и тени выглядели естественно. Сохрани пропорции кадра." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></span>
+                  <span class="ecard__cat">Фон</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Заменить небо</button></h3>
+                <p class="ecard__desc">Серое или пересвеченное небо → красивое закатное или ясное.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Заменить небо»"><span>Замени только небо на <mark>[мягкий закат с тёплыми облаками]</mark>. Линию горизонта, здания, деревья и людей не меняй. Подстрой свет на всей сцене под новое небо, чтобы цвета и тени выглядели естественно. Сохрани пропорции кадра.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="estestvennaya-retush" data-ecat="portret" data-en="Retouch this portrait naturally. Remove temporary blemishes, redness and under-eye shadows, but keep the real skin texture, pores, freckles and natural asymmetry. Do not change the face shape, eyes, nose, lips, age or expression. No beauty filter, no plastic skin." data-ru="Сделай естественную ретушь портрета. Убери временные прыщики, покраснения и тени под глазами, но сохрани настоящую текстуру кожи, поры, веснушки и естественную асимметрию. Не меняй форму лица, глаза, нос, губы, возраст и выражение. Без бьюти-фильтра и пластиковой кожи." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span>
+                  <span class="ecard__cat">Портрет и лицо</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Естественная ретушь</button></h3>
+                <p class="ecard__desc">Убирает прыщики и покраснения, но без «пластиковой» кожи и фильтров.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Естественная ретушь»"><span>Сделай естественную ретушь портрета. Убери временные прыщики, покраснения и тени под глазами, но сохрани настоящую текстуру кожи, поры, веснушки и естественную асимметрию. Не меняй форму лица, глаза, нос, губы, возраст и выражение. Без бьюти-фильтра и пластиковой кожи.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="delovoj-portret-dlya-rezyume" data-ecat="portret" data-en="Turn this photo into a professional headshot. Keep the same face, facial features, skin tone, age and hairstyle. Change the clothing to [a navy blazer and white shirt], use a neutral light gray background and soft studio lighting. Head and shoulders framing, looking at the camera, natural confident expression." data-ru="Сделай из этого фото деловой портрет. Сохрани то же лицо, черты лица, тон кожи, возраст и причёску. Замени одежду на [тёмно-синий пиджак и белую рубашку], фон — нейтральный светло-серый, мягкий студийный свет. Кадр по плечи, взгляд в камеру, естественное уверенное выражение." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span>
+                  <span class="ecard__cat">Портрет и лицо</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Деловой портрет для резюме</button></h3>
+                <p class="ecard__desc">Из обычного селфи — аккуратное фото для резюме, LinkedIn или hh.ru.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Деловой портрет для резюме»"><span>Сделай из этого фото деловой портрет. Сохрани то же лицо, черты лица, тон кожи, возраст и причёску. Замени одежду на <mark>[тёмно-синий пиджак и белую рубашку]</mark>, фон — нейтральный светло-серый, мягкий студийный свет. Кадр по плечи, взгляд в камеру, естественное уверенное выражение.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="otkryt-zakrytye-glaza" data-ecat="portret" data-en="Open only the person's closed eyes naturally. Keep the eye shape, eye color and eyelids consistent with the person's face, looking [at the camera]. Do not change anything else in the photo." data-ru="Открой только закрытые глаза человека, естественно. Форма глаз, цвет и веки должны соответствовать его лицу, взгляд — [в камеру]. Больше ничего на фото не меняй." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span>
+                  <span class="ecard__cat">Портрет и лицо</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Открыть закрытые глаза</button></h3>
+                <p class="ecard__desc">Моргнули на удачном кадре — нейросеть откроет глаза.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Открыть закрытые глаза»"><span>Открой только закрытые глаза человека, естественно. Форма глаз, цвет и веки должны соответствовать его лицу, взгляд — <mark>[в камеру]</mark>. Больше ничего на фото не меняй.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="ubrat-bliki-s-ochkov" data-ecat="portret" data-en="Remove only the glare and reflections on the eyeglass lenses so the eyes are clearly visible. Keep the glasses frame, eye shape, eye color and gaze direction unchanged. Do not change anything else." data-ru="Убери только блики и отражения на линзах очков, чтобы глаза было хорошо видно. Оправу, форму глаз, цвет и направление взгляда не меняй. Больше ничего не трогай." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span>
+                  <span class="ecard__cat">Портрет и лицо</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Убрать блики с очков</button></h3>
+                <p class="ecard__desc">Отражения в линзах мешают видеть глаза — убираем.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Убрать блики с очков»"><span>Убери только блики и отражения на линзах очков, чтобы глаза было хорошо видно. Оправу, форму глаз, цвет и направление взгляда не меняй. Больше ничего не трогай.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="dobavit-legkuyu-ulybku" data-ecat="portret" data-en="Change only the facial expression to a natural, subtle smile. Keep the same face, identity, eyes, teeth shape, age and head position. Everything else in the photo stays exactly the same." data-ru="Измени только выражение лица на естественную лёгкую улыбку. Сохрани то же лицо, узнаваемость, глаза, форму зубов, возраст и положение головы. Всё остальное на фото оставь без изменений." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span>
+                  <span class="ecard__cat">Портрет и лицо</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Добавить лёгкую улыбку</button></h3>
+                <p class="ecard__desc">Серьёзное лицо → естественная улыбка, человек остаётся узнаваемым.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Добавить лёгкую улыбку»"><span>Измени только выражение лица на естественную лёгкую улыбку. Сохрани то же лицо, узнаваемость, глаза, форму зубов, возраст и положение головы. Всё остальное на фото оставь без изменений.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="smenit-odezhdu" data-ecat="obraz" data-en="Change only the clothing to [a black leather jacket, white t-shirt and blue jeans]. Keep the person's face, hair, body shape, pose and the background unchanged. The new clothes must fit the body and pose with realistic folds and lighting." data-ru="Замени только одежду на [чёрную кожаную куртку, белую футболку и синие джинсы]. Лицо, волосы, фигуру, позу и фон не меняй. Новая одежда должна сидеть по фигуре и позе, с реалистичными складками и светом." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3l-5 3 2 5 3-1v11h8V10l3 1 2-5-5-3a4 4 0 01-8 0z"/></svg></span>
+                  <span class="ecard__cat">Одежда и образ</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Сменить одежду</button></h3>
+                <p class="ecard__desc">Примерить другой наряд без похода в магазин.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Сменить одежду»"><span>Замени только одежду на <mark>[чёрную кожаную куртку, белую футболку и синие джинсы]</mark>. Лицо, волосы, фигуру, позу и фон не меняй. Новая одежда должна сидеть по фигуре и позе, с реалистичными складками и светом.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="primerit-odezhdu-s-drugogo-foto" data-ecat="obraz" data-en="Use image 1 for the person and image 2 only for the clothing item. Dress the person from image 1 in the [jacket] from image 2, keeping its exact color, pattern, material and details. Keep the person's face, body shape, pose and background from image 1 unchanged." data-ru="Используй фото 1 для человека, а фото 2 только для вещи. Одень человека с фото 1 в [куртку] с фото 2, точно сохранив её цвет, принт, материал и детали. Лицо, фигуру, позу и фон с фото 1 не меняй." data-images="2">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3l-5 3 2 5 3-1v11h8V10l3 1 2-5-5-3a4 4 0 01-8 0z"/></svg></span>
+                  <span class="ecard__cat">Одежда и образ</span>
+                  <span class="ebadge" title="Нужно загрузить 2 фото"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="3" width="13" height="13" rx="2"/><path d="M16 21H5a2 2 0 01-2-2V8"/></svg>2 фото</span>
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Примерить одежду с другого фото</button></h3>
+                <p class="ecard__desc">Загрузите 2 фото: себя и вещь (из магазина, маркетплейса, с другого человека).</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Примерить одежду с другого фото»"><span>Используй фото 1 для человека, а фото 2 только для вещи. Одень человека с фото 1 в <mark>[куртку]</mark> с фото 2, точно сохранив её цвет, принт, материал и детали. Лицо, фигуру, позу и фон с фото 1 не меняй.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="smenit-prichesku-ili-cvet-volos" data-ecat="obraz" data-en="Change only the hair to [a shoulder-length bob in warm copper color]. Keep the face, facial features, skin tone, expression and everything else unchanged. Make the hair look natural with realistic texture and lighting." data-ru="Измени только волосы на [каре до плеч тёплого медного цвета]. Лицо, черты лица, тон кожи, выражение и всё остальное не меняй. Волосы должны выглядеть естественно, с реалистичной текстурой и светом." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3l-5 3 2 5 3-1v11h8V10l3 1 2-5-5-3a4 4 0 01-8 0z"/></svg></span>
+                  <span class="ecard__cat">Одежда и образ</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Сменить причёску или цвет волос</button></h3>
+                <p class="ecard__desc">Проверить новую стрижку или цвет до похода в салон.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Сменить причёску или цвет волос»"><span>Измени только волосы на <mark>[каре до плеч тёплого медного цвета]</mark>. Лицо, черты лица, тон кожи, выражение и всё остальное не меняй. Волосы должны выглядеть естественно, с реалистичной текстурой и светом.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="smenit-cvet-odezhdy" data-ecat="obraz" data-en="Change only the color of the [dress] to [emerald green]. Keep the fabric texture, folds, shadows, shape and all other parts of the photo exactly the same." data-ru="Измени только цвет [платья] на [изумрудно-зелёный]. Текстуру ткани, складки, тени, фасон и всё остальное на фото оставь точно таким же." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3l-5 3 2 5 3-1v11h8V10l3 1 2-5-5-3a4 4 0 01-8 0z"/></svg></span>
+                  <span class="ecard__cat">Одежда и образ</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Сменить цвет одежды</button></h3>
+                <p class="ecard__desc">Та же вещь, другой цвет — удобно для каталога и примерки.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Сменить цвет одежды»"><span>Измени только цвет <mark>[платья]</mark> на <mark>[изумрудно-зелёный]</mark>. Текстуру ткани, складки, тени, фасон и всё остальное на фото оставь точно таким же.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="dobavit-aksessuar" data-ecat="obraz" data-en="Add [black sunglasses] to the person. Keep the face, hair, pose and background unchanged. The accessory must fit naturally with correct size, perspective, shadows and reflections." data-ru="Добавь человеку [чёрные солнцезащитные очки]. Лицо, волосы, позу и фон не меняй. Аксессуар должен сидеть естественно: правильный размер, перспектива, тени и отражения." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3l-5 3 2 5 3-1v11h8V10l3 1 2-5-5-3a4 4 0 01-8 0z"/></svg></span>
+                  <span class="ecard__cat">Одежда и образ</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Добавить аксессуар</button></h3>
+                <p class="ecard__desc">Очки, шапка, украшения, часы — дорисовать реалистично.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Добавить аксессуар»"><span>Добавь человеку <mark>[чёрные солнцезащитные очки]</mark>. Лицо, волосы, позу и фон не меняй. Аксессуар должен сидеть естественно: правильный размер, перспектива, тени и отражения.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="udalit-lishnij-predmet" data-ecat="udalit" data-en="Remove only the [red bag on the floor on the left]. Fill the area naturally so it matches the surrounding surface, texture and lighting. Do not change anything else in the photo." data-ru="Удали только [красную сумку на полу слева]. Заполни это место естественно, чтобы оно совпадало с поверхностью, текстурой и светом вокруг. Больше ничего на фото не меняй." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4V2"/><path d="M15 16v-2"/><path d="M8 9h2"/><path d="M20 9h2"/><path d="M17.8 11.8L19 13"/><path d="M15 9h.01"/><path d="M17.8 6.2L19 5"/><path d="M11 6.2L9.7 5"/><path d="M3 21l9-9"/></svg></span>
+                  <span class="ecard__cat">Удалить и восстановить</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Удалить лишний предмет</button></h3>
+                <p class="ecard__desc">Уберите мусор, провода, сумку, знак — что угодно из кадра.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Удалить лишний предмет»"><span>Удали только <mark>[красную сумку на полу слева]</mark>. Заполни это место естественно, чтобы оно совпадало с поверхностью, текстурой и светом вокруг. Больше ничего на фото не меняй.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="ubrat-lyudej-s-zadnego-plana" data-ecat="udalit" data-en="Remove all people in the background, keep only [the person in the foreground]. Rebuild the background naturally where they were. Do not change the main person, the scene or the framing." data-ru="Убери всех людей на заднем плане, оставь только [человека на переднем плане]. Естественно восстанови фон на их месте. Главного человека, сцену и кадр не меняй." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4V2"/><path d="M15 16v-2"/><path d="M8 9h2"/><path d="M20 9h2"/><path d="M17.8 11.8L19 13"/><path d="M15 9h.01"/><path d="M17.8 6.2L19 5"/><path d="M11 6.2L9.7 5"/><path d="M3 21l9-9"/></svg></span>
+                  <span class="ecard__cat">Удалить и восстановить</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Убрать людей с заднего плана</button></h3>
+                <p class="ecard__desc">Туристы и случайные прохожие в кадре — убираем, вы остаётесь.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Убрать людей с заднего плана»"><span>Убери всех людей на заднем плане, оставь только <mark>[человека на переднем плане]</mark>. Естественно восстанови фон на их месте. Главного человека, сцену и кадр не меняй.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="vosstanovit-staroe-foto" data-ecat="udalit" data-en="Restore this old photo. Remove scratches, dust, stains, creases and noise, fix faded contrast and sharpen details. Keep every person's face, identity, age and expression exactly as they are. Keep the original period look and framing, do not add new details." data-ru="Восстанови это старое фото. Убери царапины, пыль, пятна, заломы и шум, верни контраст и чёткость. Лица, узнаваемость, возраст и выражения всех людей сохрани точно такими же. Оставь атмосферу того времени и кадр, ничего нового не дорисовывай." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4V2"/><path d="M15 16v-2"/><path d="M8 9h2"/><path d="M20 9h2"/><path d="M17.8 11.8L19 13"/><path d="M15 9h.01"/><path d="M17.8 6.2L19 5"/><path d="M11 6.2L9.7 5"/><path d="M3 21l9-9"/></svg></span>
+                  <span class="ecard__cat">Удалить и восстановить</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Восстановить старое фото</button></h3>
+                <p class="ecard__desc">Царапины, пятна, заломы, выцветание — возвращаем снимку жизнь.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Восстановить старое фото»"><span>Восстанови это старое фото. Убери царапины, пыль, пятна, заломы и шум, верни контраст и чёткость. Лица, узнаваемость, возраст и выражения всех людей сохрани точно такими же. Оставь атмосферу того времени и кадр, ничего нового не дорисовывай.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="raskrasit-cherno-beloe-foto" data-ecat="udalit" data-en="Colorize this black and white photo with natural, realistic colors appropriate for [the 1970s]. Keep all faces, details, composition and framing unchanged. Use believable skin tones and avoid oversaturated colors." data-ru="Раскрась это чёрно-белое фото в естественные реалистичные цвета, характерные для [1970-х]. Лица, детали, композицию и кадр не меняй. Тон кожи — правдоподобный, без кислотных цветов." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4V2"/><path d="M15 16v-2"/><path d="M8 9h2"/><path d="M20 9h2"/><path d="M17.8 11.8L19 13"/><path d="M15 9h.01"/><path d="M17.8 6.2L19 5"/><path d="M11 6.2L9.7 5"/><path d="M3 21l9-9"/></svg></span>
+                  <span class="ecard__cat">Удалить и восстановить</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Раскрасить чёрно-белое фото</button></h3>
+                <p class="ecard__desc">Старое ч/б фото в естественных цветах.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Раскрасить чёрно-белое фото»"><span>Раскрась это чёрно-белое фото в естественные реалистичные цвета, характерные для <mark>[1970-х]</mark>. Лица, детали, композицию и кадр не меняй. Тон кожи — правдоподобный, без кислотных цветов.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="ubrat-provoda-i-musor" data-ecat="udalit" data-en="Remove all power lines, wires and litter from the photo. Rebuild the sky, walls and ground naturally in those areas. Keep the people, buildings, colors and framing unchanged." data-ru="Удали с фото все провода, линии электропередач и мусор. Естественно восстанови небо, стены и землю на их месте. Людей, здания, цвета и кадр не меняй." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4V2"/><path d="M15 16v-2"/><path d="M8 9h2"/><path d="M20 9h2"/><path d="M17.8 11.8L19 13"/><path d="M15 9h.01"/><path d="M17.8 6.2L19 5"/><path d="M11 6.2L9.7 5"/><path d="M3 21l9-9"/></svg></span>
+                  <span class="ecard__cat">Удалить и восстановить</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Убрать провода и мусор</button></h3>
+                <p class="ecard__desc">Провода, столбы, мусор на улице — чистый кадр для соцсетей.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Убрать провода и мусор»"><span>Удали с фото все провода, линии электропередач и мусор. Естественно восстанови небо, стены и землю на их месте. Людей, здания, цвета и кадр не меняй.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="ispravit-osveschenie" data-ecat="svet" data-en="Improve only the lighting: add soft, even light on the face like from a large window, soften harsh shadows and fix the white balance. Keep the person, colors of clothing, background and framing the same." data-ru="Улучши только освещение: добавь мягкий ровный свет на лицо, как от большого окна, смягчи жёсткие тени и исправь баланс белого. Человека, цвета одежды, фон и кадр оставь прежними." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.9 4.9l1.4 1.4"/><path d="M17.7 17.7l1.4 1.4"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M4.9 19.1l1.4-1.4"/><path d="M17.7 6.3l1.4-1.4"/></svg></span>
+                  <span class="ecard__cat">Свет, цвет и качество</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Исправить освещение</button></h3>
+                <p class="ecard__desc">Тёмное лицо, жёсткие тени, жёлтый свет — делаем как в студии.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Исправить освещение»"><span>Улучши только освещение: добавь мягкий ровный свет на лицо, как от большого окна, смягчи жёсткие тени и исправь баланс белого. Человека, цвета одежды, фон и кадр оставь прежними.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="osvetlit-temnoe-foto" data-ecat="svet" data-en="Brighten this low-light photo: reveal details in the shadows, reduce noise and keep colors natural. Keep the night atmosphere, the people and the scene unchanged. Do not make it look like daytime." data-ru="Осветли это тёмное фото: проявить детали в тенях, убрать шум, цвета оставить естественными. Сохрани ночную атмосферу, людей и сцену без изменений. Не превращай в дневное фото." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.9 4.9l1.4 1.4"/><path d="M17.7 17.7l1.4 1.4"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M4.9 19.1l1.4-1.4"/><path d="M17.7 6.3l1.4-1.4"/></svg></span>
+                  <span class="ecard__cat">Свет, цвет и качество</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Осветлить тёмное фото</button></h3>
+                <p class="ecard__desc">Снимок в темноте на телефон → видно детали, но атмосфера остаётся.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Осветлить тёмное фото»"><span>Осветли это тёмное фото: проявить детали в тенях, убрать шум, цвета оставить естественными. Сохрани ночную атмосферу, людей и сцену без изменений. Не превращай в дневное фото.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="povysit-chetkost-i-kachestvo" data-ecat="svet" data-en="Enhance this photo: increase sharpness and fine detail, remove blur, noise and compression artifacts. Keep the faces, colors, composition and aspect ratio exactly the same. Do not add or change any objects." data-ru="Улучши качество фото: повысь резкость и детализацию, убери размытие, шум и артефакты сжатия. Лица, цвета, композицию и пропорции оставь точно такими же. Ничего не добавляй и не меняй." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.9 4.9l1.4 1.4"/><path d="M17.7 17.7l1.4 1.4"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M4.9 19.1l1.4-1.4"/><path d="M17.7 6.3l1.4-1.4"/></svg></span>
+                  <span class="ecard__cat">Свет, цвет и качество</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Повысить чёткость и качество</button></h3>
+                <p class="ecard__desc">Размытое или маленькое фото → резче и детальнее.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Повысить чёткость и качество»"><span>Улучши качество фото: повысь резкость и детализацию, убери размытие, шум и артефакты сжатия. Лица, цвета, композицию и пропорции оставь точно такими же. Ничего не добавляй и не меняй.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="cveta-kak-na-referense" data-ecat="svet" data-en="Use image 1 as the photo to edit and image 2 only as a color reference. Apply the color grading, tones and mood of image 2 to image 1. Do not copy any objects, people or composition from image 2. Keep everything in image 1 the same except colors." data-ru="Используй фото 1 как фото для обработки, а фото 2 только как референс по цвету. Перенеси цветокоррекцию, тона и настроение с фото 2 на фото 1. Не копируй объекты, людей и композицию с фото 2. На фото 1 меняются только цвета." data-images="2">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.9 4.9l1.4 1.4"/><path d="M17.7 17.7l1.4 1.4"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M4.9 19.1l1.4-1.4"/><path d="M17.7 6.3l1.4-1.4"/></svg></span>
+                  <span class="ecard__cat">Свет, цвет и качество</span>
+                  <span class="ebadge" title="Нужно загрузить 2 фото"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="3" width="13" height="13" rx="2"/><path d="M16 21H5a2 2 0 01-2-2V8"/></svg>2 фото</span>
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Цвета как на референсе</button></h3>
+                <p class="ecard__desc">Загрузите 2 фото: ваше и то, чьи цвета нравятся.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Цвета как на референсе»"><span>Используй фото 1 как фото для обработки, а фото 2 только как референс по цвету. Перенеси цветокоррекцию, тона и настроение с фото 2 на фото 1. Не копируй объекты, людей и композицию с фото 2. На фото 1 меняются только цвета.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="den-vecher" data-ecat="svet" data-en="Change the time of day to [sunset / evening blue hour]: warm low sunlight or deep blue sky with glowing street lights and windows. Keep the buildings, people, composition and framing unchanged. Realistic, no fantasy colors." data-ru="Смени время суток на [закат / вечерний синий час]: тёплое низкое солнце или глубокое синее небо со светящимися фонарями и окнами. Здания, людей, композицию и кадр не меняй. Реалистично, без фантастических цветов." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.9 4.9l1.4 1.4"/><path d="M17.7 17.7l1.4 1.4"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M4.9 19.1l1.4-1.4"/><path d="M17.7 6.3l1.4-1.4"/></svg></span>
+                  <span class="ecard__cat">Свет, цвет и качество</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>День → вечер</button></h3>
+                <p class="ecard__desc">Дневное фото превращается в закат или вечер с огнями.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «День → вечер»"><span>Смени время суток на <mark>[закат / вечерний синий час]</mark>: тёплое низкое солнце или глубокое синее небо со светящимися фонарями и окнами. Здания, людей, композицию и кадр не меняй. Реалистично, без фантастических цветов.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="sohranit-proporcii-i-kadr" data-ecat="kadr" data-en="Keep the original aspect ratio, resolution and framing. Do not crop, stretch, zoom or reposition anything. Change only what is described above." data-ru="Сохрани исходные пропорции, разрешение и кадр. Не обрезай, не растягивай, не приближай и ничего не сдвигай. Меняй только то, что описано выше." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2v14a2 2 0 002 2h14"/><path d="M18 22V8a2 2 0 00-2-2H2"/></svg></span>
+                  <span class="ecard__cat">Кадр и стиль</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Сохранить пропорции и кадр</button></h3>
+                <p class="ecard__desc">Добавьте в конец любого промта, чтобы нейросеть не обрезала и не растягивала фото.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Сохранить пропорции и кадр»"><span>Сохрани исходные пропорции, разрешение и кадр. Не обрезай, не растягивай, не приближай и ничего не сдвигай. Меняй только то, что описано выше.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="rasshirit-kadr" data-ecat="kadr" data-en="Extend this photo to a [16:9 horizontal] format. Keep the original image unchanged in the center and naturally continue the background on the sides with matching perspective, lighting and details. Do not stretch or move the subject." data-ru="Расширь фото до формата [16:9 горизонтальный]. Исходное изображение оставь без изменений по центру, а по бокам естественно продолжи фон с той же перспективой, светом и деталями. Не растягивай и не сдвигай объект." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2v14a2 2 0 002 2h14"/><path d="M18 22V8a2 2 0 00-2-2H2"/></svg></span>
+                  <span class="ecard__cat">Кадр и стиль</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Расширить кадр</button></h3>
+                <p class="ecard__desc">Вертикальное фото → горизонтальное (или наоборот) без обрезки.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Расширить кадр»"><span>Расширь фото до формата <mark>[16:9 горизонтальный]</mark>. Исходное изображение оставь без изменений по центру, а по бокам естественно продолжи фон с той же перспективой, светом и деталями. Не растягивай и не сдвигай объект.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="pomestit-sebya-v-druguyu-scenu" data-ecat="kadr" data-en="Place the person from the photo into [a café terrace in Paris in the morning]. Keep the face, facial features, skin tone, age, hairstyle and body proportions exactly the same. Match lighting and shadows to the new scene, realistic photo, [vertical 4:5] format." data-ru="Помести человека с фото в [утреннее кафе на террасе в Париже]. Лицо, черты лица, тон кожи, возраст, причёску и пропорции тела сохрани точно такими же. Свет и тени подстрой под новую сцену, реалистичное фото, формат [вертикальный 4:5]." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2v14a2 2 0 002 2h14"/><path d="M18 22V8a2 2 0 00-2-2H2"/></svg></span>
+                  <span class="ecard__cat">Кадр и стиль</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Поместить себя в другую сцену</button></h3>
+                <p class="ecard__desc">Вы на пляже, в Париже, на обложке журнала — лицо остаётся вашим.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Поместить себя в другую сцену»"><span>Помести человека с фото в <mark>[утреннее кафе на террасе в Париже]</mark>. Лицо, черты лица, тон кожи, возраст, причёску и пропорции тела сохрани точно такими же. Свет и тени подстрой под новую сцену, реалистичное фото, формат <mark>[вертикальный 4:5]</mark>.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="obedinit-dvuh-lyudej-na-odnom-foto" data-ecat="kadr" data-en="Combine the person from image 1 and the person from image 2 into one realistic photo, standing side by side [in a park]. Keep both faces, identities, ages, hairstyles and clothing exactly as in their original photos. Match lighting, scale and shadows so they look like they were photographed together." data-ru="Объедини человека с фото 1 и человека с фото 2 в один реалистичный снимок, они стоят рядом [в парке]. Лица, узнаваемость, возраст, причёски и одежду обоих сохрани точно как на исходных фото. Подстрой свет, масштаб и тени, чтобы казалось, что их сфотографировали вместе." data-images="2">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2v14a2 2 0 002 2h14"/><path d="M18 22V8a2 2 0 00-2-2H2"/></svg></span>
+                  <span class="ecard__cat">Кадр и стиль</span>
+                  <span class="ebadge" title="Нужно загрузить 2 фото"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="3" width="13" height="13" rx="2"/><path d="M16 21H5a2 2 0 01-2-2V8"/></svg>2 фото</span>
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Объединить двух людей на одном фото</button></h3>
+                <p class="ecard__desc">Загрузите 2 фото — получите совместный снимок, как будто стояли рядом.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Объединить двух людей на одном фото»"><span>Объедини человека с фото 1 и человека с фото 2 в один реалистичный снимок, они стоят рядом <mark>[в парке]</mark>. Лица, узнаваемость, возраст, причёски и одежду обоих сохрани точно как на исходных фото. Подстрой свет, масштаб и тени, чтобы казалось, что их сфотографировали вместе.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+              <article class="card ecard" data-slug="perevesti-v-drugoj-stil" data-ecat="kadr" data-en="Transform this photo into [a 3D animated movie style]. Keep the same composition, pose, clothing and recognizable facial features of the person. Only the rendering style changes." data-ru="Преврати это фото в [стиль 3D-мультфильма]. Сохрани ту же композицию, позу, одежду и узнаваемые черты лица человека. Меняется только стиль отрисовки." data-images="1">
+                <div class="ecard__head">
+                  <span class="ecard__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2v14a2 2 0 002 2h14"/><path d="M18 22V8a2 2 0 00-2-2H2"/></svg></span>
+                  <span class="ecard__cat">Кадр и стиль</span>
+                  
+                </div>
+                <h3 class="ecard__title"><button type="button" data-eopen>Перевести в другой стиль</button></h3>
+                <p class="ecard__desc">Аниме, 3D-мультфильм, акварель, комикс — с сохранением композиции.</p>
+                <button class="ecard__prompt" type="button" data-eopen aria-label="Открыть промт «Перевести в другой стиль»"><span>Преврати это фото в <mark>[стиль 3D-мультфильма]</mark>. Сохрани ту же композицию, позу, одежду и узнаваемые черты лица человека. Меняется только стиль отрисовки.</span></button>
+                <div class="pcard__actions">
+                  <button class="b b--y b--s" type="button" data-etry>Попробовать</button>
+                  <button class="ico ico--s" type="button" data-ecopy aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+                </div>
+              </article>
+            </div>
+            <p class="pempty" id="edit-empty" hidden>
+              Ничего не нашлось. Попробуйте другое слово или категорию.
+            </p>
+          </section>
+
+          <a class="card linkcard" href="/promt-po-foto/">
+            <span class="tool__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V6a2 2 0 012-2h2"/><path d="M16 4h2a2 2 0 012 2v2"/><path d="M20 16v2a2 2 0 01-2 2h-2"/><path d="M8 20H6a2 2 0 01-2-2v-2"/><path d="M8 10h8"/><path d="M8 14h5"/></svg></span>
+            <span class="linkcard__body">
+              <span class="linkcard__title">Есть картинка, а промта нет?</span>
+              <span class="linkcard__text">Загрузите фото — нейросеть составит промт за вас.</span>
+            </span>
+            <span class="linkcard__more">Промт по фото <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+          </a>
+
+          <section class="card note-card" aria-labelledby="howto-prompt-title">
+            <h2 id="howto-prompt-title" class="h2">Как написать хороший промт</h2>
+            <div class="note-card__body">
+              <p><b>Сначала главное.</b> Кто или что в кадре: «девушка в красном пальто», «чашка кофе».</p>
+              <p><b>Потом обстановка и свет.</b> «Ночной город, неоновые вывески, мягкий свет сбоку».</p>
+              <p><b>В конце стиль.</b> «Как плёночное фото», «в стиле аниме», «студийная съёмка».</p>
+              <p><a href="/">Открыть генератор →</a></p>
+            </div>
+          </section>
+
+          <section id="faq" class="sec" aria-labelledby="faq-title">
+            <h2 id="faq-title" class="h2">Частые вопросы</h2>
+            <div class="faq-list" data-faq-accordion>
+              <div class="faq-item is-open">
+                <button type="button" class="faq-item__trigger" aria-expanded="true">
+                  <span>Что такое промт?</span>
+                  <span class="faq-item__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-item__panel">
+                  <div class="faq-item__content"><p>Промт — это текстовое описание того, что должна сделать нейросеть: кто в кадре, где, какой свет и стиль. Чем точнее промт, тем ближе результат к задумке.</p></div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <button type="button" class="faq-item__trigger" aria-expanded="false">
+                  <span>Как использовать готовый промт со своим фото?</span>
+                  <span class="faq-item__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-item__panel">
+                  <div class="faq-item__content"><p>Нажмите «Попробовать» — промт подставится в генератор на главной. Прикрепите своё фото и нажмите «Создать»: нейросеть применит стиль из промта к вашему снимку.</p></div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <button type="button" class="faq-item__trigger" aria-expanded="false">
+                  <span>Что значит текст в квадратных скобках?</span>
+                  <span class="faq-item__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-item__panel">
+                  <div class="faq-item__content"><p>Это место, которое нужно заменить на своё: какой фон, какая одежда, какой цвет. Нажмите «Попробовать» — в генераторе текст в первых скобках уже будет выделен, просто начните печатать.</p></div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <button type="button" class="faq-item__trigger" aria-expanded="false">
+                  <span>Зачем некоторым промтам 2 фото?</span>
+                  <span class="faq-item__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-item__panel">
+                  <div class="faq-item__content"><p>Промты с пометкой «2 фото» берут что-то со второго снимка: фон, одежду, цвета или второго человека. Загрузите сначала своё фото, потом второе — порядок важен.</p></div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <button type="button" class="faq-item__trigger" aria-expanded="false">
+                  <span>Можно менять промт под себя?</span>
+                  <span class="faq-item__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-item__panel">
+                  <div class="faq-item__content"><p>Да. После подстановки промт можно отредактировать: поменять одежду, фон, время суток или добавить детали.</p></div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <button type="button" class="faq-item__trigger" aria-expanded="false">
+                  <span>Промты бесплатные?</span>
+                  <span class="faq-item__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-item__panel">
+                  <div class="faq-item__content"><p>Да, все промты на странице можно копировать и использовать бесплатно. Платите только за генерации — первая бесплатно.</p></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <div id="edit-modal" class="modal hidden" aria-hidden="true">
+            <div class="modal__backdrop" data-close-edit-modal></div>
+            <section
+              class="modal__dialog emodal"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="edit-modal-title"
+            >
+              <button class="modal__close" type="button" data-close-edit-modal aria-label="Закрыть">×</button>
+              <div class="ecard__head">
+                <span class="ecard__ic" id="edit-modal-ic"></span>
+                <span class="ecard__cat" id="edit-modal-cat"></span>
+                <span class="ebadge" id="edit-modal-badge" hidden></span>
+              </div>
+              <div class="pmodal__title" id="edit-modal-title">Промт</div>
+              <p class="ecard__desc" id="edit-modal-desc"></p>
+              <div class="row">
+                <span class="gen-lbl">Язык промта</span>
+                <div class="sp"></div>
+                <div class="seg" role="radiogroup" aria-label="Язык промта">
+                  <button type="button" class="seg__btn is-active" role="radio" aria-checked="true" data-elang="ru">Русский</button>
+                  <button type="button" class="seg__btn" role="radio" aria-checked="false" data-elang="en">English</button>
+                </div>
+              </div>
+              <div class="ptbox" id="edit-modal-text"></div>
+              <p class="emodal__hint">
+                Замените текст в <mark class="slot">[скобках]</mark> на своё. В генераторе он будет уже выделен — просто начните печатать.
+              </p>
+              <div class="pmodal__actions">
+                <button class="b b--y b--lg" type="button" id="edit-modal-try">Попробовать с этим промтом</button>
+                <button class="ico" type="button" id="edit-modal-copy" aria-label="Скопировать промт" title="Скопировать"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h10"/></svg></button>
+              </div>
+            </section>
+          </div>
+          <div class="toast" id="toast" role="status" aria-live="polite"></div>
+        </div>
+
+        <footer class="foot">
+          <span>&copy; 2026 Нано Банана</span>
+          <nav aria-label="Документы и поддержка">
+            <a href="/assistant/">ИИ-помощник</a>
+            <a href="/offer.pdf" target="_blank" rel="noopener noreferrer"
+              >Условия и оферта</a
+            >
+            <a
+              href="https://t.me/NeiroBananchik_Support"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Техподдержка</a
+            >
+            <a href="/feedback.html">Оставить отзыв</a>
+          </nav>
+        </footer>
+      </main>
+    </div>
+
+
+    <div id="auth-modal" class="modal hidden" aria-hidden="true">
+      <div class="modal__backdrop" data-close-auth-modal></div>
+      <section
+        class="modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="auth-modal-title"
+      >
+        <button
+          id="auth-modal-close"
+          class="modal__close"
+          type="button"
+          aria-label="Закрыть"
+        >
+          ×
+        </button>
+        <div id="auth-modal-title" class="modal__title">Вход</div>
+        <p class="modal__text">
+          Перед генерацией войдите через Telegram или Google, чтобы мы могли
+          определить ваш аккаунт.
+        </p>
+        <div class="auth-actions">
+          <a id="google-auth-modal-link" class="auth-google" href="#"
+            ><img
+              src="/assets/images/google.svg"
+              width="20"
+              height="20"
+              alt=""
+            />Войти через Google</a
+          >
+          <div id="telegram-auth-widget" class="auth-telegram"></div>
+        </div>
+      </section>
+    </div>
+
+    <div id="billing-modal" class="modal hidden" aria-hidden="true">
+      <div class="modal__backdrop" data-close-billing-modal></div>
+      <section
+        class="modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="billing-modal-title"
+      >
+        <button
+          id="billing-modal-close"
+          class="modal__close"
+          type="button"
+          aria-label="Закрыть"
+        >
+          ×
+        </button>
+        <div id="billing-modal-title" class="modal__title">Пополнение</div>
+        <p class="modal__text">
+          Выберите тариф и нажмите «Оплатить». После успешной оплаты баланс
+          обновится автоматически. Пакеты от 499 ₽ открывают ИИ-ассистента
+          на 30 дней.
+        </p>
+        <div
+          id="billing-error"
+          class="billing-error hidden"
+          role="status"
+        ></div>
+        <div id="billing-loading" class="billing-loading hidden">
+          <span class="inline-loader" aria-hidden="true"></span>
+          Загружаем тарифы…
+        </div>
+        <div id="billing-plans" class="billing-plans"></div>
+        <div class="promo-box">
+          <div class="promo-box__head">
+            <span class="promo-box__title">У меня есть промокод</span>
+            <button
+              id="promo-toggle"
+              class="promo-switch"
+              type="button"
+              role="switch"
+              aria-checked="false"
+              aria-label="У меня есть промокод"
+            >
+              <span class="promo-switch__thumb"></span>
+            </button>
+          </div>
+          <div id="promo-body" class="promo-box__body hidden">
+            <div id="promo-form" class="promo-form">
+              <input
+                id="promo-input"
+                class="promo-input"
+                type="text"
+                placeholder="Введите промокод"
+                autocomplete="off"
+                autocapitalize="characters"
+                spellcheck="false"
+              />
+              <button id="promo-apply" class="promo-apply" type="button">
+                Применить
+              </button>
+            </div>
+            <div id="promo-applied" class="promo-applied hidden">
+              <span id="promo-applied-code" class="promo-chip"></span>
+              <button id="promo-remove" class="promo-remove" type="button">
+                Убрать
+              </button>
+            </div>
+            <p id="promo-message" class="promo-message" role="status">&nbsp;</p>
+          </div>
+        </div>
+        <div class="billing-total">
+          <span>К оплате</span>
+          <span class="billing-total__amount">
+            <span id="billing-total" class="billing-total__value">—</span>
+            <span id="billing-total-old" class="billing-total__old" hidden
+              >&nbsp;</span
+            >
+          </span>
+        </div>
+        <button
+          id="billing-pay-button"
+          type="button"
+          class="billing-pay-button"
+        >
+          Оплатить
+        </button>
+        <p class="billing-note">
+          Оплачивая, вы принимаете
+          <a href="/offer.pdf" target="_blank" rel="noopener noreferrer"
+            >условия оферты</a
+          >. Пакет генераций не сгорает.
+        </p>
+      </section>
+    </div>
+
+    <div id="howto-modal" class="modal hidden" aria-hidden="true">
+      <div class="modal__backdrop" data-close-howto-modal></div>
+      <section
+        class="modal__dialog modal__dialog--wide"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="howto-modal-title"
+      >
+        <button
+          id="howto-modal-close"
+          class="modal__close"
+          type="button"
+          aria-label="Закрыть"
+        >
+          ×
+        </button>
+        <div id="howto-modal-title" class="modal__title">Как пользоваться</div>
+        <p class="modal__text">
+          Загружаете фото, описываете текстом что хотите получить — нейросеть
+          делает результат.
+        </p>
+
+        <div class="howto-card">
+          <div class="howto-card__title">📷 Фото</div>
+          <div class="howto-flow">
+            <figure class="howto-flow__item">
+              <img
+                src="/assets/images/rules/photo.jpg"
+                alt="Исходное фото"
+                loading="lazy"
+              />
+              <figcaption>Загружаете фото</figcaption>
+            </figure>
+            <span class="howto-flow__arrow" aria-hidden="true">→</span>
+            <figure class="howto-flow__item howto-flow__item--result">
+              <img
+                src="/assets/images/rules/photo_res_web.jpg"
+                alt="Результат генерации фото"
+                loading="lazy"
+              />
+              <figcaption>Получаете результат</figcaption>
+            </figure>
+          </div>
+          <p class="howto-card__prompt">Текст: «добавь красивый фон»</p>
+        </div>
+
+        <div class="howto-card">
+          <div class="howto-card__title">🎬 Видео</div>
+          <div class="howto-flow">
+            <figure class="howto-flow__item">
+              <img
+                src="/assets/images/rules/video_ref.jpg"
+                alt="Исходное фото"
+                loading="lazy"
+              />
+              <figcaption>Загружаете фото</figcaption>
+            </figure>
+            <span class="howto-flow__arrow" aria-hidden="true">→</span>
+            <figure class="howto-flow__item howto-flow__item--result">
+              <video
+                id="howto-video-res"
+                data-src="/assets/images/rules/video_ref_res.mp4"
+                poster="/assets/images/rules/video_ref_poster.jpg"
+                preload="none"
+                loop
+                muted
+                playsinline
+              >
+                <track
+                  kind="captions"
+                  src="/assets/captions/empty.vtt"
+                  srclang="ru"
+                  label="Без звука"
+                />
+              </video>
+              <figcaption>Получаете видео</figcaption>
+            </figure>
+          </div>
+          <p class="howto-card__prompt">Текст: «оживи фото»</p>
+        </div>
+      </section>
+    </div>
+
+    <div
+      id="result-modal"
+      class="modal hidden"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Результат генерации"
+    >
+      <div class="modal__backdrop modal__backdrop--dense" data-close-result-modal></div>
+      <section class="modal__dialog modal__dialog--result">
+        <button
+          id="result-modal-close"
+          class="modal__close"
+          type="button"
+          aria-label="Закрыть"
+        >
+          ×
+        </button>
+        <img id="result-modal-image" class="result-modal__image" alt="Результат" />
+        <div class="result-modal__actions">
+          <a id="result-modal-animate" class="btn btn--ghost" href="#"
+            >Оживить фото</a
+          >
+          <a
+            id="result-modal-download"
+            class="btn btn--primary"
+            href="#"
+            download
+            >Скачать</a
+          >
+        </div>
+        <aside
+          id="result-feedback-cta"
+          class="result-feedback"
+          aria-label="Приглашение оставить отзыв"
+        >
+          <p>Понравилась генерация? Поделитесь отзывом — это меньше минуты.</p>
+          <a
+            id="result-feedback-cta-link"
+            class="btn btn--outline btn--sm"
+            href="/feedback.html"
+            >Оставить отзыв</a
+          >
+        </aside>
+      </section>
+    </div>
+
+    <div id="news-modal" class="modal hidden" aria-hidden="true">
+      <div class="modal__backdrop" data-close-news-modal></div>
+      <section
+        class="modal__dialog news-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="news-modal-title"
+      >
+        <button
+          class="modal__close"
+          type="button"
+          data-close-news-modal
+          aria-label="Закрыть"
+        >
+          ×
+        </button>
+        <div id="news-modal-title" class="modal__title">Новости</div>
+        <a
+          id="news-modal-link"
+          class="news-modal__link"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a>
+        <a
+          id="news-modal-image-link"
+          class="news-modal__shot"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="news-modal__scroll"
+            ><img id="news-modal-image" alt="Новый пост в Telegram-канале"
+          /></span></a>
+        <a
+          id="news-modal-cta"
+          class="b b--y news-modal__cta"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Открыть пост в Telegram</a
+        >
+      </section>
+    </div>
+
+    <script src="/assets/js/index.js?v=20261013"></script>
+    <script src="/assets/js/promty.js?v=20261013"></script>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+      (function (m, e, t, r, i, k, a) {
+        m[i] =
+          m[i] ||
+          function () {
+            (m[i].a = m[i].a || []).push(arguments);
+          };
+        m[i].l = 1 * new Date();
+        for (var j = 0; j < document.scripts.length; j++) {
+          if (document.scripts[j].src === r) {
+            return;
+          }
+        }
+        ((k = e.createElement(t)),
+          (a = e.getElementsByTagName(t)[0]),
+          (k.async = 1),
+          (k.src = r),
+          a.parentNode.insertBefore(k, a));
+      })(
+        window,
+        document,
+        "script",
+        "https://mc.yandex.ru/metrika/tag.js?id=106429810",
+        "ym",
+      );
+      ym(106429810, "init", {
+        ssr: true,
+        webvisor: true,
+        clickmap: true,
+        referrer: document.referrer,
+        url: location.href,
+        accurateTrackBounce: true,
+        trackLinks: true,
+      });
+    </script>
+
+    <noscript
+      ><div>
+        <img
+          src="https://mc.yandex.ru/watch/106429810"
+          style="position: absolute; left: -9999px"
+          alt=""
+        /></div
+    ></noscript>
+    <!-- /Yandex.Metrika counter -->
+  </body>
+</html>

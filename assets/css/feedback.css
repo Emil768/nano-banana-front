@@ -1,0 +1,614 @@
+/* ==========================================================================
+   Токены — те же, что на лендинге
+   ========================================================================== */
+
+:root {
+  --bg: #0b0a09;
+  --surface-panel: linear-gradient(
+    180deg,
+    rgba(30, 27, 23, 0.96),
+    rgba(17, 15, 13, 0.96)
+  );
+
+  --text: #f4efe6;
+  --text-2: rgba(244, 239, 230, 0.62);
+  --text-3: rgba(244, 239, 230, 0.55);
+
+  --line-07: rgba(244, 239, 230, 0.07);
+  --line-10: rgba(244, 239, 230, 0.1);
+  --line-12: rgba(244, 239, 230, 0.12);
+  --line-16: rgba(244, 239, 230, 0.16);
+
+  --on-accent: #191509;
+  --accent: oklch(0.86 0.17 92);
+  --accent-light: oklch(0.92 0.12 94);
+  --accent-soft: oklch(0.9 0.14 94);
+  --accent-glow: oklch(0.72 0.16 92 / 0.2);
+  --accent-a08: oklch(0.86 0.17 92 / 0.08);
+  --accent-a10: oklch(0.86 0.17 92 / 0.1);
+  --accent-a12: oklch(0.86 0.17 92 / 0.12);
+  --accent-a16: oklch(0.86 0.17 92 / 0.16);
+  --accent-a28: oklch(0.86 0.17 92 / 0.28);
+  --accent-a30: oklch(0.86 0.17 92 / 0.3);
+  --accent-a45: oklch(0.86 0.17 92 / 0.45);
+  --accent-a50: oklch(0.86 0.17 92 / 0.5);
+  --accent-a55: oklch(0.86 0.17 92 / 0.55);
+  --danger-line: oklch(0.6 0.17 25 / 0.5);
+  --danger-bg: oklch(0.6 0.17 25 / 0.12);
+  --danger-text: #ffb4a6;
+
+  --font-display: "Unbounded", "Manrope", Helvetica, Arial, sans-serif;
+  --font-body: "Manrope", Helvetica, Arial, sans-serif;
+}
+
+@supports not (color: oklch(0 0 0)) {
+  :root {
+    --accent: #f5c518;
+    --accent-light: #f8dc73;
+    --accent-soft: #f6d35a;
+    --accent-glow: rgba(201, 161, 0, 0.2);
+    --accent-a08: rgba(245, 197, 24, 0.08);
+    --accent-a10: rgba(245, 197, 24, 0.1);
+    --accent-a12: rgba(245, 197, 24, 0.12);
+    --accent-a16: rgba(245, 197, 24, 0.16);
+    --accent-a28: rgba(245, 197, 24, 0.28);
+    --accent-a30: rgba(245, 197, 24, 0.3);
+    --accent-a45: rgba(245, 197, 24, 0.45);
+    --accent-a50: rgba(245, 197, 24, 0.5);
+    --accent-a55: rgba(245, 197, 24, 0.55);
+    --danger-line: rgba(214, 69, 50, 0.5);
+    --danger-bg: rgba(214, 69, 50, 0.12);
+  }
+}
+
+@keyframes fb-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fb-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes fb-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ==========================================================================
+   База
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--accent-light);
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.fb-container {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* Свечение сверху: обёртка режет его, чтобы не было горизонтального скролла */
+.fb-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 700px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.fb-glow__blob {
+  position: absolute;
+  top: -300px;
+  left: 50%;
+  width: 900px;
+  height: 600px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    var(--accent-glow),
+    transparent 70%
+  );
+  filter: blur(20px);
+  animation: fb-pulse 9s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   Шапка
+   ========================================================================== */
+
+.fb-header {
+  position: relative;
+  border-bottom: 1px solid var(--line-07);
+}
+
+.fb-header__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.fb-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.fb-brand:hover {
+  color: var(--text);
+}
+
+.fb-brand__mark {
+  flex: none;
+  display: block;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.fb-brand__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+}
+
+.fb-back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--text-2);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.fb-back:hover {
+  color: var(--text);
+}
+
+/* ==========================================================================
+   Контент
+   ========================================================================== */
+
+.fb-main {
+  position: relative;
+  flex: 1;
+  padding-top: clamp(36px, 6vw, 64px);
+  padding-bottom: clamp(40px, 6vw, 72px);
+}
+
+.fb-intro {
+  margin-bottom: clamp(24px, 4vw, 32px);
+}
+
+.fb-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  padding: 7px 15px 7px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--accent-a30);
+  background: var(--accent-a08);
+  color: var(--accent-soft);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.fb-pill__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-a16);
+}
+
+.fb-title {
+  margin: 18px 0 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(30px, 4.4vw, 46px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+.fb-lead {
+  max-width: 34em;
+  margin: 14px 0 0;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--text-2);
+  text-wrap: pretty;
+}
+
+/* ---------- Карточка формы ---------- */
+
+.fb-card {
+  padding: clamp(20px, 3.5vw, 30px);
+  border-radius: 26px;
+  border: 1px solid var(--line-10);
+  background: var(--surface-panel);
+  box-shadow: 0 40px 90px -40px #000;
+}
+
+.fb-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.fb-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fb-fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.fb-fieldset .fb-label {
+  display: block;
+  margin-bottom: 10px;
+  padding: 0;
+}
+
+.fb-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.fb-hint {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-3);
+}
+
+.fb-input {
+  width: 100%;
+  min-height: 48px;
+  padding: 13px 15px;
+  border-radius: 13px;
+  border: 1px solid var(--line-12);
+  background: rgba(11, 10, 9, 0.6);
+  color: var(--text);
+  font: 400 15px/1.5 var(--font-body);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.fb-input::placeholder {
+  color: rgba(244, 239, 230, 0.4);
+}
+
+.fb-input:focus {
+  border-color: var(--accent-a55);
+}
+
+.fb-textarea {
+  min-height: calc(4.5em + 28px);
+  resize: vertical;
+}
+
+/* ---------- Оценка ---------- */
+
+.fb-rating {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+}
+
+.fb-stars {
+  display: flex;
+  gap: 8px;
+}
+
+.fb-star {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 12px;
+  border: 1px solid var(--line-12);
+  background: rgba(244, 239, 230, 0.03);
+  color: rgba(244, 239, 230, 0.25);
+  font-size: 20px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition:
+    border-color 0.18s ease,
+    background 0.18s ease,
+    color 0.18s ease;
+}
+
+.fb-star.is-active,
+.fb-star.is-hover {
+  border-color: var(--accent-a45);
+  background: var(--accent-a12);
+  color: var(--accent);
+}
+
+.fb-rating__label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-2);
+}
+
+.fb-rating__label.is-set {
+  color: var(--accent-soft);
+}
+
+/* ---------- Ошибка ---------- */
+
+.fb-alert {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 13px;
+  border: 1px solid var(--danger-line);
+  background: var(--danger-bg);
+  color: var(--danger-text);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ---------- Отправка ---------- */
+
+.fb-submit-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 18px;
+}
+
+.fb-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 50px;
+  padding: 15px 30px;
+  border: 0;
+  border-radius: 13px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font: 700 16px/1.2 var(--font-body);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.fb-submit:hover:not(:disabled) {
+  background: var(--accent-light);
+}
+
+.fb-submit.is-loading {
+  opacity: 0.65;
+  cursor: progress;
+}
+
+.fb-submit__spinner {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid rgba(25, 21, 9, 0.25);
+  border-top-color: var(--on-accent);
+  animation: fb-spin 0.8s linear infinite;
+}
+
+.fb-submit.is-loading .fb-submit__spinner {
+  display: block;
+}
+
+.fb-note {
+  flex: 1 1 220px;
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-3);
+}
+
+/* ---------- Благодарность ---------- */
+
+.fb-success {
+  padding: clamp(28px, 5vw, 48px) clamp(20px, 4vw, 40px);
+  border-radius: 28px;
+  border: 1px solid var(--accent-a28);
+  background: linear-gradient(160deg, var(--accent-a10), rgba(24, 21, 18, 0.7) 55%);
+  box-shadow: 0 40px 90px -40px #000;
+  text-align: center;
+  animation: fb-pop 0.35s ease both;
+}
+
+.fb-success:focus {
+  outline: none;
+}
+
+.fb-success__mark {
+  width: 62px;
+  height: 62px;
+  margin: 0 auto;
+  border-radius: 18px;
+  background: var(--accent);
+  color: var(--on-accent);
+  display: grid;
+  place-items: center;
+  font-size: 30px;
+  line-height: 1;
+}
+
+.fb-success .fb-title {
+  margin-top: 22px;
+}
+
+.fb-success .fb-lead {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.fb-success__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.fb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 14px 26px;
+  border: 1px solid transparent;
+  border-radius: 13px;
+  font: 700 15px/1.2 var(--font-body);
+  white-space: nowrap;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.fb-btn--primary {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.fb-btn--primary:hover {
+  background: var(--accent-light);
+  color: var(--on-accent);
+}
+
+.fb-btn--ghost {
+  border-color: var(--line-16);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.fb-btn--ghost:hover {
+  border-color: var(--accent-a50);
+  color: var(--text);
+}
+
+/* ==========================================================================
+   Подвал
+   ========================================================================== */
+
+.fb-footer {
+  position: relative;
+  border-top: 1px solid var(--line-07);
+}
+
+.fb-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 20px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  font-size: 13px;
+}
+
+.fb-footer__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 20px;
+}
+
+.fb-footer__nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--text-2);
+}
+
+.fb-footer__nav a:hover {
+  color: var(--text);
+}
+
+.fb-footer__copy {
+  color: var(--text-3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fb-glow__blob,
+  .fb-success {
+    animation: none;
+  }
+}

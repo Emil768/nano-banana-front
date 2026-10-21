@@ -1,0 +1,130 @@
+<!--meta
+{
+  "path": "/promt-po-foto/",
+  "nav": "describe",
+  "gen": "describe",
+  "priority": 0.8,
+  "title": "Промт по фото онлайн бесплатно — получить промт по картинке | Нано Банана",
+  "og_title": "Промт по фото онлайн бесплатно — получить промт по картинке",
+  "description": "Загрузите фото или картинку — нейросеть составит готовый промт на русском и английском для Нано Банана, ChatGPT и Midjourney. Бесплатно, без VPN.",
+  "scripts": ["/assets/js/describe.js"],
+  "crumbs": [["Главная", "/"], ["Промт по фото", "/promt-po-foto/"]],
+  "faq": [
+    ["Получить промт по фото — бесплатно?", "Да, бесплатно и без лимита. Нужно только войти через Telegram или Google — это один клик. Платить нужно только за генерацию картинок."],
+    ["Какие картинки можно загрузить?", "Любые JPG, PNG или WEBP до 10 МБ: фото, скриншоты, арты, кадры из фильмов. Картинки 18+ и с насилием не обрабатываются."],
+    ["Подойдёт ли промт для ChatGPT, Midjourney и других нейросетей?", "Да. Промт пишется обычным языком без специального синтаксиса, поэтому работает в Нано Банана, ChatGPT, Midjourney, Flux и других генераторах. Английская версия обычно даёт более точный результат."],
+    ["Почему похожее фото получается не один в один?", "Нейросеть генерирует новое изображение по описанию, а не копирует исходное. Композиция, свет и стиль будут похожими, детали — свои. Нажмите «Ещё вариант» или поправьте промт вручную."],
+    ["Сохраняются ли мои картинки?", "Нет. Картинка используется только для составления промта и не хранится на сервере."]
+  ]
+}
+-->
+          <section class="hero">
+            {{crumbs}}
+            <span class="eyebrow">Бесплатно · без лимита</span>
+            <h1 class="h1">Промт по фото</h1>
+            <p class="lead">
+              Загрузите любую картинку — нейросеть опишет её и составит готовый
+              промт на русском и английском. Скопируйте его или сразу
+              сгенерируйте похожее фото.
+            </p>
+          </section>
+
+          <div class="stack">
+            <div class="gen-card" id="describe" role="group" aria-label="Промт по фото">
+              <div class="gen-split">
+                <div class="drop" data-describe-drop>
+                  <div class="drop__empty">
+                    <span class="drop__ic" style="margin: 0 auto 10px">{{i_upload}}</span>
+                    <div class="drop__title">Перетащите картинку сюда</div>
+                    <div class="small muted" style="margin: 6px 0 14px">JPG, PNG, WEBP до 10 МБ · или вставьте Ctrl+V</div>
+                    <button class="b b--g" type="button" data-describe-pick>Выбрать файл</button>
+                  </div>
+                  <div class="dprev" id="describe-preview" hidden>
+                    <div class="dprev__frame">
+                      <img id="describe-img" alt="Загруженная картинка" />
+                      <button class="ico ico--s dprev__x" type="button" id="describe-remove" aria-label="Убрать картинку">{{i_close}}</button>
+                    </div>
+                    <button class="b b--g" type="button" data-describe-pick>{{i_upload}}Загрузить другую</button>
+                  </div>
+                  <input
+                    id="describe-file"
+                    class="gen-file-input"
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    aria-label="Выбрать картинку (JPG, PNG, WEBP)"
+                  />
+                </div>
+
+                <div class="gen-split__side">
+                  <p class="small muted" style="margin: 0">
+                    Нейросеть подробно опишет сцену: объект, позу, фон, ракурс, свет и стиль — по этому промту можно сгенерировать похожее изображение.
+                  </p>
+
+                  <button class="gen-submit__btn dgo" type="button" id="describe-go">Получить промт</button>
+
+                  <div class="dload" id="describe-loading" hidden>
+                    <span class="inline-loader" aria-hidden="true"></span>
+                    Анализируем картинку…
+                  </div>
+
+                  <div class="derr" id="describe-error" role="alert" hidden>
+                    <span id="describe-error-text"></span>
+                  </div>
+
+                  <div class="dres" id="describe-result" hidden>
+                    <div class="row">
+                      <div class="tabs" role="tablist" aria-label="Язык промта">
+                        <button type="button" class="tab is-on" role="tab" aria-selected="true" data-lang="en">English</button>
+                        <button type="button" class="tab" role="tab" aria-selected="false" data-lang="ru">Русский</button>
+                      </div>
+                      <div class="sp"></div>
+                      <span class="small muted">EN обычно точнее</span>
+                    </div>
+                    <div class="ptbox" id="describe-text"></div>
+                    <div class="chips" id="describe-tags"></div>
+                    <div class="dres__actions">
+                      <button class="b b--g" type="button" id="describe-copy">{{i_copy}}Скопировать</button>
+                      <button class="b b--g" type="button" id="describe-again">{{i_sparkle}}Ещё вариант</button>
+                      <div class="sp"></div>
+                      <button class="b b--y b--lg" type="button" id="describe-use">Сгенерировать похожее</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="small muted" style="margin: 0">Бесплатно и без лимита — нужен только вход через Telegram или Google</p>
+          </div>
+
+          <section class="sec" aria-labelledby="steps-title">
+            <h2 id="steps-title" class="h2">Как получить промт по картинке</h2>
+            <div class="grid grid--3">
+              <div class="card step">
+                <span class="step__n">1</span>
+                <h3 class="h3">Загрузите изображение</h3>
+                <p>Фото, скриншот из Pinterest, кадр из фильма, арт — подойдёт любая картинка.</p>
+              </div>
+              <div class="card step">
+                <span class="step__n">2</span>
+                <h3 class="h3">Получите промт</h3>
+                <p>Нейросеть подробно опишет всю сцену — на английском и русском, по абзацам.</p>
+              </div>
+              <div class="card step">
+                <span class="step__n">3</span>
+                <h3 class="h3">Используйте промт</h3>
+                <p>Скопируйте в любую нейросеть или нажмите «Сгенерировать похожее» — промт подставится в генератор.</p>
+              </div>
+            </div>
+          </section>
+
+          <a class="card linkcard" href="/promty/">
+            <span class="tool__ic">{{i_palette}}</span>
+            <span class="linkcard__body">
+              <span class="linkcard__title">Нужен готовый промт для обработки?</span>
+              <span class="linkcard__text">30 проверенных промтов: фон, ретушь, одежда, восстановление старых фото</span>
+            </span>
+            <span class="linkcard__more">Промты для обработки фото {{i_arrow}}</span>
+          </a>
+
+{{faq}}
+
+          <div class="toast" id="toast" role="status" aria-live="polite"></div>

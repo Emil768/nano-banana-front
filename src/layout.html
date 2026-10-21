@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ru" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>{{title}}</title>
+    <meta name="description" content="{{description}}" />
+    <meta name="robots" content="{{robots}}" />
+    <link rel="canonical" href="{{canonical}}" />
+    <meta name="theme-color" content="#fbf9f6" />
+    <script>
+      // По умолчанию светлая тема; тёмная — только если юзер выбрал её сам.
+      // Ставим до отрисовки, чтобы не было мигания.
+      try {
+        if (localStorage.getItem("nano_theme") === "dark") {
+          delete document.documentElement.dataset.theme;
+          document
+            .querySelector('meta[name="theme-color"]')
+            .setAttribute("content", "#131210");
+        }
+      } catch (e) {}
+    </script>
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:site_name" content="Нано Банана" />
+    <meta property="og:title" content="{{og_title}}" />
+    <meta property="og:description" content="{{og_description}}" />
+    <meta property="og:url" content="{{canonical}}" />
+    <meta property="og:image" content="{{og_image}}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{og_title}}" />
+    <meta name="twitter:description" content="{{og_description}}" />
+    <meta name="twitter:image" content="{{og_image}}" />
+    <meta name="p:domain_verify" content="73bcd0e3f5e83affe91384cdb3b3273e" />
+    <!-- Pinterest строит пин по og-тегам, а не по Product-разметке: иначе в
+         превью подтягивается цена из offers. -->
+    <meta name="pinterest-rich-pin" content="false" />
+    <link rel="icon" href="/favicon.ico?v={{version}}" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v={{version}}" />
+    <link rel="icon" type="image/png" sizes="120x120" href="/favicon-120.png?v={{version}}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v={{version}}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Unbounded:wght@500;600&display=swap"
+      as="style"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
+    />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Unbounded:wght@500;600&display=swap"
+    /></noscript>
+    <link rel="stylesheet" href="/assets/css/site.css?v={{version}}" />
+{{head}}
+  </head>
+  <body data-gen="{{gen}}" class="{{body_class}}">
+    <header class="mtop">
+      <a class="logo" href="/" aria-label="Нано Банана — на главную"
+        >{{logo_svg}}Nano Banana</a
+      >
+      <div class="sp"></div>
+      <div id="mobile-auth"></div>
+{{theme_btn}}
+      <button
+        class="ico"
+        type="button"
+        data-sb-open
+        aria-label="Открыть меню"
+        aria-controls="sidebar"
+        aria-expanded="false"
+      >
+        {{menu_svg}}
+      </button>
+    </header>
+    <nav class="mnav" aria-label="Инструменты">
+{{mobile_nav}}
+    </nav>
+
+    <div class="layout">
+      <aside id="sidebar" class="sb{{sb_class}}" aria-label="Меню сайта">
+        <div class="sb__in">
+          <div class="sb__head">
+            <a class="logo" href="/" aria-label="Нано Банана — на главную"
+              >{{logo_svg}}Nano Banana</a
+            >
+{{theme_btn}}
+          </div>
+          <nav class="nav" aria-label="Разделы сайта">
+{{sidebar_nav}}
+          </nav>
+          <div class="sb__bottom">
+            <div id="site-header-auth" class="acc" aria-live="polite">
+              <div class="acc__title">Первое фото — бесплатно</div>
+              <div class="acc__note">Аккаунт и баланс общие с ботом</div>
+            </div>
+            <a
+              class="b b--y"
+              href="https://t.me/nano_bananaa_ai_bot"
+              target="_blank"
+              rel="noopener noreferrer"
+              >{{tg_svg}}Открыть в Telegram</a
+            >
+            <div class="sb__rating">
+              <span class="stars" aria-hidden="true">★★★★★</span> 5.0 · отзывы
+              из бота
+            </div>
+          </div>
+        </div>
+      </aside>
+      <div class="sb-scrim" data-sb-close></div>
+
+      <main class="main">
+        <div class="col">
+{{content}}
+        </div>
+
+        <footer class="foot">
+          <span>&copy; 2026 Нано Банана</span>
+          <nav aria-label="Документы и поддержка">
+            <a href="/assistant/">ИИ-помощник</a>
+            <a href="/offer.pdf" target="_blank" rel="noopener noreferrer"
+              >Условия и оферта</a
+            >
+            <a
+              href="https://t.me/NeiroBananchik_Support"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Техподдержка</a
+            >
+            <a href="/feedback.html">Оставить отзыв</a>
+          </nav>
+        </footer>
+      </main>
+    </div>
+
+
+{{modals}}
+
+    <script src="/assets/js/index.js?v={{version}}"></script>
+{{scripts}}
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+      (function (m, e, t, r, i, k, a) {
+        m[i] =
+          m[i] ||
+          function () {
+            (m[i].a = m[i].a || []).push(arguments);
+          };
+        m[i].l = 1 * new Date();
+        for (var j = 0; j < document.scripts.length; j++) {
+          if (document.scripts[j].src === r) {
+            return;
+          }
+        }
+        ((k = e.createElement(t)),
+          (a = e.getElementsByTagName(t)[0]),
+          (k.async = 1),
+          (k.src = r),
+          a.parentNode.insertBefore(k, a));
+      })(
+        window,
+        document,
+        "script",
+        "https://mc.yandex.ru/metrika/tag.js?id=106429810",
+        "ym",
+      );
+      ym(106429810, "init", {
+        ssr: true,
+        webvisor: true,
+        clickmap: true,
+        referrer: document.referrer,
+        url: location.href,
+        accurateTrackBounce: true,
+        trackLinks: true,
+      });
+    </script>
+
+    <noscript
+      ><div>
+        <img
+          src="https://mc.yandex.ru/watch/106429810"
+          style="position: absolute; left: -9999px"
+          alt=""
+        /></div
+    ></noscript>
+    <!-- /Yandex.Metrika counter -->
+  </body>
+</html>

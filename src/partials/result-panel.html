@@ -1,0 +1,59 @@
+                <div id="home-result-panel" class="result-panel hidden">
+                  <div class="result-panel__head">
+                    <span class="result-panel__title">Результат готов</span>
+                    <button
+                      type="button"
+                      id="home-result-reset"
+                      class="result-panel__reset"
+                    >
+                      Сбросить
+                    </button>
+                  </div>
+                  <div class="result-panel__media">
+                    <img
+                      id="home-result"
+                      class="hidden"
+                      alt="Сгенерированное изображение"
+                      title="Открыть крупнее"
+                      decoding="async"
+                    />
+                    <video
+                      id="home-result-video"
+                      class="hidden"
+                      controls
+                      playsinline
+                    >
+                      <track
+                        kind="captions"
+                        src="/assets/captions/empty.vtt"
+                        srclang="ru"
+                        label="Без звука"
+                      />
+                    </video>
+                  </div>
+                  <div class="result-panel__actions">
+                    <button
+                      type="button"
+                      id="home-result-animate"
+                      class="btn btn--ghost"
+                    >
+                      Оживить фото
+                    </button>
+                    <a
+                      id="home-result-download"
+                      class="btn btn--primary hidden"
+                      href="#"
+                      download="nano-banana.png"
+                      >Скачать</a
+                    >
+                  </div>
+                  <div class="result-panel__feedback">
+                    <span>Понравилось? Отзыв займёт меньше минуты.</span>
+                    <a
+                      id="home-result-feedback"
+                      class="btn btn--outline btn--sm"
+                      href="/feedback.html"
+                      >Оставить отзыв</a
+                    >
+                  </div>
+                </div>

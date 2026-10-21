@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Оставить отзыв | Nano Banana</title>
+    <meta
+      name="description"
+      content="Поделитесь впечатлением о генерации Nano Banana — это займёт меньше минуты."
+    />
+    <meta name="robots" content="noindex, follow" />
+    <meta name="theme-color" content="#0b0a09" />
+    <link rel="icon" href="/favicon.ico?v=20261013" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=20261013" />
+    <link rel="icon" type="image/png" sizes="120x120" href="/favicon-120.png?v=20261013" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=20261013" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Unbounded:wght@600;700&display=swap"
+    />
+    <link rel="stylesheet" href="/assets/css/feedback.css" />
+  </head>
+  <body>
+    <div class="fb-glow" aria-hidden="true">
+      <div class="fb-glow__blob"></div>
+    </div>
+
+    <header class="fb-header">
+      <div class="fb-container fb-header__inner">
+        <a class="fb-brand" href="/" aria-label="Nano Banana — на главную">
+          <img
+            class="fb-brand__mark"
+            src="/assets/images/banana.svg"
+            alt=""
+            width="28"
+            height="28"
+          />
+          <span class="fb-brand__name">Nano Banana</span>
+        </a>
+        <a class="fb-back" href="/">← На главную</a>
+      </div>
+    </header>
+
+    <main class="fb-container fb-main">
+      <section id="feedback-form-card" aria-labelledby="feedback-title">
+        <div class="fb-intro">
+          <p class="fb-pill">
+            <span class="fb-pill__dot" aria-hidden="true"></span>
+            Меньше минуты
+          </p>
+          <h1 id="feedback-title" class="fb-title">Оставьте отзыв</h1>
+          <p class="fb-lead">
+            Нам важно ваше мнение — отзывы помогают делать сервис лучше.
+            Хорошие публикуем на сайте.
+          </p>
+        </div>
+
+        <form id="feedback-form" class="fb-card fb-form" novalidate>
+          <div class="fb-field">
+            <label class="fb-label" for="feedback-username">Ваш ник</label>
+            <input
+              id="feedback-username"
+              class="fb-input"
+              name="username"
+              type="text"
+              maxlength="64"
+              placeholder="@username"
+              autocomplete="nickname"
+              aria-describedby="feedback-username-hint"
+            />
+            <p id="feedback-username-hint" class="fb-hint">
+              Необязательно — можно оставить отзыв анонимно.
+            </p>
+          </div>
+
+          <fieldset class="fb-fieldset">
+            <legend class="fb-label">Как оцените результат?</legend>
+            <div class="fb-rating">
+              <div
+                id="feedback-stars"
+                class="fb-stars"
+                role="radiogroup"
+                aria-label="Оценка от 1 до 5"
+              >
+                <button
+                  type="button"
+                  class="fb-star"
+                  data-value="1"
+                  role="radio"
+                  aria-checked="false"
+                  aria-label="1 из 5 — плохо"
+                >
+                  ★
+                </button>
+                <button
+                  type="button"
+                  class="fb-star"
+                  data-value="2"
+                  role="radio"
+                  aria-checked="false"
+                  aria-label="2 из 5 — так себе"
+                >
+                  ★
+                </button>
+                <button
+                  type="button"
+                  class="fb-star"
+                  data-value="3"
+                  role="radio"
+                  aria-checked="false"
+                  aria-label="3 из 5 — нормально"
+                >
+                  ★
+                </button>
+                <button
+                  type="button"
+                  class="fb-star"
+                  data-value="4"
+                  role="radio"
+                  aria-checked="false"
+                  aria-label="4 из 5 — хорошо"
+                >
+                  ★
+                </button>
+                <button
+                  type="button"
+                  class="fb-star"
+                  data-value="5"
+                  role="radio"
+                  aria-checked="false"
+                  aria-label="5 из 5 — отлично"
+                >
+                  ★
+                </button>
+              </div>
+              <span
+                id="feedback-rating-label"
+                class="fb-rating__label"
+                aria-live="polite"
+                >Выберите оценку</span
+              >
+            </div>
+          </fieldset>
+
+          <div class="fb-field">
+            <label class="fb-label" for="feedback-liked"
+              >Что вам понравилось?</label
+            >
+            <textarea
+              id="feedback-liked"
+              class="fb-input fb-textarea"
+              name="liked"
+              rows="3"
+              maxlength="2000"
+              placeholder="Например: быстро заменил фон, лицо осталось естественным"
+            ></textarea>
+          </div>
+
+          <div class="fb-field">
+            <label class="fb-label" for="feedback-improve"
+              >Что можно улучшить?</label
+            >
+            <textarea
+              id="feedback-improve"
+              class="fb-input fb-textarea"
+              name="improve"
+              rows="3"
+              maxlength="2000"
+              placeholder="Например: хочется больше готовых стилей для портретов"
+            ></textarea>
+          </div>
+
+          <p id="feedback-error" class="fb-alert" role="alert" hidden></p>
+
+          <div class="fb-submit-row">
+            <button type="submit" id="feedback-submit" class="fb-submit">
+              <span class="fb-submit__spinner" aria-hidden="true"></span>
+              <span class="fb-submit__label">Отправить отзыв</span>
+            </button>
+            <p class="fb-note">
+              Отправляя отзыв, вы разрешаете публикацию на сайте без контактных
+              данных.
+            </p>
+          </div>
+        </form>
+      </section>
+
+      <section
+        id="feedback-success"
+        class="fb-success hidden"
+        aria-labelledby="feedback-success-title"
+        tabindex="-1"
+      >
+        <div class="fb-success__mark" aria-hidden="true">★</div>
+        <h1 id="feedback-success-title" class="fb-title">Спасибо за отзыв!</h1>
+        <p class="fb-lead">
+          Мы получили ваше сообщение. Отзывы публикуем на сайте — возможно,
+          скоро увидите свой.
+        </p>
+        <div class="fb-success__actions">
+          <a class="fb-btn fb-btn--primary" href="/">Сгенерировать ещё</a>
+          <a
+            class="fb-btn fb-btn--ghost"
+            href="https://t.me/nano_bananaa_ai_bot"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Открыть в Telegram</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer class="fb-footer">
+      <div class="fb-container fb-footer__inner">
+        <nav class="fb-footer__nav" aria-label="Поддержка и документы">
+          <a
+            href="https://t.me/NeiroBananchik_Support"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Техподдержка</a
+          >
+          <a href="/offer.pdf" target="_blank" rel="noopener noreferrer"
+            >Условия и оферта</a
+          >
+        </nav>
+        <span class="fb-footer__copy">&copy; 2026 Нано Банана</span>
+      </div>
+    </footer>
+
+    <script src="/assets/js/feedback.js" defer></script>
+  </body>
+</html>

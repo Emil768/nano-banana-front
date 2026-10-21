@@ -1,0 +1,12 @@
+{
+  "_comment": "Единственное место с тарифами на сайте: карточки на главной, FAQ и JSON-LD, SEO-текст /assistant/. Должно совпадать с user_price в Supabase (sql/tariffs-2026-10.sql) и с ASSISTANT_* в env бэка.",
+  "trial_requests": 20,
+  "tier_days": 30,
+  "window_hours": 5,
+  "plans": [
+    { "name": "Старт", "price": 99, "generations": 10, "sub": "Попробовать", "assistant_requests": null },
+    { "name": "Профи", "price": 499, "generations": 55, "discount": "−8% за штуку", "assistant_requests": 15 },
+    { "name": "Мега", "price": 999, "generations": 120, "discount": "−16% за штуку", "flag": "Выбор большинства", "style": "hot", "assistant_requests": 30 },
+    { "name": "Ультра", "price": 1999, "generations": 260, "discount": "−22% за штуку", "flag": "Максимум выгоды", "style": "shine", "assistant_requests": 60 }
+  ]
+}
